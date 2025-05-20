@@ -1,2 +1,2 @@
 # Wolf_Store
-Sistema de gestão simples para treinamento
+Sistema de gestão simples de venda e estoque para treinamento no GitHub.
