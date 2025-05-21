@@ -1,20 +1,18 @@
-body {
-
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+body
+{
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(240, 248, 255);
 }
 
-/* CSS INDEX */
-.in-main-struc {
+/* DIV MAIN */
+.in-main-struc
+{
     border: 0px solid rgb(250, 250, 250);
     background-color: rgba(15, 15, 15, 0.5);
     border-radius: 20px 20px 20px 0px;
 
     width: 450px;
-    height: 450px;
+    height: 350px;
     top: 20%;
     margin: 0 auto;
     margin-top: 10%;
@@ -22,35 +20,84 @@ body {
     padding: 25px;
     
     text-align: center;
+    font-size: 35px;
 }
+/* DIV MAIN */
 
-.tit-log .itxt-log {
-    width: 100%;
-    padding: 8px;
+/* FORMULÁRIO LOGIN */
+.main-log
+{
+    border: 0px solid green;
+    margin-top: 5%;
+    width: 80%;
+}
+/* FORMULÁRIO LOGIN */
+/*  */
+
+/* INPUT TXT */
+.tit-log .itxt-log
+{
+    width: 80%;
+    padding: 8px 0px 8px 0px;
     background-color: rgb(40, 40, 40, 0%);
     border: 1px solid rgb(40, 40, 40, 0%);
-    border-bottom: 1px solid rgb(240, 240, 240);
+    /*border-bottom: 1px solid rgb(240, 240, 240);*/
 
     color: rgb(240, 248, 255);
-    font-size: 15px;
-    
+    font-size: 20px;
 }
 
-.tit-log .itxt-log:hover { 
+/*
+.tit-log .itxt-log:hover
+{ 
     border: 1px solid rgb(150, 150, 150);
     border-bottom: 1px solid rgb(240, 240, 240);
 }
+    */
+/* INPUT TXT */
 
-.submit-log {
+.tit-log td
+{
+    border-radius: 20px;
+    background-color: rgba(36, 36, 36, 0.9);
+}
+
+.iconss {
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+
+
+
+
+/* BOTÃO */
+.submit-log
+{
     margin-top: 30px;
-    padding: 10px 30%;
+    padding: 10px 20%;
     border-radius: 8px;
     border: none;
     background: rgb(100, 0, 139);
     color: aliceblue;
 }
 
-.submit-log:hover {
+.submit-log:hover
+{
     background: rgb(78, 0, 109);
     cursor: pointer;
 }
+/* BOTÃO */
+
+/* Esqueceu a senha? */
+.forgot-pw
+{
+    text-decoration: none;
+    font-size: 15px;
+}
+.forgot-pw:hover
+{
+    color: rgb(126, 126, 126);
+    cursor: pointer;
+}
+/* Esqueceu a senha? */

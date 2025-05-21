@@ -13,11 +13,13 @@
 <style>
     body 
     {
-      background-image: url('background1.jpg');
+        background-image: url('background1.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
     }
 </style>
 <body>
-
     <?php
         if (isset($_POST['submit-log'])) 
         {
@@ -48,21 +50,28 @@
     ?>
     <!-- Comentário HTML -->
     <div name="in-main-struc" class="in-main-struc">
-        <div class ="titu">
-            <legend>Logar no sistema</legend>
-        </div>
         <form id="form_log" name="form-log" action="<?php echo $_SERVER['PHP_SELF'] ;?>" method="POST">
-            <table class="main-log" border="0">
-                <tr class="tit-log">
-                    <td class="icon" align="right"><img src="icon/usr1.png" height="30px" width="30px"></td>
-                    <td><input type="text" class="itxt-log" name="usuario" placeholder="Usuário" required></td>
+            <table class="main-log" border="0" align="center">
+                <tr class="titu" align="left">
+                    <td colspan="2"><legend>Login</legend></td>
                 </tr>
                 <tr class="tit-log">
-                    <td class="icon" align="right"><img src="icon/pword1.png" height="30px" width="30px"></td>
-                    <td><input type="password" class="itxt-log" name="senha" placeholder="Senha" required></td>
+                    <td class="icon" align="right">
+                        <img class="iconss" src="icons/usr1.png" height="30px" width="30px">
+                        <input type="text" class="itxt-log" name="usuario" placeholder="Usuário" required>
+                    </td>
+                </tr>
+                <tr class="tit-log">
+                    <td class="icon" align="right">
+                        <img class="iconss" src="icons/pword1.png" height="30px" width="30px">
+                        <input type="password" class="itxt-log" name="senha" placeholder="Senha" required>
+                    </td>
                 </tr class="tit-log">
                 <tr align="center">
                     <td colspan="2"><input type="submit" class="submit-log" name="submit-log" value="ACESSAR"></td>
+                </tr>
+                <tr align="center">
+                    <td colspan="2"><a href="ws_pwrecover.php" class="forgot-pw">Esqueceu a senha?</a></td>
                 </tr>
             </table>
         </form>
