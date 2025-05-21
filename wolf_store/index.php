@@ -7,7 +7,7 @@
     <meta name="author" content="Rian I. Silva" />
     <title>Wolf Store</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="imgs/wolf_store_logo.jpg"><!-- Adicionar um icon no guia da página -->
+    <link rel="icon" type="image/x-icon" href="imgs/wolf_store_logo.jpg">
     <?php include_once('conn/conn.php');?>
 </head>
 <style>
