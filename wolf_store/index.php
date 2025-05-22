@@ -37,8 +37,7 @@
 			    </script>
                 <?php
                 $_SESSION["conectado"] = $login;
-            } else 
-            {
+            } else {
                 ?>
                 <script>
                     alert('Usuário ou Senha incorreto');
@@ -46,7 +45,6 @@
                 <?php
             }
         }
-
     ?>
     <!-- Comentário HTML -->
     <div name="in-main-struc" class="in-main-struc">
@@ -67,11 +65,14 @@
                         <input type="password" class="itxt-log" name="senha" placeholder="Senha" required>
                     </td>
                 </tr class="tit-log">
+                <tr align="right">
+                    <td colspan="2"><a href="ws_pwrecover.php" class="forgot-pw">Esqueceu a senha?</a></td>
+                </tr>
                 <tr align="center">
                     <td colspan="2"><input type="submit" class="submit-log" name="submit-log" value="ACESSAR"></td>
                 </tr>
                 <tr align="center">
-                    <td colspan="2"><a href="ws_pwrecover.php" class="forgot-pw">Esqueceu a senha?</a></td>
+                    <td colspan="2"><a href="ws_users.php" class="forgot-pw">Cadastre-se</a></td>
                 </tr>
             </table>
         </form>

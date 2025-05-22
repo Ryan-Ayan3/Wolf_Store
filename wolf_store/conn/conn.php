@@ -1,4 +1,7 @@
 <?php 
+	date_default_timezone_set('America/Sao_Paulo');
+	$dt_hr = date('Y/m/d H:i:s');
+
     $servidor = $_SERVER['HTTP_HOST'];
     if ($servidor == null) 
     {
