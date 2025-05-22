@@ -46,6 +46,10 @@ body
     color: rgb(240, 248, 255);
     font-size: 20px;
 }
+.tit-log .itxt-log:focus
+{
+    outline: none;
+}
 
 /* INPUT TXT LOGIN*/
 .tit-log td
