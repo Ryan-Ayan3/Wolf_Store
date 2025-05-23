@@ -1,3 +1,4 @@
+<?php include_once('ws_credencial.php') ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,25 +22,25 @@
 <body>
     <?php 
         if (isset($_POST['sub-create'])) {
-            $nome = trim(addslashes($_POST['nome']));
-            $cargo = trim(addslashes($_POST['cargo']));
-            $login = trim(addslashes($_POST['cargo']));
+            $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
+            $cargo = trim(mysqli_real_escape_string($conn,$_POST['cargo']));
+            $login = trim(mysqli_real_escape_string($conn,strtolower($_POST['login'])));
             $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
             
             $sql = mysqli_query($conn, "SELECT login FROM usuario WHERE login='$login'");
             $row = mysqli_fetch_array($sql);
 
-            if($login != $row['login']) {
-                $sql_insert = mysqli_query($conn,"INSERT INTO usuario(login, senha, cargo, nome, criado, ativo) VALUES ('$login', '$senha', '$cargo', '$nome', '$dt_hr', '1');");
-                ?> 
-                <script>document.location.href="index.php";</script>
-                <?php
-            } else { 
+            if($login == NULL) {
                 ?>
                 <script>
                     alert('Este login está indisponível, tente novamente');
                 </script>
                 <?php
+            } else {
+                $sql_insert = mysqli_query($conn,"INSERT INTO usuario(login, senha, cargo, nome, criado, ativo) VALUES ('$login', '$senha', '$cargo', '$nome', '$dt_hr', '1');");
+                ?> 
+                <script>document.location.href="index.php";</script>
+                <?php                
             }
         }
     ?>

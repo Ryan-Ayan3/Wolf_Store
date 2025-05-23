@@ -1,3 +1,4 @@
+<?php include_once('ws_credencial.php') ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

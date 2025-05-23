@@ -21,26 +21,24 @@
 </style>
 <body>
     <?php
-        if (isset($_POST['submit-log'])) 
-        {
-            $login = trim(addslashes(strtolower($_POST['usuario'])));
-            $senha = addslashes($_POST['senha']);
+        if (isset($_POST['submit-log'])) {
+            $login = trim(mysqli_real_escape_string($conn,strtolower($_POST['usuario'])));
+            $senha = mysqli_real_escape_string($conn, ($_POST['senha']));
+            
+            $sql = mysqli_query($conn,"SELECT login, senha FROM usuario WHERE login='$login'");
+            $result = mysqli_fetch_assoc($sql);
 
-            $sql = mysqli_query($conn,"SELECT login, senha FROM usuario");
-            $result = mysqli_fetch_array($sql);
-
-            if (password_verify($senha, $result['senha'])) 
-            {
+            if (password_verify($senha, $result['senha'])) {
                 ?>
                 <script>
-				    document.location.href="portal_acessos.php";
+				    document.location.href="ws_home.php";
 			    </script>
                 <?php
                 $_SESSION["conectado"] = $login;
             } else {
                 ?>
                 <script>
-                    alert('Usuário ou Senha incorreto');
+                    alert('Usuário ou Senha incorreto:<?php echo $senha; ?>');
 			    </script>
                 <?php
             }

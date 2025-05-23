@@ -2,6 +2,7 @@ body
 {
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(240, 248, 255);
+    background-color: rgb(41, 41, 41);
 }
 
 /* DIV MAIN */
@@ -95,6 +96,12 @@ body
 }
 /* Esqueceu a senha? */
 
+
+
+/* ------------//----------------//------------- */
+
+
+
 /* INPUT TITULO GLOBAL */
 .td-tit
 {
@@ -153,3 +160,60 @@ body
     transform: scale(0.95);
 }
 /* BOTÃO CRIAR GLOBAL */
+
+
+/* ------------//----------------//------------- */
+
+.vbar {
+    width: 230px;
+    height: 100%;
+    background-color: rgb(21, 37, 73);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.vbar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.vbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vbar ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    transition: background 0.3s;
+}
+
+.vbar ul li a:hover {
+    background-color: #34495e;
+}
+
+.conteudo {
+    margin-left: 250px; /* espaço para o menu */
+    padding: 20px;
+}
+
+.submenu .op-com {
+    display: none;
+}
+
+.submenu.open .op-com {
+    display: block;
+}
+
+.op-com li a {
+    margin-left: 20px;
+    font-size: 15px;
+}
+/* ------------//----------------//------------- */
