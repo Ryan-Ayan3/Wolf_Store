@@ -1,13 +1,11 @@
-body
-{
+body {
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(240, 248, 255);
     background-color: rgb(41, 41, 41);
 }
 
 /* DIV MAIN */
-.in-main-struc
-{
+.in-main-struc {
     border: 0px solid rgb(250, 250, 250);
     background-color: rgba(15, 15, 15, 0.5);
     border-radius: 20px 20px 20px 0px;
@@ -23,21 +21,16 @@ body
     text-align: center;
     font-size: 35px;
 }
-/* DIV MAIN */
 
 /* FORMULÁRIO LOGIN */
-.main-log
-{
+.main-log {
     border: 0px solid green;
     margin-top: 5%;
     width: 80%;
 }
-/* FORMULÁRIO LOGIN */
-/*  */
 
 /* INPUT TXT */
-.tit-log .itxt-log
-{
+.tit-log .itxt-log {
     width: 80%;
     padding: 8px 0px 8px 0px;
     background-color: rgb(40, 40, 40, 0%);
@@ -47,18 +40,16 @@ body
     color: rgb(240, 248, 255);
     font-size: 20px;
 }
-.tit-log .itxt-log:focus
-{
+
+.tit-log .itxt-log:focus {
     outline: none;
 }
 
 /* INPUT TXT LOGIN*/
-.tit-log td
-{
+.tit-log td {
     border-radius: 20px;
     background-color: rgba(36, 36, 36, 0.9);
 }
-/* INPUT TXT LOGIN */
 
 .iconss {
     vertical-align: middle;
@@ -66,8 +57,7 @@ body
 }
 
 /* BOTÃO LOGIN */
-.submit-log
-{
+.submit-log {
     margin-top: 30px;
     padding: 10px 20%;
     border-radius: 8px;
@@ -75,43 +65,41 @@ body
     background: rgb(100, 0, 139);
     color: aliceblue;
 }
-
-.submit-log:hover
-{
+.submit-log:hover {
     background: rgb(78, 0, 109);
     cursor: pointer;
 }
-/* BOTÃO LOGIN */
 
 /* Esqueceu a senha? */
-.forgot-pw
-{
+.forgot-pw {
     text-decoration: none;
     font-size: 15px;
 }
-.forgot-pw:hover
-{
+.forgot-pw:hover {
     color: rgb(126, 126, 126);
     cursor: pointer;
 }
-/* Esqueceu a senha? */
 
 
 
-/* ------------//----------------//------------- */
-
-
+/*
+   ████████  ██         ███████   ██████       ██     ██      
+  ██░░░░░░██░██        ██░░░░░██ ░█░░░░██     ████   ░██      
+ ██      ░░ ░██       ██     ░░██░█   ░██    ██░░██  ░██      
+░██         ░██      ░██      ░██░██████    ██  ░░██ ░██      
+░██    █████░██      ░██      ░██░█░░░░ ██ ██████████░██      
+░░██  ░░░░██░██      ░░██     ██ ░█    ░██░██░░░░░░██░██      
+ ░░████████ ░████████ ░░███████  ░███████ ░██     ░██░████████
+  ░░░░░░░░  ░░░░░░░░   ░░░░░░░   ░░░░░░░  ░░      ░░ ░░░░░░░░
+*/
 
 /* INPUT TITULO GLOBAL */
-.td-tit
-{
+.td-tit {
     font-size: 16px;
 }
-/* INPUT TITULO GLOBAL */
 
 /* INPUT TEXT GLOBAL */
-.itxt-l, .itxt-r
-{
+.itxt-l, .itxt-r {
     color: rgb(215, 215, 215);
     font-size: 16px;
     background-color: rgba(0, 0, 0, 50%);
@@ -121,21 +109,39 @@ body
 
     width: 200px;
 }
-
-.itxt-l:hover, .itxt-r:hover
-{
+.itxt-l:hover, .itxt-r:hover {
     border: 1px solid rgb(235, 235, 235);
 }
-
-.itxt-l
-{
+.itxt-l {
     margin-right: 20px;
 }
-/* INPUT TEXT GLOBAL */
+
+
+/*
+   ████████  ██         ███████   ██████       ██     ██      
+  ██░░░░░░██░██        ██░░░░░██ ░█░░░░██     ████   ░██      
+ ██      ░░ ░██       ██     ░░██░█   ░██    ██░░██  ░██      
+░██         ░██      ░██      ░██░██████    ██  ░░██ ░██      
+░██    █████░██      ░██      ░██░█░░░░ ██ ██████████░██      
+░░██  ░░░░██░██      ░░██     ██ ░█    ░██░██░░░░░░██░██      
+ ░░████████ ░████████ ░░███████  ░███████ ░██     ░██░████████
+  ░░░░░░░░  ░░░░░░░░   ░░░░░░░   ░░░░░░░  ░░      ░░ ░░░░░░░░
+*/
+
+
+/*  
+  ████████ ██     ██ ██████   ████     ████ ██ ██████████
+ ██░░░░░░ ░██    ░██░█░░░░██ ░██░██   ██░██░██░░░░░██░░░ 
+░██       ░██    ░██░█   ░██ ░██░░██ ██ ░██░██    ░██    
+░█████████░██    ░██░██████  ░██ ░░███  ░██░██    ░██    
+░░░░░░░░██░██    ░██░█░░░░ ██░██  ░░█   ░██░██    ░██    
+       ░██░██    ░██░█    ░██░██   ░    ░██░██    ░██    
+ ████████ ░░███████ ░███████ ░██        ░██░██    ░██    
+░░░░░░░░   ░░░░░░░  ░░░░░░░  ░░         ░░ ░░     ░░
+*/
 
 /* BOTÃO CRIAR GLOBAL */
-.sub-create
-{
+.sub-create {
     color: rgb(238, 238, 238);
     border-radius: 10px;
     border: 0;
@@ -148,10 +154,8 @@ body
     transition: background-color 0.3s ease, transform 0.1s ease;
     box-shadow: 0 2px 5px rgba(0, 255, 21, 0.2);
 }
-
-.sub-create:hover
-{
-    background-color: rgb(0, 104, 26);
+.sub-create:hover {
+    background-color: rgb(0, 161, 40);
     transition-duration: 0.2s;
     transform: scale(1);
 }
@@ -159,16 +163,60 @@ body
 .sub-create:active {
     transform: scale(0.95);
 }
-/* BOTÃO CRIAR GLOBAL */
+
+/* BOTÃO SAIR GLOBAL */
+.sair {
+    color: rgb(238, 238, 238);
+    border-radius: 10px;
+    border: 0;
+    margin-top: 20px;
+    width: 80%;
+    padding: 8px 25px 8px 25px;
+    background-color: rgb(133, 0, 0);
+    font-size: 16px;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+.sair:hover {
+    background-color: rgb(104, 0, 0);
+    transition-duration: 0.2s;
+    transform: scale(1);
+}
+.sair:active {
+    transform: scale(0.95);
+}
+
+/*  
+  ████████ ██     ██ ██████   ████     ████ ██ ██████████
+ ██░░░░░░ ░██    ░██░█░░░░██ ░██░██   ██░██░██░░░░░██░░░ 
+░██       ░██    ░██░█   ░██ ░██░░██ ██ ░██░██    ░██    
+░█████████░██    ░██░██████  ░██ ░░███  ░██░██    ░██    
+░░░░░░░░██░██    ░██░█░░░░ ██░██  ░░█   ░██░██    ░██    
+       ░██░██    ░██░█    ░██░██   ░    ░██░██    ░██    
+ ████████ ░░███████ ░███████ ░██        ░██░██    ░██    
+░░░░░░░░   ░░░░░░░  ░░░░░░░  ░░         ░░ ░░     ░░
+*/
 
 
-/* ------------//----------------//------------- */
+/*
+ ████     ████ ████████ ████     ██ ██     ██
+░██░██   ██░██░██░░░░░ ░██░██   ░██░██    ░██
+░██░░██ ██ ░██░██      ░██░░██  ░██░██    ░██
+░██ ░░███  ░██░███████ ░██ ░░██ ░██░██    ░██
+░██  ░░█   ░██░██░░░░  ░██  ░░██░██░██    ░██
+░██   ░    ░██░██      ░██   ░░████░██    ░██
+░██        ░██░████████░██    ░░███░░███████ 
+░░         ░░ ░░░░░░░░ ░░      ░░░  ░░░░░░░
+*/
 
+/* MENU LATERAL GLOBAL */
 .vbar {
     width: 230px;
     height: 100%;
-    background-color: rgb(21, 37, 73);
-    color: white;
+    background-color: rgb(21, 39, 73);
+    color: rgb(250, 250, 250);
     position: fixed;
     top: 0;
     left: 0;
@@ -189,18 +237,18 @@ body
 
 .vbar ul li a {
     display: block;
-    color: white;
+    color: rgb(250, 250, 250);
     text-decoration: none;
     padding: 12px 20px;
     transition: background 0.3s;
 }
 
 .vbar ul li a:hover {
-    background-color: #34495e;
+    background-color: rgb(52, 73, 94);
 }
 
 .conteudo {
-    margin-left: 250px; /* espaço para o menu */
+    margin-left: 250px;
     padding: 20px;
 }
 
@@ -208,12 +256,35 @@ body
     display: none;
 }
 
+.submenu img {
+    vertical-align: bottom;
+    padding-right: 5px;
+}
+
 .submenu.open .op-com {
     display: block;
+}
+
+.submenu.open .legenda {
+    background-color: rgb(52, 73, 94);
+}
+
+.submenu:last-child {
+    text-align: center;
 }
 
 .op-com li a {
     margin-left: 20px;
     font-size: 15px;
 }
-/* ------------//----------------//------------- */
+
+/*
+ ████     ████ ████████ ████     ██ ██     ██
+░██░██   ██░██░██░░░░░ ░██░██   ░██░██    ░██
+░██░░██ ██ ░██░██      ░██░░██  ░██░██    ░██
+░██ ░░███  ░██░███████ ░██ ░░██ ░██░██    ░██
+░██  ░░█   ░██░██░░░░  ░██  ░░██░██░██    ░██
+░██   ░    ░██░██      ░██   ░░████░██    ░██
+░██        ░██░████████░██    ░░███░░███████ 
+░░         ░░ ░░░░░░░░ ░░      ░░░  ░░░░░░░
+*/

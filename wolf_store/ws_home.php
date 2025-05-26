@@ -24,23 +24,44 @@
     <div class="vbar">
         <h2>Menu</h2>
         <ul>
-            <li><a href="#">Início</a></li>
             <li class="submenu">
-                <a href="#" onclick="togglevbar(event)">Comercial ▾</a>
+                <a href="#" onclick="togglevbar(event)" class="legenda"><img src="icons/add1.png" height="22px" width="22px">Aquisições</a>
+                <ul class="op-com">
+                    <li><a href="#">Produto</a></li>
+                    <li><a href="#">Fornecedor</a></li>
+                    <li><a href="#">Aquisição de Produto</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="#" onclick="togglevbar(event)" class="legenda"><img src="icons/estoque1.png" height="22px" width="22px">Estoque</a>
+                <ul class="op-com">
+                    <li><a href="#">Posição de Estoque</a></li>
+                    <li><a href="#">Analisar Estoque</a></li>
+                    <li><a href="#">Inventário</a></li>
+                    <li><a href="#">Entrada Livre</a></li>
+                    <li><a href="#">Saída Livre</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="#" onclick="togglevbar(event)" class="legenda"><img src="icons/moeda1.png" height="22px" width="22px">Comercial</a>
                 <ul class="op-com">
                     <li><a href="#">Cliente</a></li>
                     <li><a href="#">Venda</a></li>
-                    <li><a href="#">Comissão</a></li>
                 </ul>
             </li>
-            <li><a href="#">Armazém</a></li>
-            <li><a href="#">Configurações</a></li>
-            <li><form method="POST"><input type="submit" class="sair" name="sair" value="Sair"></form></li>
+            <li class="submenu">
+                <a href="#" onclick="togglevbar(event)" class="legenda"><img src="icons/config1.png" height="22px" width="22px">Sistema</a>
+                <ul class="op-com">
+                    <li><a href="#">Usuário</a></li>
+                    <li><a href="#">Tipos de Movimentação</a></li>
+                </ul>
+            </li>
+            <li class="submenu"><form method="POST"><input type="submit" class="sair" name="sair" value="Sair"></form></li>
         </ul>
     </div>
     <div class="conteudo">
-        <h1>Bem-vindo</h1>
-        <p>Conteúdo principal vai aqui.</p>
+        <h1>Bem-vindos à:</h1>
+        <img src="imgs/wolf_store.jpg"></img>
     </div>
 </body>
 </html>

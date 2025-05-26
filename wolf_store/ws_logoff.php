@@ -8,4 +8,8 @@
         </script>
         <?php
     }
+    /* 
+        Botão para logoff:
+        <form method="POST"><input type="submit" class="sair" name="sair" value="Sair"></form>
+    */
 ?>
