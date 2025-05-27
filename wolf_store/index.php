@@ -27,20 +27,12 @@
             
             $sql = mysqli_query($conn,"SELECT login, senha FROM usuario WHERE login='$login'");
             $result = mysqli_fetch_assoc($sql);
-
-            if (password_verify($senha, $result['senha'])) {
-                ?>
-                <script>
-				    document.location.href="ws_home.php";
-			    </script>
-                <?php
+            
+            if ($result && password_verify($senha, $result['senha'])) {
+                echo "<script>document.location.href='ws_home.php';</script>";
                 $_SESSION["conectado"] = $login;
             } else {
-                ?>
-                <script>
-                    alert('Usuário ou Senha incorreto:<?php echo $senha; ?>');
-			    </script>
-                <?php
+                echo "<script>alert('Usuário ou Senha incorreto');</script>";
             }
         }
     ?>

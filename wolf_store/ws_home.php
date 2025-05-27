@@ -22,10 +22,10 @@
         }
     </script>
     <div class="vbar">
-        <h2>Menu</h2>
+        <h2><a href="ws_home.php" class="menu"><img src="imgs/wolf_store_logo.jpg" height="30px" width="30px">Wolf Store</a></h2>
         <ul>
             <li class="submenu">
-                <a href="#" onclick="togglevbar(event)" class="legenda"><img src="icons/add1.png" height="22px" width="22px">Aquisições</a>
+                <a href="" onclick="togglevbar(event)" class="legenda"><img src="icons/add1.png" height="22px" width="22px">Aquisições</a>
                 <ul class="op-com">
                     <li><a href="#">Produto</a></li>
                     <li><a href="#">Fornecedor</a></li>
@@ -35,6 +35,16 @@
             <li class="submenu">
                 <a href="#" onclick="togglevbar(event)" class="legenda"><img src="icons/estoque1.png" height="22px" width="22px">Estoque</a>
                 <ul class="op-com">
+                    <li><a href="#">Posição de Estoque</a></li>
+                    <li><a href="#">Analisar Estoque</a></li>
+                    <li><a href="#">Inventário</a></li>
+                    <li><a href="#">Entrada Livre</a></li>
+                    <li><a href="#">Saída Livre</a></li>
+                    <li><a href="#">Posição de Estoque</a></li>
+                    <li><a href="#">Analisar Estoque</a></li>
+                    <li><a href="#">Inventário</a></li>
+                    <li><a href="#">Entrada Livre</a></li>
+                    <li><a href="#">Saída Livre</a></li>
                     <li><a href="#">Posição de Estoque</a></li>
                     <li><a href="#">Analisar Estoque</a></li>
                     <li><a href="#">Inventário</a></li>
@@ -59,9 +69,12 @@
             <li class="submenu"><form method="POST"><input type="submit" class="sair" name="sair" value="Sair"></form></li>
         </ul>
     </div>
+    <div class="bg-conteudo">
+
+    </div>
     <div class="conteudo">
-        <h1>Bem-vindos à:</h1>
-        <img src="imgs/wolf_store.jpg"></img>
+        <h1>Bem-vindo à:</h1>
+        <!--<img class="logo-bg" src="imgs/wolf_store.jpg"></img> -->
     </div>
 </body>
 </html>
