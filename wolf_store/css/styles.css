@@ -97,6 +97,23 @@ body {
   ░░░░░░░░  ░░░░░░░░   ░░░░░░░   ░░░░░░░  ░░      ░░ ░░░░░░░░
 */
 
+/* CABEÇALHO DE FORM */
+.tr-cab {
+    background-color: blueviolet;
+}
+
+.tr-cab td{
+    padding: 3px 8px 3px 8px;
+}
+
+.tr-main:nth-child(even) {
+    background-color: rgb(0, 56, 105);
+}
+
+.tr-main td {
+    padding: 3px 8px 3px 8px;
+}
+
 /* INPUT TITULO GLOBAL */
 .td-tit {
     font-size: 16px;
@@ -110,7 +127,6 @@ body {
     border-radius: 3px;
     border: 1px solid rgb(150, 150, 150);
     padding: 6px 0px 6px 5px;
-
     width: 200px;
 }
 .itxt-l:hover, .itxt-r:hover {
@@ -346,3 +362,8 @@ body {
 ░██        ░██░████████░██    ░░███░░███████ 
 ░░         ░░ ░░░░░░░░ ░░      ░░░  ░░░░░░░
 */
+
+.ws_user {
+    border: 1px solid red;
+    background-color: rgba(0, 0, 0, 0.85);
+}
