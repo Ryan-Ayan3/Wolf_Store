@@ -14,10 +14,31 @@
     <link rel="icon" type="image/x-icon" href="imgs/wolf_store_logo.jpg">
 </head>
 <body>
-    <?php 
+    <script>
+        function deleterRegistro(id,tabela) {
+            if(confirm("Deletar registro?")) {
+                fetch('scripts/ws.delete.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "ok") {
+                        location.reload(); // só recarrega se der certo
+                    } else {
+                        alert("Erro ao excluir: " + data);
+                    }
+                });
+            }
+        }
+    </script>
+    <?php
         include_once('scripts/ws_vbar.html');
         $sql = mysqli_query($conn, "SELECT id, login, nivel, cargo, nome FROM usuario WHERE ativo=1") or die(mysqli_error($conn));
-
+        $tabela = 'usuario';
     ?>
     <div class="conteudo">
         <h1>USUÁRIOS</h1>
@@ -30,22 +51,26 @@
                         <td class="td-cab">Nível</td>
                         <td class="td-cab">Cargo</td>
                         <td class="td-cab">Nome</td>
+                        <td colspan="2">AÇÕES</td>
                     </tr>
                     <?php
-                    if (mysqli_num_rows($sql) > 0) {
-                        while($row = mysqli_fetch_assoc($sql)) { 
-                            echo "
-                                <tr align='left' class='tr-main'>
-                                    <td>".$row['id']."</td>
-                                    <td>".$row['login']."</td>
-                                    <td>".$row['nivel']."</td>
-                                    <td>".$row['cargo']."</td>
-                                    <td>".$row['nome']."</td>
-                                </tr>";
+                        if (mysqli_num_rows($sql) > 0) {
+                            while($row = mysqli_fetch_assoc($sql)) { 
+                                echo "
+                                    <tr align='left' class='tr-main'>
+                                        <td>".$row['id']."</td>
+                                        <td>".$row['login']."</td>
+                                        <td>".$row['nivel']."</td>
+                                        <td>".$row['cargo']."</td>
+                                        <td>".$row['nome']."</td>
+                                        <td>".$tabela."</td>";?>
+                                        <td>
+                                            <a href="#" onclick="deleterRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del"></div></a> 
+                                        </td>
+                                        <?php echo "
+                                    </tr>";
+                            }
                         }
-                    } else {
-                        echo "Sem dados para exibição :(";
-                    }
                     ?>
                 </table>
             </form>

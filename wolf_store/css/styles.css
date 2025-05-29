@@ -106,20 +106,24 @@ body {
     padding: 3px 8px 3px 8px;
 }
 
-.tr-main:nth-child(even) {
+.tr-main:nth-child(odd) {
     background-color: rgb(0, 56, 105);
+}
+
+.tr-main:hover {
+    background-color: rgb(80, 131, 173);
 }
 
 .tr-main td {
     padding: 3px 8px 3px 8px;
 }
 
-/* INPUT TITULO GLOBAL */
+/* INPUT TITULO */
 .td-tit {
     font-size: 16px;
 }
 
-/* INPUT TEXT GLOBAL */
+/* INPUT TEXT */
 .itxt-l, .itxt-r {
     color: rgb(215, 215, 215);
     font-size: 16px;
@@ -134,6 +138,21 @@ body {
 }
 .itxt-l {
     margin-right: 20px;
+}
+
+/* ICON DELETE */
+.img-del {
+    background: url('../icons/delete1.png');
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.2s ease;
+}
+
+.img-del:hover {
+    background: url('../icons/delete1b.png');
+    background-size: cover;
 }
 
 /*
