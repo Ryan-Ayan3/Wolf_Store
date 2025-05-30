@@ -15,7 +15,7 @@
 </head>
 <body>
     <script>
-        function deleterRegistro(id,tabela) {
+        function deleteRegistro(id,tabela) {
             if(confirm("Deletar registro?")) {
                 fetch('scripts/ws.delete.php', {
                         method: 'POST',
@@ -33,6 +33,15 @@
                     }
                 });
             }
+        }
+
+        function editRegistro(id,tabela) {
+            fetch('ws_users_edit.php?id=' + encodeURIComponent(id))
+            .then(response => response.text())
+            .then(html => {
+                 const container = document.getElementById('area-formulario');
+                container.innerHTML = html;
+            });
         }
     </script>
     <?php
@@ -54,7 +63,7 @@
                         <td colspan="2">AÇÕES</td>
                     </tr>
                     <?php
-                        if (mysqli_num_rows($sql) > 0) {
+                        if (mysqli_num_rows($sql) <= 10) {
                             while($row = mysqli_fetch_assoc($sql)) { 
                                 echo "
                                     <tr align='left' class='tr-main'>
@@ -62,10 +71,12 @@
                                         <td>".$row['login']."</td>
                                         <td>".$row['nivel']."</td>
                                         <td>".$row['cargo']."</td>
-                                        <td>".$row['nome']."</td>
-                                        <td>".$tabela."</td>";?>
+                                        <td>".$row['nome']."</td>";?>
                                         <td>
-                                            <a href="#" onclick="deleterRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del"></div></a> 
+                                            <a href="#" onclick="editRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
+                                        </td>
+                                        <td>
+                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del"></div></a> 
                                         </td>
                                         <?php echo "
                                     </tr>";
