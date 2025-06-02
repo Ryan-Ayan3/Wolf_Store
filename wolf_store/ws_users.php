@@ -17,7 +17,7 @@
     <script>
         function deleteRegistro(id,tabela) {
             if(confirm("Deletar registro?")) {
-                fetch('scripts/ws.delete.php', {
+                fetch('scripts/ws_delete.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -36,12 +36,17 @@
         }
 
         function editRegistro(id,tabela) {
-            fetch('ws_users_edit.php?id=' + encodeURIComponent(id))
+            fetch('ws_users_edit.php?id=' + encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
-                 const container = document.getElementById('area-formulario');
+                const container = document.getElementById('editInfor');
                 container.innerHTML = html;
             });
+            editInfor.style.display = 'block';
+        }
+        /* Na página destino do Fetch() anterior está o acionador da function a seguir */
+        function voltarPagina(){
+            location.reload();
         }
     </script>
     <?php
@@ -87,5 +92,6 @@
             </form>
         </div>
     </div>
+    <div id="editInfor" class="editInfor"></div>
 </body>
 </html>
