@@ -240,8 +240,31 @@ body {
     transform: scale(0.95);
 }
 
+/* BOTÃO VOLTAR */
+.sub-back {
+    color: rgb(238, 238, 238);
+    border-radius: 10px;
+    border: 0;
+    margin: 20px 0px 40px 0px;
+    padding: 8px 25px 8px 25px;
+    background-color: rgb(117, 117, 117);
+    font-size: 16px;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(228, 228, 228, 0.2);
+}
+.sub-back:hover {
+    background-color: rgb(92, 92, 92);
+    transition-duration: 0.2s;
+    transform: scale(1);
+}
+.sub-back:active {
+    transform: scale(0.95);
+}
+
 /* BOTÃO SAIR GLOBAL */
-.sair {
+.sub-exit {
     color: rgb(238, 238, 238);
     border-radius: 10px;
     border: 0;
@@ -255,12 +278,12 @@ body {
     transition: background-color 0.3s ease, transform 0.1s ease;
     box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
 }
-.sair:hover {
+.sub-exit:hover {
     background-color: rgb(100, 0, 0);
     transition-duration: 0.2s;
     transform: scale(1);
 }
-.sair:active {
+.sub-exit:active {
     transform: scale(0.95);
 }
 
@@ -423,5 +446,17 @@ body {
 
 .ws_user {
     border: 0px solid red;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(73, 73, 73, 0.85);
+}
+
+select {
+    background: rgb(54, 54, 54);
+    border: 0px solid blueviolet;
+    color: azure;
+    padding: 5px 15px 5px 15px;
+    border-style: none;
+}
+
+select option:hover {
+    background: #ffffff;
 }

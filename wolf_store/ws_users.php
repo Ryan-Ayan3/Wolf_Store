@@ -36,7 +36,7 @@
         }
 
         function editRegistro(id,tabela) {
-            fetch('ws_users_edit.php?id=' + encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_users_editor.php?id=' + encodeURIComponent(id)+'&tabela=usuario')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('editInfor');
@@ -48,7 +48,45 @@
         function voltarPagina(){
             location.reload();
         }
+        
     </script>
+    <script>
+    function editRegistro2(id,tabela) {
+            const form = document.forms['form-us-edit'];
+            const login = form.login.value;
+            const nova_senha = form.nova_senha.value;
+            const nivel = form.nivel.value;
+            const email = form.email.value;
+            const cargo = form.cargo.value;
+            const nome = form.nome.value;
+
+            if(confirm("Registrar alteração?")) {
+                fetch('scripts/ws_edit_user.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body:
+                        'id='+encodeURIComponent(id)+
+                        '&tabela='+encodeURIComponent(tabela)+
+                        '&login='+encodeURIComponent(login)+
+                        '&nova_senha='+encodeURIComponent(nova_senha)+
+                        '&nivel='+encodeURIComponent(nivel)+
+                        '&email='+encodeURIComponent(email)+
+                        '&cargo='+encodeURIComponent(cargo)+
+                        '&nome='+encodeURIComponent(nome)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "ok") {
+                        window.location.href = "ws_users.php"// só recarrega se der certo
+                    } else {
+                        alert("Erro ao executar");
+                    }
+                });
+            }
+        }
+</script>
     <?php
         include_once('scripts/ws_vbar.html');
         $sql = mysqli_query($conn, "SELECT id, login, nivel, cargo, nome FROM usuario WHERE ativo=1") or die(mysqli_error($conn));
