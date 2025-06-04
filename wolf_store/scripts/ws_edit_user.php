@@ -8,9 +8,9 @@
     $email_f = trim(mysqli_real_escape_string($conn, $_POST['email']));
     $cargo_f = trim(mysqli_real_escape_string($conn, $_POST['cargo']));
     $nome_f = trim(mysqli_real_escape_string($conn, $_POST['nome']));
-    $alterar_f = $dt_hr;
-
     $senha_f = mysqli_real_escape_string($conn, $_POST['nova_senha']);
+    $alterar_f = $dt_hr;
+    
     if ($_POST['nova_senha'] != NULL) {
         $senha_f = password_hash($_POST['nova_senha'], PASSWORD_DEFAULT);
         $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 

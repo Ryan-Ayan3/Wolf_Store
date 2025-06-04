@@ -1,80 +1,57 @@
-<?php
-    require_once('ws_credencial.php');
-    include_once('ws_logoff.php');
-    require_once('conn/conn.php');
-?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Rian I. Silva" />
-    <title>Wolf Store</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="imgs/wolf_store_logo.jpg">
-    <?php include_once('conn/conn.php');?>
-</head>
-<style>
-    body 
-    {
-        background-image: url('background1.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        overflow: hidden;
-    }
-</style>
-<body>
-    <?php 
-        if (isset($_POST['sub-create'])) {
-            $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
-            $cargo = trim(mysqli_real_escape_string($conn,$_POST['cargo']));
-            $login = trim(mysqli_real_escape_string($conn,strtolower($_POST['login'])));
-            $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-            
-            $sql = mysqli_query($conn, "SELECT login FROM usuario WHERE login='$login'");
-            $row = mysqli_fetch_assoc($sql);
-
-            if($login == NULL) {
-                ?>
-                <script>
-                    alert('Este login está indisponível, tente novamente');
-                </script>
-                <?php
-            } else {
-                $sql_insert = mysqli_query($conn,"INSERT INTO usuario(login, senha, cargo, nome, criado, ativo) VALUES ('$login', '$senha', '$cargo', '$nome', '$dt_hr', '1');");
-                ?> 
-                    <script>document.location.href="index.php";</script>
-                <?php                
-            }
-        }
-    ?>
-    <div class="in-main-struc" name="in-main-struc">
-        <form id="form_us" name="form-us" action="<?php echo $_SERVER['PHP_SELF'] ;?>" method="POST">
-            <table class="main-table" align="center">
-                <tr align="left" class="tr-main" name="tr-main">
-                    <td colspan="2" style="padding-bottom:20px;">Cadastro</td>
-                </tr>
-                <tr align="left" class="tr-main" name="tr-main">
-                    <td class="td-tit" name="td-tit">Nome Completo:
-                        <input type="text" class="itxt-l" name="nome" placeholder="Nome da pessoa" required></input>
-                    </td>
-                    <td class="td-tit" name="td-tit">Cargo:
-                        <input type="text" class="itxt-r" name="cargo" placeholder="Cargo exercido" required>
-                    </td>
-                </tr>
-                <tr align="left" class="tr-main" name="tr-main">
-                    <td class="td-tit" name="td-tit" style="padding-top:20px;">Login:
-                        <input type="text" class="itxt-l" name="login" placeholder="Login de usuário" required></input>
-                    </td>
-                    <td class="td-tit" name="td-tit" style="padding-top:20px;">Senha:
-                        <input type="password" class="itxt-r" name="senha" placeholder="Senha do usuário" required></input>
-                    </td>
-                </tr>
-                <tr align="center" class="tr-main" name="tr-main">
-                    <td colspan="2"><input type="submit" class="sub-create" name="sub-create" value="Enviar"></input></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</body>
-</html>
+<?php require_once('conn/conn.php'); ?>
+<div class="div-us-create">
+    <a href="" onclick="voltarPagina()"><h1>USUÁRIOS</a> > Criar</h1>
+    <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+        <table class="main-table-create" align="center">
+            <tr align="left">
+                <td colspan="2" style="padding-bottom:20px;"><h2>Criar Usuário</h2></td>
+            </tr>
+            <tr align="left" class="tr-main-create">
+                <td class="td-tit" name="td-tit">Login</td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="login" placeholder="Login de acesso" required></input></td>
+            </tr>
+            <tr align="left" class="tr-main-create">
+                <td class="td-tit" name="td-tit">Definir Senha</td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="senha" placeholder="Senha de acesso" required></input></td>
+            </tr>
+            <tr align="left" class="tr-main-create">
+                <td class="td-tit" name="td-tit">Nível</td>
+                <td class="td-tit" name="td-tit">
+                    <select name="nivel">
+                        <option>SELECIONE NÍVEL</option>
+                        <?php 
+                            $sql_nivel = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE ativo=1") or die(mysqli_error($conn));
+                            $numero = 1;
+                            if (mysqli_num_rows($sql_nivel) > 0) {
+                                while($row_nivel = mysqli_fetch_assoc($sql_nivel)) {
+                                    ?>
+                                    <option value="<?php echo $row_nivel['nivel'];?>"><?php echo $numero." - ".$row_nivel['nome']; ?></option>
+                                    <?php
+                                    $numero++;
+                                }
+                            }
+                        ?>
+                    </select>
+                </td>
+            </tr>
+            <tr align="left" class="tr-main-create">
+                <td class="td-tit" name="td-tit">Gmail</td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="email" placeholder="Gmail do usuário" required></input></td>
+            </tr>
+            <tr align="left" class="tr-main-create">
+                <td class="td-tit" name="td-tit">Cargo</td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="cargo" placeholder="Cargo do usuário" required></input></td>
+            </tr>
+            <tr align="left" class="tr-main-create">
+                <td class="td-tit" name="td-tit">Nome</td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do usuário" required></input></td>
+            </tr>
+            <tr align="center">
+                <td colspan="2">
+                    <input onclick="createRegistro2('<?php echo $id_edit;?>','<?php echo $tabela_edit;?>')" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
+                    <input onclick="voltarPagina()" type="button" class="sub-back" name="sub-back" value="Voltar"></input>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

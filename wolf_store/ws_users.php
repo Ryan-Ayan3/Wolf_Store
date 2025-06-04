@@ -39,52 +39,64 @@
             fetch('ws_users_editor.php?id=' + encodeURIComponent(id)+'&tabela=usuario')
             .then(response => response.text())
             .then(html => {
-                const container = document.getElementById('editInfor');
+                const container = document.getElementById('workInfor');
                 container.innerHTML = html;
             });
-            editInfor.style.display = 'block';
+            workInfor.style.display = 'block';
         }
         /* Na página destino do Fetch() anterior está o acionador da function a seguir */
         function voltarPagina(){
             location.reload();
         }
         
-    </script>
-    <script>
-    function editRegistro2(id,tabela) {
-            const form = document.forms['form-us-edit'];
-            const login = form.login.value;
-            const nova_senha = form.nova_senha.value;
-            const nivel = form.nivel.value;
-            const email = form.email.value;
-            const cargo = form.cargo.value;
-            const nome = form.nome.value;
+        function editRegistro2(id,tabela) {
+                const form = document.forms['form-us-edit'];
+                const login = form.login.value;
+                const nova_senha = form.nova_senha.value;
+                const nivel = form.nivel.value;
+                const email = form.email.value;
+                const cargo = form.cargo.value;
+                const nome = form.nome.value;
 
-            if(confirm("Registrar alteração?")) {
-                fetch('scripts/ws_edit_user.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body:
-                        'id='+encodeURIComponent(id)+
-                        '&tabela='+encodeURIComponent(tabela)+
-                        '&login='+encodeURIComponent(login)+
-                        '&nova_senha='+encodeURIComponent(nova_senha)+
-                        '&nivel='+encodeURIComponent(nivel)+
-                        '&email='+encodeURIComponent(email)+
-                        '&cargo='+encodeURIComponent(cargo)+
-                        '&nome='+encodeURIComponent(nome)
-                })
-                .then(response => response.text())
-                .then(data => {
-                    if (data === "ok") {
-                        window.location.href = "ws_users.php"// só recarrega se der certo
-                    } else {
-                        alert("Erro ao executar");
-                    }
-                });
+                if(confirm("Registrar alteração?")) {
+                    fetch('scripts/ws_edit_user.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body:
+                            'id='+encodeURIComponent(id)+
+                            '&tabela='+encodeURIComponent(tabela)+
+                            '&login='+encodeURIComponent(login)+
+                            '&nova_senha='+encodeURIComponent(nova_senha)+
+                            '&nivel='+encodeURIComponent(nivel)+
+                            '&email='+encodeURIComponent(email)+
+                            '&cargo='+encodeURIComponent(cargo)+
+                            '&nome='+encodeURIComponent(nome)
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === "ok") {
+                            window.location.href = "ws_users.php"// só recarrega se der certo
+                        } else {
+                            alert("Erro ao executar");
+                        }
+                    });
+                }
             }
+
+            function createRegistro() {
+            fetch('ws_users_add.php')
+            .then(response => response.text())
+            .then(html => {
+                const container = document.getElementById('workInfor');
+                container.innerHTML = html;
+            });
+            workInfor.style.display = 'block';
+        }
+        /* Na página destino do Fetch() anterior está o acionador da function a seguir */
+        function voltarPagina(){
+            location.reload();
         }
 </script>
     <?php
@@ -94,6 +106,11 @@
     ?>
     <div class="conteudo">
         <h1>USUÁRIOS</h1>
+        <div class="content-create">
+            <a href="#" onclick="createRegistro('<?php echo $tabela;?>')">
+                <div class="img-create"><span>Criar Registro</span></div>
+            </a>
+        </div> 
         <div class="ws_user">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center" border="1">
@@ -130,6 +147,6 @@
             </form>
         </div>
     </div>
-    <div id="editInfor" class="editInfor"></div>
+    <div id="workInfor" class="workInfor"></div>
 </body>
 </html>

@@ -1,31 +1,18 @@
 <?php
     require_once('conn/conn.php');
-    $nivel = "texto";
-    /*$sql_insert = mysqli_query($conn,"INSERT INTO usuario(login, senha, cargo, nome, criado, ativo) VALUES ('$login', '$senha', '$cargo', '$nome', '$dt_hr', '1');"); */
     $id_edit = intval($_GET['id']); //Conversor para tipo INT. Medida de segurança
     $tabela_edit = preg_replace('/[^a-zA-Z0-9_]/', '', $_GET['tabela']); //Sanitização para permisão somente de letras, números e underline. Medida de segurança
 
     $sql = mysqli_query($conn, "SELECT * FROM $tabela_edit WHERE id=$id_edit") or die(mysqli_error($conn));
-    $sql2 = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE ativo=1") or die(mysqli_error($conn));
     $row = mysqli_fetch_assoc($sql);
+    $temp = $row['nivel'];
+    $sql2 = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE nivel=$temp") or die(mysqli_error($conn));
+    $row2 = mysqli_fetch_assoc($sql2);
 
     $dataSint = date("H:i:s - d/m/Y", strtotime($row['alterado']));
-    $numero = "1";
-    
-    if($row['nivel'] == 1) {
-        $nivel = "Admin";
-    } elseif($row['nivel'] == 2) {
-        $nivel = "Estoque";
-    } elseif($row['nivel'] == 3) {
-        $nivel = "Aquisitor";
-    } elseif($row['nivel'] == 4) {
-        $nivel = "Comercial";
-    } elseif($row['nivel'] == 5) {
-        $nivel = "Básico";
-    }
 ?>
 
-<div class="div-us-edit" id="editInfor">
+<div class="div-us-edit">
     <a href="" onclick="voltarPagina()"><h1>USUÁRIOS</a> > Edição</h1>
     <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
         <table class="main-table-edit" align="center">
@@ -44,13 +31,15 @@
                 <td class="td-tit" name="td-tit">Nível</td>
                 <td class="td-tit" name="td-tit">
                     <select name="nivel">
-                        <option value="<?php echo $row['nivel'];?>" selected><?php echo $nivel; ?></option>
+                        <option value="<?php echo $row['nivel'];?>" selected><?php echo $row2['nome']; ?></option>
                         <option>SELECIONE NÍVEL</option>
                         <?php 
-                            if (mysqli_num_rows($sql2) > 0) {
-                                while($row2 = mysqli_fetch_assoc($sql2)) {
+                            $sql_nivel = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE ativo=1") or die(mysqli_error($conn));
+                            $numero = 1;
+                            if (mysqli_num_rows($sql_nivel) > 0) {
+                                while($row_nivel = mysqli_fetch_assoc($sql_nivel)) {
                                     ?>
-                                    <option value="<?php $row2['nivel'];?>"><?php echo $numero." - ".$row2['nome']; ?></option>
+                                    <option value="<?php echo $row_nivel['nivel'];?>"><?php echo $numero." - ".$row_nivel['nome']; ?></option>
                                     <?php
                                     $numero++;
                                 }
