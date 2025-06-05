@@ -2,19 +2,19 @@
 <div class="div-us-create">
     <a href="" onclick="voltarPagina()"><h1>USUÁRIOS</a> > Criar</h1>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
-        <table class="main-table-create" align="center">
+        <table class="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Criar Usuário</h2></td>
             </tr>
-            <tr align="left" class="tr-main-create">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Login</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="login" placeholder="Login de acesso" required></input></td>
             </tr>
-            <tr align="left" class="tr-main-create">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Definir Senha</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="senha" placeholder="Senha de acesso" required></input></td>
             </tr>
-            <tr align="left" class="tr-main-create">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nível</td>
                 <td class="td-tit" name="td-tit">
                     <select name="nivel">
@@ -34,21 +34,21 @@
                     </select>
                 </td>
             </tr>
-            <tr align="left" class="tr-main-create">
-                <td class="td-tit" name="td-tit">Gmail</td>
+            <tr align="left" class="tr-main-form">
+                <td class="td-tit" name="td-tit">Email</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="email" placeholder="Gmail do usuário" required></input></td>
             </tr>
-            <tr align="left" class="tr-main-create">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Cargo</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="cargo" placeholder="Cargo do usuário" required></input></td>
             </tr>
-            <tr align="left" class="tr-main-create">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do usuário" required></input></td>
             </tr>
             <tr align="center">
                 <td colspan="2">
-                    <input onclick="createRegistro2('<?php echo $id_edit;?>','<?php echo $tabela_edit;?>')" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
+                    <input onclick="createRegistro()" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
                     <input onclick="voltarPagina()" type="button" class="sub-back" name="sub-back" value="Voltar"></input>
                 </td>
             </tr>

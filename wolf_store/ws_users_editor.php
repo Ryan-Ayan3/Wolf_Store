@@ -12,22 +12,22 @@
     $dataSint = date("H:i:s - d/m/Y", strtotime($row['alterado']));
 ?>
 
-<div class="div-us-edit">
+<div class="div-us-edit" onclick="voltarPagina()">
     <a href="" onclick="voltarPagina()"><h1>USUÁRIOS</a> > Edição</h1>
-    <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
-        <table class="main-table-edit" align="center">
+    <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onclick="voltarPagina()">
+        <table class="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Editar Usuário</h2></td>
             </tr>
-            <tr align="left" class="tr-main-edit">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Login</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="login" required value="<?php echo $row['login'];?>"></input></td>
             </tr>
-            <tr align="left" class="tr-main-edit">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Definir Senha</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nova_senha"></input></td>
             </tr>
-            <tr align="left" class="tr-main-edit">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nível</td>
                 <td class="td-tit" name="td-tit">
                     <select name="nivel">
@@ -48,25 +48,25 @@
                     </select>
                 </td>
             </tr>
-            <tr align="left" class="tr-main-edit">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Email</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="email" required value="<?php echo $row['email'];?>"></input></td>
             </tr>
-            <tr align="left" class="tr-main-edit">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Cargo</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="cargo" required value="<?php echo $row['cargo'];?>"></input></td>
             </tr>
-            <tr align="left" class="tr-main-edit">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" required value="<?php echo $row['nome'];?>"></input></td>
             </tr>
-            <tr align="left" class="tr-main-edit">
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Alterado</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" disabled value="<?php echo $dataSint;?>"></input></td>
             </tr>
             <tr align="center">
                 <td colspan="2">
-                    <input onclick="editRegistro2('<?php echo $id_edit;?>','<?php echo $tabela_edit;?>')" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
+                    <input onclick="editRegistro('<?php echo $id_edit;?>','<?php echo $tabela_edit;?>')" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
                     <input onclick="voltarPagina()" type="button" class="sub-back" name="sub-back" value="Voltar"></input>
                 </td>
             </tr>

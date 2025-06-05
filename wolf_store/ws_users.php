@@ -35,7 +35,7 @@
             }
         }
 
-        function editRegistro(id,tabela) {
+        function editorRegistro(id,tabela) {
             fetch('ws_users_editor.php?id=' + encodeURIComponent(id)+'&tabela=usuario')
             .then(response => response.text())
             .then(html => {
@@ -43,13 +43,8 @@
                 container.innerHTML = html;
             });
             workInfor.style.display = 'block';
-        }
-        /* Na página destino do Fetch() anterior está o acionador da function a seguir */
-        function voltarPagina(){
-            location.reload();
-        }
-        
-        function editRegistro2(id,tabela) {
+        }        
+        function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
                 const login = form.login.value;
                 const nova_senha = form.nova_senha.value;
@@ -77,7 +72,7 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_users.php"// só recarrega se der certo
+                            window.location.href = "ws_users.php"
                         } else {
                             alert("Erro ao executar");
                         }
@@ -85,7 +80,7 @@
                 }
             }
 
-            function createRegistro() {
+        function creatorRegistro() {
             fetch('ws_users_add.php')
             .then(response => response.text())
             .then(html => {
@@ -94,11 +89,44 @@
             });
             workInfor.style.display = 'block';
         }
+
+        function createRegistro() {
+            const form = document.forms['form-us-create'];
+            const login = form.login.value;
+            const senha = form.senha.value;
+            const nivel = form.nivel.value;
+            const email = form.email.value;
+            const cargo = form.cargo.value;
+            const nome = form.nome.value;
+
+            fetch('scripts/ws_add_user.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 
+                    'login='+encodeURIComponent(login)+
+                    '&senha='+encodeURIComponent(senha)+
+                    '&nivel='+encodeURIComponent(nivel)+
+                    '&email='+encodeURIComponent(email)+
+                    '&cargo='+encodeURIComponent(cargo)+
+                    '&nome='+encodeURIComponent(nome)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "ok") {
+                    window.location.href = "ws_users.php"
+                } else {
+                    alert("Erro ao executar");
+                }
+            });
+        }
+
         /* Na página destino do Fetch() anterior está o acionador da function a seguir */
         function voltarPagina(){
             location.reload();
         }
-</script>
+    </script>
     <?php
         include_once('scripts/ws_vbar.html');
         $sql = mysqli_query($conn, "SELECT id, login, nivel, cargo, nome FROM usuario WHERE ativo=1") or die(mysqli_error($conn));
@@ -107,15 +135,15 @@
     <div class="conteudo">
         <h1>USUÁRIOS</h1>
         <div class="content-create">
-            <a href="#" onclick="createRegistro('<?php echo $tabela;?>')">
+            <a href="#" onclick="creatorRegistro('<?php echo $tabela;?>')">
                 <div class="img-create"><span>Criar Registro</span></div>
             </a>
         </div> 
         <div class="ws_user">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
-                <table class="main-table" align="center" border="1">
+                <table class="main-table" align="center">
                     <tr align="center" class="tr-cab">
-                        <td class="td-cab">Código</td>
+                        <td class="td-cab">ID</td>
                         <td class="td-cab">Login</td>
                         <td class="td-cab">Nível</td>
                         <td class="td-cab">Cargo</td>
@@ -132,10 +160,10 @@
                                         <td>".$row['nivel']."</td>
                                         <td>".$row['cargo']."</td>
                                         <td>".$row['nome']."</td>";?>
-                                        <td>
-                                            <a href="#" onclick="editRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
+                                        <td class="td-icon">
+                                            <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
                                         </td>
-                                        <td>
+                                        <td class="td-icon">
                                             <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del"></div></a> 
                                         </td>
                                         <?php echo "
@@ -147,6 +175,6 @@
             </form>
         </div>
     </div>
-    <div id="workInfor" class="workInfor"></div>
+    <div id="workInfor" class="workInfor" onclick="voltarPagina()"></div>
 </body>
 </html>
