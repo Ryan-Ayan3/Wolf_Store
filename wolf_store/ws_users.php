@@ -175,6 +175,6 @@
             </form>
         </div>
     </div>
-    <div id="workInfor" class="workInfor" onclick="voltarPagina()"></div>
+    <div id="workInfor" class="workInfor"></div>
 </body>
 </html>

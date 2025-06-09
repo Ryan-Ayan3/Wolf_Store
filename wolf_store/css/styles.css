@@ -109,7 +109,7 @@ body {
 
 /* CABEÇALHO DE TABELA */
 .tr-cab {
-    background-color: rgb(26, 0, 51);
+    background-color: rgb(0, 31, 51);
     color: white;
     cursor: default;
 }
@@ -157,7 +157,6 @@ body {
 /* SELECT */
 select {
     background: rgb(54, 54, 54);
-    border: 0px solid blueviolet;
     color: azure;
     padding: 5px 15px 5px 15px;
     border-style: none;
@@ -253,9 +252,21 @@ select option:hover {
     z-index: +2;
 }
 
-.tr-main-form td{
+.tr-main-form td {
     padding-top: 15px;
     padding-right: 10px;
+}
+
+/* H1 de Navegação */
+
+.nav-link {
+    text-decoration: none;
+    color: rgb(240, 248, 255);
+}
+
+.nav-link:hover {
+    color: white;
+    cursor: pointer;
 }
 
 /*

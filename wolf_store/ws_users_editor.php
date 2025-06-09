@@ -12,9 +12,9 @@
     $dataSint = date("H:i:s - d/m/Y", strtotime($row['alterado']));
 ?>
 
-<div class="div-us-edit" onclick="voltarPagina()">
-    <a href="" onclick="voltarPagina()"><h1>USUÁRIOS</a> > Edição</h1>
-    <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onclick="voltarPagina()">
+<div class="div-us-edit">
+    <a href="" onclick="voltarPagina()" class="nav-link"><h1>USUÁRIOS</a> > Edição</h1>
+    <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
         <table class="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Editar Usuário</h2></td>
