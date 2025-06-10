@@ -145,7 +145,7 @@ body {
     border-radius: 3px;
     border: 1px solid rgb(150, 150, 150);
     padding: 6px 0px 6px 5px;
-    width: 200px;
+    width: 250px;
 }
 .itxt-l:hover, .itxt-r:hover {
     border: 1px solid rgb(235, 235, 235);

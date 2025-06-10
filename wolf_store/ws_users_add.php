@@ -1,6 +1,6 @@
 <?php require_once('conn/conn.php'); ?>
 <div class="div-us-create">
-    <a href="" onclick="voltarPagina()"><h1>USUÁRIOS</a> > Criar</h1>
+    <a href="" onclick="voltarPagina()" class="nav-link"><h1>USUÁRIOS</a> > Criar</h1>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
         <table class="main-table-form" align="center">
             <tr align="left">

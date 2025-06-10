@@ -29,50 +29,40 @@
                     if (data === "ok") {
                         location.reload(); // só recarrega se der certo
                     } else {
-                        alert("Erro ao excluir: " + data);
+                        alert("Erro ao excluir. Mensagem: "+data);
                     }
                 });
             }
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_users_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_movimento_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
             });
             workInfor.style.display = 'block';
-        }        
+        }
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
-                const login = form.login.value;
-                const nova_senha = form.nova_senha.value;
-                const nivel = form.nivel.value;
-                const email = form.email.value;
-                const cargo = form.cargo.value;
                 const nome = form.nome.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_user.php', {
+                    fetch('scripts/ws_edit_movimento.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        body:
+                        body: 
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
-                            '&login='+encodeURIComponent(login)+
-                            '&nova_senha='+encodeURIComponent(nova_senha)+
-                            '&nivel='+encodeURIComponent(nivel)+
-                            '&email='+encodeURIComponent(email)+
-                            '&cargo='+encodeURIComponent(cargo)+
                             '&nome='+encodeURIComponent(nome)
                     })
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_users.php"
+                            window.location.href = "ws_movimento.php"
                         } else {
                             alert("Erro ao executar. Mensagem:"+data);
                         }
@@ -80,8 +70,9 @@
                 }
             }
 
+
         function creatorRegistro() {
-            fetch('ws_users_add.php')
+            fetch('ws_movimento_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -92,30 +83,19 @@
 
         function createRegistro() {
             const form = document.forms['form-us-create'];
-            const login = form.login.value;
-            const senha = form.senha.value;
-            const nivel = form.nivel.value;
-            const email = form.email.value;
-            const cargo = form.cargo.value;
             const nome = form.nome.value;
 
-            fetch('scripts/ws_add_user.php', {
+            fetch('scripts/ws_add_movimento.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: 
-                    'login='+encodeURIComponent(login)+
-                    '&senha='+encodeURIComponent(senha)+
-                    '&nivel='+encodeURIComponent(nivel)+
-                    '&email='+encodeURIComponent(email)+
-                    '&cargo='+encodeURIComponent(cargo)+
-                    '&nome='+encodeURIComponent(nome)
+                body: 'nome='+encodeURIComponent(nome)
             })
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_users.php"
+                    window.location.href = "ws_movimento.php"
                 } else {
                     alert("Erro ao executar. Mensagem:"+data);
                 }
@@ -129,11 +109,11 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, login, nivel, cargo, nome FROM usuario WHERE ativo=1") or die(mysqli_error($conn));
-        $tabela = 'usuario';
+        $sql = mysqli_query($conn, "SELECT id, nome FROM tipo_movimento WHERE ativo=1") or die(mysqli_error($conn));
+        $tabela = 'tipo_movimento';
     ?>
     <div class="conteudo">
-        <h1>USUÁRIOS</h1>
+        <h1>Tipos de Movimento</h1>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro('<?php echo $tabela;?>')">
                 <div class="img-create"><span>Criar Registro</span></div>
@@ -144,9 +124,6 @@
                 <table class="main-table" align="center">
                     <tr align="center" class="tr-cab">
                         <td class="td-cab">ID</td>
-                        <td class="td-cab">Login</td>
-                        <td class="td-cab">Nível</td>
-                        <td class="td-cab">Cargo</td>
                         <td class="td-cab">Nome</td>
                         <td colspan="2">AÇÕES</td>
                     </tr>
@@ -156,9 +133,6 @@
                                 echo "
                                     <tr align='left' class='tr-main'>
                                         <td>".$row['id']."</td>
-                                        <td>".$row['login']."</td>
-                                        <td>".$row['nivel']."</td>
-                                        <td>".$row['cargo']."</td>
                                         <td>".$row['nome']."</td>";?>
                                         <td class="td-icon">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>

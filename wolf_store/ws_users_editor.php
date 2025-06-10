@@ -9,7 +9,11 @@
     $sql2 = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE nivel=$temp") or die(mysqli_error($conn));
     $row2 = mysqli_fetch_assoc($sql2);
 
-    $dataSint = date("H:i:s - d/m/Y", strtotime($row['alterado']));
+    if ($row['alterado'] == NULL){
+        $dataAlt = "Sem dado";
+    } else {
+        $dataAlt = date("H:i:s - d/m/Y", strtotime($row['alterado']));
+    }
 ?>
 
 <div class="div-us-edit">
@@ -62,7 +66,7 @@
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Alterado</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" disabled value="<?php echo $dataSint;?>"></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" disabled value="<?php echo $dataAlt;?>"></input></td>
             </tr>
             <tr align="center">
                 <td colspan="2">
