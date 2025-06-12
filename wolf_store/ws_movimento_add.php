@@ -8,7 +8,7 @@
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do usuário" required></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Movimento" required></input></td>
             </tr>
             <tr align="center">
                 <td colspan="2">
