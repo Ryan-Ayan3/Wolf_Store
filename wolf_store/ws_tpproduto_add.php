@@ -1,14 +1,14 @@
 <?php require_once('conn/conn.php'); ?>
 <div class="div-us-create">
-    <a href="" onclick="voltarPagina()" class="nav-link"><h1>Tipos de Movimento</a> > Criar</h1>
+    <a href="" onclick="voltarPagina()" class="nav-link"><h1>Tipos de Produtos</a> > Criar</h1>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
         <table class="main-table-form" align="center">
             <tr align="left">
-                <td colspan="2" style="padding-bottom:20px;"><h2>Criar Movimento</h2></td>
+                <td colspan="2" style="padding-bottom:20px;"><h2>Criar tipo de produto</h2></td>
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Movimento" required></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Tipo" required></input></td>
             </tr>
             <tr align="center">
                 <td colspan="2">

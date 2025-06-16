@@ -72,7 +72,7 @@
 
 
         function creatorRegistro() {
-            fetch('ws_movimento_add.php')
+            fetch('ws_tpproduto_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -85,7 +85,7 @@
             const form = document.forms['form-us-create'];
             const nome = form.nome.value;
 
-            fetch('scripts/ws_add_movimento.php', {
+            fetch('scripts/ws_add_tpproduto.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -95,7 +95,7 @@
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_movimento.php"
+                    window.location.href = "ws_tpproduto.php"
                 } else {
                     alert("Erro ao executar. Mensagem:"+data);
                 }
@@ -109,13 +109,13 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, nome FROM tipo_movimento WHERE ativo=1") or die(mysqli_error($conn));
-        $tabela = 'tipo_movimento';
+        $sql = mysqli_query($conn, "SELECT id, nome FROM tipo_produto WHERE ativo=1") or die(mysqli_error($conn));
+        $tabela = 'tipo_produto';
     ?>
     <div class="conteudo">
-        <h1>Tipos de Movimento</h1>
+        <h1>Tipos de Produtos</h1>
         <div class="content-create">
-            <a href="#" onclick="creatorRegistro()">
+            <a href="#" onclick="creatorRegistro('<?php echo $tabela;?>')">
                 <div class="img-create"><span>Criar Registro</span></div>
             </a>
         </div> 

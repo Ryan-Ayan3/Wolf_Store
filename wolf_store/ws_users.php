@@ -135,7 +135,7 @@
     <div class="conteudo">
         <h1>USUÁRIOS</h1>
         <div class="content-create">
-            <a href="#" onclick="creatorRegistro('<?php echo $tabela;?>')">
+            <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>
             </a>
         </div> 

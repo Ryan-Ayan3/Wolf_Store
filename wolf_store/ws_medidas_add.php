@@ -1,7 +1,7 @@
 <?php require_once('conn/conn.php'); ?>
 <div class="div-us-create">
     <a href="" onclick="voltarPagina()" class="nav-link"><h1>Unidades de Medidas</a> > Criar</h1>
-    <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+    <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
         <table class="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Criar Unidade de Medida</h2></td>
