@@ -17,22 +17,6 @@
                         <option>SELECIONE TIPO</option>
                         <option value='1'>1 - Inteiro</option>
                         <option value='2'>2 - Decimal</option>
-                        <?php  /*
-                            $sql_tipo = mysqli_query($conn, "SELECT tipoValor FROM unidade_medida WHERE ativo=1") or die(mysqli_error($conn));
-                            if (mysqli_num_rows($sql_nivel) > 0) {
-                                while($row_tipo = mysqli_fetch_assoc($sql_nivel)) {
-                                    if($row_tipo['tipoValor'] == 1) {
-                                        $tipoValor = "Inteiro";
-                                    } elseif($row_tipo['tipoValor'] == 2) {
-                                        $tipoValor = "Decimal";
-                                    }
-                                    ?>
-                                    <option value="<?php echo $row_tipo['nivel'];?>"><?php echo "OP ".$numero." - ".$tipoValor['nome'];?></option>
-                                    <?php
-                                    $numero++;
-                                }
-                            } */
-                        ?>
                     </select>
                 </td>
             </tr>
