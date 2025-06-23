@@ -36,7 +36,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_users_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_cliente_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -54,7 +54,7 @@
                 const nome = form.nome.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_user.php', {
+                    fetch('scripts/ws_edit_cliente.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -72,16 +72,16 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_users.php"
+                            window.location.href = "ws_cliente.php"
                         } else {
-                            alert("Erro ao executar. Mensagem:"+data);
+                            alert("Erro ao executar. Mensagem: "+data);
                         }
                     });
                 }
             }
 
         function creatorRegistro() {
-            fetch('ws_users_add.php')
+            fetch('ws_cliente_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -92,32 +92,44 @@
 
         function createRegistro() {
             const form = document.forms['form-us-create'];
-            const login = form.login.value;
-            const senha = form.senha.value;
-            const nivel = form.nivel.value;
-            const email = form.email.value;
-            const cargo = form.cargo.value;
             const nome = form.nome.value;
+            const cadastro = form.cadastro.value;
+            const uf = form.uf.value;
+            const cep = form.cep.value;
+            const municipio = form.municipio.value;
+            const bairro = form.bairro.value;
+            const rua = form.rua.value;
+            const endereco = form.endereco.value;
+            const complemento = form.complemento.value;
+            const contato = form.contato.value;
+            const email = form.email.value;
+            const obs = form.obs.value;
 
-            fetch('scripts/ws_add_user.php', {
+            fetch('scripts/ws_add_cliente.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 
-                    'login='+encodeURIComponent(login)+
-                    '&senha='+encodeURIComponent(senha)+
-                    '&nivel='+encodeURIComponent(nivel)+
+                    'nome='+encodeURIComponent(nome)+
+                    '&cadastro='+encodeURIComponent(cadastro)+
+                    '&uf='+encodeURIComponent(uf)+
+                    '&cep='+encodeURIComponent(cep)+
+                    '&municipio='+encodeURIComponent(municipio)+
+                    '&bairro='+encodeURIComponent(bairro)+
+                    '&rua='+encodeURIComponent(rua)+
+                    '&endereco='+encodeURIComponent(endereco)+
+                    '&complemento='+encodeURIComponent(complemento)+
+                    '&contato='+encodeURIComponent(contato)+
                     '&email='+encodeURIComponent(email)+
-                    '&cargo='+encodeURIComponent(cargo)+
-                    '&nome='+encodeURIComponent(nome)
+                    '&obs='+encodeURIComponent(obs)
             })
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_users.php"
+                    window.location.href = "ws_cliente.php"
                 } else {
-                    alert("Erro ao executar. Mensagem:"+data);
+                    alert("Erro ao executar. Mensagem: "+data);
                 }
             });
         }
@@ -154,18 +166,26 @@
                         <td colspan="2">AÇÕES</td>
                     </tr>
                     <?php
-                        if (mysqli_num_rows($sql) <= 10) {
+                        if (mysqli_num_rows($sql) <= 15) {
                             while($row = mysqli_fetch_assoc($sql)) { 
                                 echo "
                                     <tr align='left' class='tr-main'>
                                         <td>".$row['id']."</td>
                                         <td>".$row['nome']."</td>
-                                        <td>".$row['cpf']."</td>
+                                        <td>";
+                                            if ($row['cpf'] != "") {
+                                                echo $row['cpf'];
+                                             } elseif($row['cnpj'] != "") {
+                                                echo $row['cnpj'];
+                                             } else {
+                                                echo "";
+                                             }
+                                        echo "</td>
                                         <td>".$row['uf']."</td>
                                         <td>".$row['municipio']."</td>
                                         <td>".$row['contato']."</td>
                                         <td>".$row['email']."</td>
-                                        <td>".$row['registrado']."</td>";?>
+                                        <td>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
                                         <td class="td-icon">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
                                         </td>
