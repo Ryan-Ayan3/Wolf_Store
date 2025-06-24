@@ -36,7 +36,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_cliente_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_fornecedor_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -60,7 +60,7 @@
                 const obs = form.obs.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_cliente.php', {
+                    fetch('scripts/ws_edit_fornecedor.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -84,7 +84,7 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_cliente.php"
+                            window.location.href = "ws_fornecedor.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -93,7 +93,7 @@
             }
 
         function creatorRegistro() {
-            fetch('ws_cliente_add.php')
+            fetch('ws_fornecedor_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -117,7 +117,7 @@
             const email = form.email.value;
             const obs = form.obs.value;
 
-            fetch('scripts/ws_add_cliente.php', {
+            fetch('scripts/ws_add_fornecedor.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -139,7 +139,7 @@
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_cliente.php"
+                    window.location.href = "ws_fornecedor.php"
                 } else {
                     alert("Erro ao executar. Mensagem: "+data);
                 }
@@ -153,11 +153,11 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, nome, cpf, cnpj, uf, municipio, contato, email, criado FROM pessoa WHERE ativo=1 and categoria=2") or die(mysqli_error($conn));
+        $sql = mysqli_query($conn, "SELECT id, nome, cpf, cnpj, uf, municipio, contato, email, criado FROM pessoa WHERE ativo=1 and categoria=1") or die(mysqli_error($conn));
         $tabela = 'pessoa';
     ?>
     <div class="conteudo">
-        <h1>Clientes</h1>
+        <h1>Fornecedores</h1>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>

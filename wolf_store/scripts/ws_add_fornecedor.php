@@ -66,7 +66,7 @@
                                                         '$contato',
                                                         '$email',
                                                         '$obs',
-                                                        '2',
+                                                        '1',
                                                         '$dt_hr',
                                                         1)") or die(mysqli_error($conn));
         } else {
@@ -99,7 +99,7 @@
                                                         '$contato',
                                                         '$email',
                                                         '$obs',
-                                                        '2',
+                                                        '1',
                                                         '$dt_hr',
                                                         1)") or die(mysqli_error($conn));
         }
