@@ -524,3 +524,14 @@ input[type=number] {
 */
 
 
+.item {
+    padding: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #3f3f3f;
+}
+
+.item:hover {
+    background-color: #6b6b6b;
+}
+
