@@ -1,8 +1,8 @@
 <?php require_once('conn/conn.php'); ?>
-<div class="div-us-create">
+<div class="div-us-create" id="div-us-create">
     <a href="" onclick="voltarPagina()" class="nav-link"><h1>Tipos de Movimento</a> > Criar</h1>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
-        <table class="main-table-form" align="center">
+        <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Criar Movimento</h2></td>
             </tr>

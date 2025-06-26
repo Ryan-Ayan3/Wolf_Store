@@ -2,10 +2,10 @@
 <script>
 
 </script>
-<div class="div-us-create">
+<div class="div-us-create" id="div-us-create">
     <a href="" onclick="voltarPagina()" class="nav-link"><h1>Produtos</a> > Criar</h1>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
-        <table class="main-table-form" align="center">
+        <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Criar Produto</h2></td>
             </tr>
@@ -41,7 +41,7 @@
                     <select name="tipo">
                         <option>SELECIONAR TIPO</option>
                         <?php
-                        $sql_tipo = mysqli_query($conn,"SELECT id, nome FROM tipo_movimento WHERE ativo=1") or die(mysqli_error($conn));
+                        $sql_tipo = mysqli_query($conn,"SELECT id, nome FROM tipo_produto WHERE ativo=1") or die(mysqli_error($conn));
                         if (mysqli_num_rows($sql_tipo) > 0) {
                             while ($row_tipo = mysqli_fetch_assoc($sql_tipo)) {
                                 ?>
@@ -63,10 +63,10 @@
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Vincular Fornecedor</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="fornecedor" id="busca" autocomplete="off"></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="fornecedor" id="pesquisador" autocomplete="off"></input></td>
             </tr>
             <tr align="left" class="tr-main-form">
-                <td class="td-tit" name="td-tit"><td><span id="resultado"></span></td>
+                <td class="td-tit" name="td-tit"><td><div class="busca" id="busca"></div></td>
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Observação</td>

@@ -13,10 +13,10 @@
     }
 ?>
 
-<div class="div-us-edit">
+<div class="div-us-edit" id="div-us-edit">
     <a href="" onclick="voltarPagina()" class="nav-link"><h1>Tipos de Produtos</a> > Edição</h1>
     <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
-        <table class="main-table-form" align="center">
+        <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Editar Tipo de Produto</h2></td>
             </tr>

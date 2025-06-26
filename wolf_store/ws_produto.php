@@ -41,6 +41,25 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                /* ESC para voltar*/
+                document.addEventListener("keydown", function(event) {
+                    if (event.key === "Escape") {
+                        location.reload();
+                    }
+                });
+
+                /* Click fora do MODAL para voltar */
+                const modal = document.getElementById('main-table-form');
+                const div1 = document.getElementById('div-us-edit');
+                const div2 = document.getElementById('workInfor');
+
+                function voltarPagina2(event) {
+                if (!modal.contains(event.target)) {
+                    location.reload();
+                }
+                }
+                div1.addEventListener('click', voltarPagina2);
+                div2.addEventListener('click', voltarPagina2);
             });
             workInfor.style.display = 'block';
         }        
@@ -99,27 +118,47 @@
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
                 /* BUSCA Registro através de Input */
-                document.getElementById('busca').addEventListener('input', function () {
-                    const termo = this.value;
+                document.getElementById('pesquisador').addEventListener('input', function () {
+                    const intel = this.value;
 
-                    if (termo.length < 1) {
-                        document.getElementById('resultado').innerHTML = '';
+                    if (intel.length < 1) {
+                        document.getElementById('busca').innerHTML = '';
                         return;
                     }
 
-                    fetch('scripts/buscar.php?q=' + encodeURIComponent(termo))
+                    fetch('scripts/buscar_fornecedor.php?i=' + encodeURIComponent(intel))
                         .then(resp => resp.text())
                         .then(dados => {
-                        document.getElementById('resultado').innerHTML = dados;
+                        document.getElementById('busca').innerHTML = dados;
                         });
                 });
-                /* CLIQUE para selecionar registro */
+                /* Click para selecionar registro */
                 document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('item')) {
-                    document.getElementById('busca').value = e.target.textContent;
-                    document.getElementById('resultado').innerHTML = '';
+                if (e.target.classList.contains('busca-item')) {
+                    document.getElementById('pesquisador').value = e.target.textContent;
+                    document.getElementById('busca').innerHTML = '';
                 }
                 });
+                /* ESC para voltar*/
+                document.addEventListener("keydown", function(event) {
+                    if (event.key === "Escape") {
+                        location.reload();
+                    }
+                });
+
+                /* Click fora do MODAL para voltar */
+                const modal = document.getElementById('main-table-form');
+                const div1 = document.getElementById('div-us-create');
+                const div2 = document.getElementById('workInfor');
+
+                function voltarPagina2(event) {
+                if (!modal.contains(event.target)) {
+                    location.reload();
+                }
+                }
+                div1.addEventListener('click', voltarPagina2);
+                div2.addEventListener('click', voltarPagina2);
+
             });
             workInfor.style.display = 'block';
         }
@@ -172,8 +211,6 @@
         function voltarPagina(){
             location.reload();
         }
-
-        /* SCRIPT de busca dinâmica */
         
     </script>
     <?php

@@ -41,6 +41,25 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                /* ESC para voltar*/
+                document.addEventListener("keydown", function(event) {
+                    if (event.key === "Escape") {
+                        location.reload();
+                    }
+                });
+
+                /* Click fora do MODAL para voltar */
+                const modal = document.getElementById('main-table-form');
+                const div1 = document.getElementById('div-us-edit');
+                const div2 = document.getElementById('workInfor');
+
+                function voltarPagina2(event) {
+                if (!modal.contains(event.target)) {
+                    location.reload();
+                }
+                }
+                div1.addEventListener('click', voltarPagina2);
+                div2.addEventListener('click', voltarPagina2);
             });
             workInfor.style.display = 'block';
         }
@@ -79,6 +98,25 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                /* ESC para voltar*/
+                document.addEventListener("keydown", function(event) {
+                    if (event.key === "Escape") {
+                        location.reload();
+                    }
+                });
+
+                /* Click fora do MODAL para voltar */
+                const modal = document.getElementById('main-table-form');
+                const div1 = document.getElementById('div-us-create');
+                const div2 = document.getElementById('workInfor');
+
+                function voltarPagina2(event) {
+                if (!modal.contains(event.target)) {
+                    location.reload();
+                }
+                }
+                div1.addEventListener('click', voltarPagina2);
+                div2.addEventListener('click', voltarPagina2);
             });
             workInfor.style.display = 'block';
         }
