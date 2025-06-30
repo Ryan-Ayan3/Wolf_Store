@@ -134,10 +134,12 @@
                 });
                 /* Click para selecionar registro */
                 document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('busca-item')) {
-                    document.getElementById('pesquisador').value = e.target.textContent;
-                    document.getElementById('busca').innerHTML = '';
-                }
+                    if (e.target.classList.contains('busca-item')) {
+                        const in2 = e.target.getAttribute('data-in2');
+                        document.getElementById('pesquisador').value = e.target.textContent;
+                        document.getElementById('fornecedor_in').value = in2;
+                        document.getElementById('busca').innerHTML = '';
+                    }
                 });
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
@@ -165,17 +167,13 @@
 
         function createRegistro() {
             const form = document.forms['form-us-create'];
+            const codigo = form.codigo.value;
             const nome = form.nome.value;
-            const cadastro = form.cadastro.value;
-            const uf = form.uf.value;
-            const cep = form.cep.value;
-            const municipio = form.municipio.value;
-            const bairro = form.bairro.value;
-            const rua = form.rua.value;
-            const endereco = form.endereco.value;
-            const complemento = form.complemento.value;
-            const contato = form.contato.value;
-            const email = form.email.value;
+            const medida = form.medida.value;
+            const tipo = form.tipo.value;
+            const peso = form.peso.value;
+            const preco = form.preco.value;
+            const fornecedor = form.fornecedor_in.value;
             const obs = form.obs.value;
 
             fetch('scripts/ws_add_produto.php', {
@@ -183,18 +181,14 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: 
-                    'nome='+encodeURIComponent(nome)+
-                    '&cadastro='+encodeURIComponent(cadastro)+
-                    '&uf='+encodeURIComponent(uf)+
-                    '&cep='+encodeURIComponent(cep)+
-                    '&municipio='+encodeURIComponent(municipio)+
-                    '&bairro='+encodeURIComponent(bairro)+
-                    '&rua='+encodeURIComponent(rua)+
-                    '&endereco='+encodeURIComponent(endereco)+
-                    '&complemento='+encodeURIComponent(complemento)+
-                    '&contato='+encodeURIComponent(contato)+
-                    '&email='+encodeURIComponent(email)+
+                body:
+                    'codigo='+encodeURIComponent(codigo)+ 
+                    '&nome='+encodeURIComponent(nome)+
+                    '&medida='+encodeURIComponent(medida)+
+                    '&tipo='+encodeURIComponent(tipo)+
+                    '&peso='+encodeURIComponent(peso)+
+                    '&preco='+encodeURIComponent(preco)+
+                    '&fornecedor='+encodeURIComponent(fornecedor)+
                     '&obs='+encodeURIComponent(obs)
             })
             .then(response => response.text())
@@ -215,7 +209,7 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, codg, nome, tipo_fkey,medida_fkey FROM produto WHERE ativo=1") or die(mysqli_error($conn));
+        $sql = mysqli_query($conn, "SELECT id, codg, nome, tipo, medida FROM produto WHERE ativo=1") or die(mysqli_error($conn));
         $tabela = 'produto';
     ?>
     <div class="conteudo">
@@ -225,7 +219,7 @@
                 <div class="img-create"><span>Criar Registro</span></div>
             </a>
         </div> 
-        <div class="ws_user">
+        <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
                     <tr align="center" class="tr-cab">
@@ -237,13 +231,14 @@
                         <td colspan="2">AÇÕES</td>
                     </tr>
                     <?php
+                    
                         if (mysqli_num_rows($sql) <= 15) {
                             while($row = mysqli_fetch_assoc($sql)) { 
-                                $tipo = $row['tipo_fkey'];
-                                $medida = $row['medida_fkey'];
-                                $sql_tipo = mysqli_query($conn, "SELECT nome FROM produto WHERE ativo=1 and id=$tipo") or die(mysqli_error($conn));
+                                $tipo = $row['tipo'];
+                                $medida = $row['medida'];
+                                $sql_tipo = mysqli_query($conn, "SELECT nome FROM tipo_produto WHERE ativo=1 and id=$tipo") or die(mysqli_error($conn));
                                 $row_tipo = mysqli_fetch_assoc($sql_tipo);
-                                $sql_medida = mysqli_query($conn, "SELECT nome FROM medida WHERE ativo=1 and id=$medida") or die(mysqli_error($conn));
+                                $sql_medida = mysqli_query($conn, "SELECT nome FROM unidade_medida WHERE ativo=1 and id=$medida") or die(mysqli_error($conn));
                                 $row_medida = mysqli_fetch_assoc($sql_medida);
                                 echo "
                                     <tr align='left' class='tr-main'>

@@ -157,7 +157,7 @@
                 <div class="img-create"><span>Criar Registro</span></div>
             </a>
         </div> 
-        <div class="ws_user">
+        <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
                     <tr align="center" class="tr-cab">
