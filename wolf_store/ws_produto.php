@@ -36,11 +36,35 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_cliente_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_produto_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                /* BUSCA Registro através de Input */
+                document.getElementById('pesquisador').addEventListener('input', function () {
+                    const intel = this.value;
+
+                    if (intel.length < 1) {
+                        document.getElementById('busca').innerHTML = '';
+                        return;
+                    }
+
+                    fetch('scripts/buscar_fornecedor.php?i=' + encodeURIComponent(intel))
+                        .then(resp => resp.text())
+                        .then(dados => {
+                        document.getElementById('busca').innerHTML = dados;
+                        });
+                });
+                /* Click para selecionar registro */
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('busca-item')) {
+                        const in2 = e.target.getAttribute('data-in2');
+                        document.getElementById('pesquisador').value = e.target.textContent;
+                        document.getElementById('fornecedor_in').value = in2;
+                        document.getElementById('busca').innerHTML = '';
+                    }
+                });
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
@@ -65,21 +89,17 @@
         }        
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
+                const codigo = form.codigo.value;
                 const nome = form.nome.value;
-                const cadastro = form.cadastro.value;
-                const uf = form.uf.value;
-                const cep = form.cep.value;
-                const municipio = form.municipio.value;
-                const bairro = form.bairro.value;
-                const rua = form.rua.value;
-                const endereco = form.endereco.value;
-                const complemento = form.complemento.value;
-                const contato = form.contato.value;
-                const email = form.email.value;
+                const medida = form.medida.value;
+                const tipo = form.tipo.value;
+                const peso = form.peso.value;
+                const preco = form.preco.value;
+                const fornecedor = form.fornecedor_in.value;
                 const obs = form.obs.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_cliente.php', {
+                    fetch('scripts/ws_edit_produto.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -87,23 +107,19 @@
                         body:
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
+                            '&codigo='+encodeURIComponent(codigo)+ 
                             '&nome='+encodeURIComponent(nome)+
-                            '&cadastro='+encodeURIComponent(cadastro)+
-                            '&uf='+encodeURIComponent(uf)+
-                            '&cep='+encodeURIComponent(cep)+
-                            '&municipio='+encodeURIComponent(municipio)+
-                            '&bairro='+encodeURIComponent(bairro)+
-                            '&rua='+encodeURIComponent(rua)+
-                            '&endereco='+encodeURIComponent(endereco)+
-                            '&complemento='+encodeURIComponent(complemento)+
-                            '&contato='+encodeURIComponent(contato)+
-                            '&email='+encodeURIComponent(email)+
+                            '&medida='+encodeURIComponent(medida)+
+                            '&tipo='+encodeURIComponent(tipo)+
+                            '&peso='+encodeURIComponent(peso)+
+                            '&preco='+encodeURIComponent(preco)+
+                            '&fornecedor='+encodeURIComponent(fornecedor)+
                             '&obs='+encodeURIComponent(obs)
                     })
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_cliente.php"
+                            window.location.href = "ws_produto.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }

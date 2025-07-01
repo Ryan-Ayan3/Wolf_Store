@@ -96,7 +96,7 @@ body {
   ░░░░░░░░  ░░░░░░░░   ░░░░░░░   ░░░░░░░  ░░      ░░ ░░░░░░░░
 */
 
-/* TABELA */
+/* TABELA MOSTRA REGISTROS*/
 .main-table {
     background-color: rgb(20, 20, 20);
     border-radius: 9px;
@@ -104,6 +104,8 @@ body {
     margin-top: 15px;
     color: rgb(220, 220, 220);
     border-collapse: collapse;
+    font-size: 14px;
+    width: 100%;
 }
 
 /* CABEÇALHO DE TABELA */
@@ -229,6 +231,7 @@ select option:hover {
     margin-top: 4px;
     font-size: 20px;
     padding: 5px;
+    white-space: nowrap;
 }
 
 /* FORM DE EDIÇÃO e CRIAÇÂO */

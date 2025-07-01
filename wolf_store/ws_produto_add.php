@@ -1,7 +1,4 @@
 <?php require_once('conn/conn.php'); ?>
-<script>
-
-</script>
 <div class="div-us-create" id="div-us-create">
     <a href="" onclick="voltarPagina()" class="nav-link"><h1>Produtos</a> > Criar</h1>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">

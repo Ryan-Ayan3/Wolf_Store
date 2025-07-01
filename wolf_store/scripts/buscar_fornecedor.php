@@ -10,7 +10,7 @@ if ($intel !== '') {
 
     if ($sql) {
         while ($row = mysqli_fetch_assoc($sql)) {
-            echo '<div class="busca-item" data-in2="'.htmlspecialchars($row['id']).'"><!-- -->' . htmlspecialchars($row['id']) . ' - ' . htmlspecialchars($row['nome']) . '<!-- --></div>';
+            echo '<div class="busca-item" data-in2="'.htmlspecialchars($row['id']).'">' . htmlspecialchars($row['id']) . ' - ' . htmlspecialchars($row['nome']) . '</div>';
         }
     }
 }
