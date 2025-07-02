@@ -180,16 +180,18 @@
         <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
-                    <tr align="center" class="tr-cab">
-                        <td class="td-cab">ID</td>
-                        <td class="td-cab">Login</td>
-                        <td class="td-cab">Nível</td>
-                        <td class="td-cab">Cargo</td>
-                        <td class="td-cab">Nome</td>
-                        <td colspan="2">AÇÕES</td>
-                    </tr>
                     <?php
                         if (mysqli_num_rows($sql) <= 10) {
+                            ?>
+                            <tr align="center" class="tr-cab">
+                                <td class="td-cab">ID</td>
+                                <td class="td-cab">Login</td>
+                                <td class="td-cab">Nível</td>
+                                <td class="td-cab">Cargo</td>
+                                <td class="td-cab">Nome</td>
+                                <td colspan="2">AÇÕES</td>
+                            </tr>
+                            <?php
                             while($row = mysqli_fetch_assoc($sql)) { 
                                 echo "
                                     <tr align='left' class='tr-main'>
