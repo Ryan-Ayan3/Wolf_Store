@@ -296,6 +296,7 @@ input[type=number] {
     background-color: #6b6b6b;
 }
 
+
 /*
    ████████  ██         ███████   ██████       ██     ██      
   ██░░░░░░██░██        ██░░░░░██ ░█░░░░██     ████   ░██      
@@ -541,3 +542,13 @@ input[type=number] {
 ░██        ░██░████████░██    ░░███░░███████ 
 ░░         ░░ ░░░░░░░░ ░░      ░░░  ░░░░░░░
 */
+
+/* Mensagem para ser acionada*/
+.mens {
+    font-size: 25px;
+    white-space: nowrap;
+    border: 3px solid rgb(185, 185, 185);
+    padding: 10px;
+    border-radius: 25px;
+
+}
