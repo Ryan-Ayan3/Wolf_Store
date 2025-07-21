@@ -181,7 +181,7 @@
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
                     <?php
-                        if (mysqli_num_rows($sql) <= 10) {
+                        if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
                             ?>
                             <tr align="center" class="tr-cab">
                                 <td class="td-cab">ID</td>
@@ -209,6 +209,8 @@
                                         <?php echo "
                                     </tr>";
                             }
+                        } else {
+                            include_once('scripts/mensagem_nodata.html');
                         }
                     ?>
                 </table>

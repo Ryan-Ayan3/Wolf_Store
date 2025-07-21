@@ -165,14 +165,16 @@
         <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
-                    <tr align="center" class="tr-cab">
-                        <td class="td-cab">ID</td>
-                        <td class="td-cab">Nome</td>
-                        <td class="td-cab">Tipo de Valor</td>
-                        <td colspan="2">AÇÕES</td>
-                    </tr>
                     <?php
-                        if (mysqli_num_rows($sql) <= 10) {
+                        if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
+                            ?>
+                            <tr align="center" class="tr-cab">
+                                <td class="td-cab">ID</td>
+                                <td class="td-cab">Nome</td>
+                                <td class="td-cab">Tipo de Valor</td>
+                                <td colspan="2">AÇÕES</td>
+                            </tr>
+                            <?php
                             while($row = mysqli_fetch_assoc($sql)) {
                                 if($row['tipoValor'] == 1) {
                                     $tipoValor = "Inteiro";
@@ -195,6 +197,8 @@
                                         <?php echo "
                                     </tr>";
                             }
+                        } else {
+                            include_once('scripts/mensagem_nodata.html');
                         }
                     ?>
                 </table>
