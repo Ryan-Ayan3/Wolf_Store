@@ -6,6 +6,12 @@
     $sql = mysqli_query($conn, "SELECT * FROM $tabela_edit WHERE id=$id_edit") or die(mysqli_error($conn));
     $row = mysqli_fetch_assoc($sql);
 
+    if ($row['tipo'] == 1) {
+        $tipo_movimento = "Entrada";
+    } elseif($row['tipo'] == 2) {
+        $tipo_movimento = "Saída";
+    }
+
     if ($row['alterado'] == NULL){
         $dataAlt = "Sem dado";
     } else {
@@ -23,6 +29,16 @@
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" required value="<?php echo $row['nome'];?>"></input></td>
+            </tr>
+            <tr align="left" class="tr-main-form">
+                <td class="td-tit" name="td-tit">Tipo</td>
+                <td class="td-tit" name="td-tit">
+                    <select name="tipo">
+                        <option value="<?php echo $row['tipo'];?>"><?php echo $tipo_movimento;?></option>
+                        <option value="1">1 - Entrada</option>
+                        <option value="2">2 - Saída</option>    
+                    </select>
+                </td>
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Alterado</td>

@@ -10,6 +10,15 @@
                 <td class="td-tit" name="td-tit">Nome</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Movimento" required></input></td>
             </tr>
+            <tr align="left" class="tr-main-form">
+                <td class="td-tit" name="td-tit">Tipo</td>
+                <td class="td-tit" name="td-tit">
+                    <select name="tipo">
+                        <option value="1">1 - Entrada</option>
+                        <option value="2">2 - Saída</option>    
+                    </select>
+                </td>
+            </tr>
             <tr align="center">
                 <td colspan="2">
                     <input onclick="createRegistro()" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
