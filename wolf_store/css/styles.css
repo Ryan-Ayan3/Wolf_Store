@@ -226,8 +226,8 @@ select option:hover {
     background-size: cover;
 }
 .img-create span {
-    margin-left: 35px;
-    position: absolute;
+    margin-left: 35px;   
+    position: absolute;  
     margin-top: 4px;
     font-size: 20px;
     padding: 5px;
@@ -263,7 +263,7 @@ select option:hover {
 
 /* H1 de Navegação */
 
-.nav-link {
+.nav-link { 
     text-decoration: none;
     color: rgb(240, 248, 255);
 }
