@@ -565,3 +565,48 @@ input[type=number] {
     -webkit-text-stroke: 0.3px rgb(0, 0, 0);
     color: rgb(230, 230, 230);
 }
+
+
+
+
+
+
+input[type="radio"] {
+  appearance: none;         /* Remove aparência padrão */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  width: 18px;
+  height: 18px;
+  border: 2px solid #0078ff; /* Cor da borda */
+  border-radius: 50%;        /* Deixa redondo */
+  background-color: #fff;    /* Fundo branco */
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Efeito hover */
+input[type="radio"]:hover {
+  box-shadow: 0 0 0 3px rgba(0,120,255,0.2);
+}
+
+/* Círculo interno quando selecionado */
+input[type="radio"]:checked {
+  background-color: #0078ff;   /* Preenche o centro */
+  box-shadow: 0 0 0 3px rgba(0,120,255,0.2);
+}
+
+/* Animação suave ao marcar */
+input[type="radio"]::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+input[type="radio"]:checked::after {
+  background: white;
+  transform: scale(0.5); }

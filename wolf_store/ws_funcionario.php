@@ -90,7 +90,7 @@
             }
 
         function creatorRegistro() {
-            fetch('ws_departamento_add.php')
+            fetch('ws_funcionario_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -122,7 +122,7 @@
             const form = document.forms['form-us-create'];
             const nome = form.nome.value;
 
-            fetch('scripts/ws_add_departamento.php', {
+            fetch('scripts/ws_add_funcionario.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -133,7 +133,7 @@
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_departamento.php"
+                    window.location.href = "ws_funcionario.php"
                 } else {
                     alert("Erro ao executar. Mensagem: "+data);
                 }
