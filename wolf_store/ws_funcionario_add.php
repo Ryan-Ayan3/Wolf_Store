@@ -18,7 +18,7 @@
                 <td class="td-tit" name="td-tit">Departamento</td>
                 <td class="td-tit" name="td-tit">
                     <select name="dp">
-                        <option value="00">SELECIONE DP</option>
+                        <option value="0">SELECIONE DP</option>
                         <?php
                         $sql_dp = mysqli_query($conn, "SELECT id, nome FROM departamento WHERE ativo=1 ORDER BY nome ASC")or die(mysqli_error($conn));
                         if (mysqli_num_rows($sql_dp) > 0) {
@@ -93,8 +93,8 @@
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Afastado?</td>
                 <td class="td-tit" name="td-tit">
-                    <input type="radio" class="iradio" name="afastado" value="1" required >Sim</input>
-                    <input type="radio" class="iradio" name="afastado" value="0" required >Não</input>
+                    <input type="radio" class="iradio" name="afastado" value="1" required>Sim</input>
+                    <input type="radio" class="iradio" name="afastado" value="0" required>Não</input>
                 </td>
             </tr>
             <tr align="center">

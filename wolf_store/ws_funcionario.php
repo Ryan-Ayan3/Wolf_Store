@@ -120,7 +120,14 @@
 
         function createRegistro() {
             const form = document.forms['form-us-create'];
+            const matricula = form.matricula.value;
             const nome = form.nome.value;
+            const dp = form.dp.value;
+            const setor = form.setor.value;
+            const funcao = form.funcao.value;
+            const grupo = form.grupo.value;
+            const salario = form.salario.value;
+            const afastado = form.afastado.value;
 
             fetch('scripts/ws_add_funcionario.php', {
                 method: 'POST',
@@ -128,7 +135,14 @@
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 
-                    'nome='+encodeURIComponent(nome)
+                    'matricula='+encodeURIComponent(matricula)+
+                    '&nome='+encodeURIComponent(nome)+
+                    '&dp='+encodeURIComponent(dp)+
+                    '&setor='+encodeURIComponent(setor)+
+                    '&funcao='+encodeURIComponent(funcao)+
+                    '&grupo='+encodeURIComponent(grupo)+
+                    '&salario='+encodeURIComponent(salario)+
+                    '&afastado='+encodeURIComponent(afastado)
             })
             .then(response => response.text())
             .then(data => {
