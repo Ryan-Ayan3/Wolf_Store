@@ -36,7 +36,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_departamento_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_funcionario_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -68,7 +68,7 @@
                 const nome = form.nome.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_departamento.php', {
+                    fetch('scripts/ws_edit_funcionario.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -81,7 +81,7 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_departamento.php"
+                            window.location.href = "ws_funcionario.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }

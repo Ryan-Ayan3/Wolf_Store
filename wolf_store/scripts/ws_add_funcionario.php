@@ -1,19 +1,23 @@
 <?php
-
-    
-
     require_once('../conn/conn.php');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $matricula = trim(mysqli_real_escape_string($conn,$_POST['matricula']));
         $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
         $dp = trim(mysqli_real_escape_string($conn,$_POST['dp']));
-
         if ($dp == 0) {
-                echo "Departamento precisa ser informado!";
-                exit;
+            echo "CAMPO DEPARTAMENTO OBRIGATÓRIO";
+            exit;
         }
         $setor = trim(mysqli_real_escape_string($conn,$_POST['setor']));
+        if ($setor == 0) {
+            echo "CAMPO SETOR OBRIGATÓRIO";
+            exit;
+        }
         $funcao = trim(mysqli_real_escape_string($conn,$_POST['funcao']));
+        if ($funcao == 0) {
+            echo "CAMPO FUNÇÃO OBRIGATÓRIO";
+            exit;
+        }
         $grupo = trim(mysqli_real_escape_string($conn,$_POST['grupo']));
         $salario = trim(mysqli_real_escape_string($conn,$_POST['salario']));
         $afastado = trim(mysqli_real_escape_string($conn,$_POST['afastado']));
