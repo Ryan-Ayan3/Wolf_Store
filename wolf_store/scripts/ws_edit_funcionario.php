@@ -3,13 +3,26 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_edit2 = intval($_POST['id']); //Conversor para tipo INT. Medida de segurança
         $tabela_edit2 = preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['tabela']); //Sanitização para permisão somente de letras, números e underline. Medida de segurança
-
-        $nome_f = trim(mysqli_real_escape_string($conn, $_POST['nome']));
+        $matricula = trim(mysqli_real_escape_string($conn,$_POST['matricula']));
+        $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
+        $dp = trim(mysqli_real_escape_string($conn,$_POST['dp']));
+        $setor = trim(mysqli_real_escape_string($conn,$_POST['setor']));
+        $funcao = trim(mysqli_real_escape_string($conn,$_POST['funcao']));
+        $grupo = trim(mysqli_real_escape_string($conn,$_POST['grupo']));
+        $salario = trim(mysqli_real_escape_string($conn,str_replace(',', '.', $_POST['salario'])));
+        $afastado = trim(mysqli_real_escape_string($conn,$_POST['afastado']));
         $alterar_f = $dt_hr;
         
         $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 
                                         SET 
-                                            nome='$nome_f',
+                                            matr='$matricula',
+                                            nome='$nome',
+                                            fk_departamento='$dp',
+                                            fk_setor='$setor',
+                                            fk_funcao='$funcao',
+                                            fk_grupo='$grupo',
+                                            salario='$salario',
+                                            afastado='$afastado',
                                             alterado='$alterar_f' 
                                         WHERE id=$id_edit2") or die(mysqli_error($conn));
         

@@ -65,7 +65,14 @@
         }        
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
+                const matricula = form.matricula.value;
                 const nome = form.nome.value;
+                const dp = form.dp.value;
+                const setor = form.setor.value;
+                const funcao = form.funcao.value;
+                const grupo = form.grupo.value;
+                const salario = form.salario.value;
+                const afastado = form.afastado.value;
 
                 if(confirm("Registrar alteração?")) {
                     fetch('scripts/ws_edit_funcionario.php', {
@@ -76,7 +83,14 @@
                         body:
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
-                            '&nome='+encodeURIComponent(nome)
+                            '&matricula='+encodeURIComponent(matricula)+
+                            '&nome='+encodeURIComponent(nome)+
+                            '&dp='+encodeURIComponent(dp)+
+                            '&setor='+encodeURIComponent(setor)+
+                            '&funcao='+encodeURIComponent(funcao)+
+                            '&grupo='+encodeURIComponent(grupo)+
+                            '&salario='+encodeURIComponent(salario)+
+                            '&afastado='+encodeURIComponent(afastado)
                     })
                     .then(response => response.text())
                     .then(data => {

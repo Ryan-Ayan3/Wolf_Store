@@ -19,7 +19,7 @@
             exit;
         }
         $grupo = trim(mysqli_real_escape_string($conn,$_POST['grupo']));
-        $salario = trim(mysqli_real_escape_string($conn,$_POST['salario']));
+        $salario = trim(mysqli_real_escape_string($conn,str_replace(',', '.', $_POST['salario'])));
         $afastado = trim(mysqli_real_escape_string($conn,$_POST['afastado']));
         
         $sql = mysqli_query($conn, "INSERT INTO funcionario(

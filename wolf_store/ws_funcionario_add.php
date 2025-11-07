@@ -94,7 +94,7 @@
                 <td class="td-tit" name="td-tit">Afastado?</td>
                 <td class="td-tit" name="td-tit">
                     <input type="radio" class="iradio" name="afastado" value="1" required>Sim</input>
-                    <input type="radio" class="iradio" name="afastado" value="0" required>Não</input>
+                    <input type="radio" class="iradio" name="afastado" value="0" required checked>Não</input>
                 </td>
             </tr>
             <tr align="center">
