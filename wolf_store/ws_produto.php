@@ -259,11 +259,11 @@
                                 $row_medida = mysqli_fetch_assoc($sql_medida);
                                 echo "
                                     <tr align='left' class='tr-main'>
-                                        <td>".$row['id']."</td>
-                                        <td>".$row['codg']."</td>
+                                        <td align='center'>".$row['id']."</td>
+                                        <td align='center'>".$row['codg']."</td>
                                         <td>".$row['nome']."</td>
-                                        <td>".$row_tipo['nome']."</td>
-                                        <td>".$row_medida['nome']."</td>";?>
+                                        <td align='center'>".$row_tipo['nome']."</td>
+                                        <td align='center'>".$row_medida['nome']."</td>";?>
                                         <td class="td-icon">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
                                         </td>

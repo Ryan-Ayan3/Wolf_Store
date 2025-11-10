@@ -36,7 +36,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_funcao_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_cliente_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -66,9 +66,20 @@
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
                 const nome = form.nome.value;
+                const cadastro = form.cadastro.value;
+                const uf = form.uf.value;
+                const cep = form.cep.value;
+                const municipio = form.municipio.value;
+                const bairro = form.bairro.value;
+                const rua = form.rua.value;
+                const endereco = form.endereco.value;
+                const complemento = form.complemento.value;
+                const contato = form.contato.value;
+                const email = form.email.value;
+                const obs = form.obs.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_funcao.php', {
+                    fetch('scripts/ws_edit_cliente.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -76,12 +87,23 @@
                         body:
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
-                            '&nome='+encodeURIComponent(nome)
+                            '&nome='+encodeURIComponent(nome)+
+                            '&cadastro='+encodeURIComponent(cadastro)+
+                            '&uf='+encodeURIComponent(uf)+
+                            '&cep='+encodeURIComponent(cep)+
+                            '&municipio='+encodeURIComponent(municipio)+
+                            '&bairro='+encodeURIComponent(bairro)+
+                            '&rua='+encodeURIComponent(rua)+
+                            '&endereco='+encodeURIComponent(endereco)+
+                            '&complemento='+encodeURIComponent(complemento)+
+                            '&contato='+encodeURIComponent(contato)+
+                            '&email='+encodeURIComponent(email)+
+                            '&obs='+encodeURIComponent(obs)
                     })
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_funcao.php"
+                            window.location.href = "ws_cliente.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -90,7 +112,7 @@
             }
 
         function creatorRegistro() {
-            fetch('ws_funcao_add.php')
+            fetch('ws_cliente_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -121,19 +143,41 @@
         function createRegistro() {
             const form = document.forms['form-us-create'];
             const nome = form.nome.value;
+            const cadastro = form.cadastro.value;
+            const uf = form.uf.value;
+            const cep = form.cep.value;
+            const municipio = form.municipio.value;
+            const bairro = form.bairro.value;
+            const rua = form.rua.value;
+            const endereco = form.endereco.value;
+            const complemento = form.complemento.value;
+            const contato = form.contato.value;
+            const email = form.email.value;
+            const obs = form.obs.value;
 
-            fetch('scripts/ws_add_funcao.php', {
+            fetch('scripts/ws_add_cliente.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 
-                    'nome='+encodeURIComponent(nome)
+                    'nome='+encodeURIComponent(nome)+
+                    '&cadastro='+encodeURIComponent(cadastro)+
+                    '&uf='+encodeURIComponent(uf)+
+                    '&cep='+encodeURIComponent(cep)+
+                    '&municipio='+encodeURIComponent(municipio)+
+                    '&bairro='+encodeURIComponent(bairro)+
+                    '&rua='+encodeURIComponent(rua)+
+                    '&endereco='+encodeURIComponent(endereco)+
+                    '&complemento='+encodeURIComponent(complemento)+
+                    '&contato='+encodeURIComponent(contato)+
+                    '&email='+encodeURIComponent(email)+
+                    '&obs='+encodeURIComponent(obs)
             })
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_funcao.php"
+                    window.location.href = "ws_cliente.php"
                 } else {
                     alert("Erro ao executar. Mensagem: "+data);
                 }
@@ -147,11 +191,11 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, nome, criado FROM funcao WHERE ativo=1") or die(mysqli_error($conn));
-        $tabela = 'funcao';
+        $sql = mysqli_query($conn, "SELECT id, FROM banco_horas_func WHERE ativo=1 and categoria=2") or die(mysqli_error($conn));
+        $tabela = 'banco_horas_func';
     ?>
     <div class="conteudo">
-        <h1>Funções</h1>
+        <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > Funcionários</h1>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>
@@ -166,6 +210,10 @@
                             <tr align="center" class="tr-cab">
                                 <td class="td-cab">ID</td>
                                 <td class="td-cab">Nome</td>
+                                <td class="td-cab">CPF/CNPJ</td>
+                                <td class="td-cab">UF</td>
+                                <td class="td-cab">Município</td>
+                                <td class="td-cab">Contato</td>
                                 <td class="td-cab">Registrado</td>
                                 <td colspan="2">AÇÕES</td>
                             </tr>
@@ -173,9 +221,21 @@
                             while($row = mysqli_fetch_assoc($sql)) { 
                                 echo "
                                     <tr align='left' class='tr-main'>
-                                        <td align='center'>".$row['id']."</td>
+                                        <td>".$row['id']."</td>
                                         <td>".$row['nome']."</td>
-                                        <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
+                                        <td>";
+                                            if ($row['cpf'] != "") {
+                                                echo $row['cpf'];
+                                             } elseif($row['cnpj'] != "") {
+                                                echo $row['cnpj'];
+                                             } else {
+                                                echo "";
+                                             }
+                                        echo "</td>
+                                        <td>".$row['uf']."</td>
+                                        <td>".$row['municipio']."</td>
+                                        <td>".$row['contato']."</td>
+                                        <td>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
                                         <td class="td-icon">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
                                         </td>

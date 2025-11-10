@@ -222,14 +222,14 @@
                                 }
                                 echo "
                                     <tr align='left' class='tr-main'>
-                                        <td>".$row['id']."</td>
-                                        <td>".$row['matr']."</td>
+                                        <td align='center'>".$row['id']."</td>
+                                        <td align='center'>".$row['matr']."</td>
                                         <td>".$row['nome']."</td>
-                                        <td>".$row['dpnome']."</td>
-                                        <td>".$row['senome']."</td>
+                                        <td align='center'>".$row['dpnome']."</td>
+                                        <td align='center'>".$row['senome']."</td>
                                         <td>".$row['funome']."</td>
-                                        <td>".$afastado."</td>
-                                        <td>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
+                                        <td align='center'>".$afastado."</td>
+                                        <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
                                         <td class="td-icon">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
                                         </td>

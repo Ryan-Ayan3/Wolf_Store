@@ -36,7 +36,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_funcao_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_evento_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -66,9 +66,11 @@
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
                 const nome = form.nome.value;
+                const tipo_saldo = form.tipo_saldo.value;
+                const funcao = form.funcao.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_funcao.php', {
+                    fetch('scripts/ws_edit_evento.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -76,12 +78,14 @@
                         body:
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
-                            '&nome='+encodeURIComponent(nome)
+                            '&nome='+encodeURIComponent(nome)+
+                            '&tipo_saldo='+encodeURIComponent(tipo_saldo)+
+                            '&funcao='+encodeURIComponent(funcao)
                     })
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_funcao.php"
+                            window.location.href = "ws_evento.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -90,7 +94,7 @@
             }
 
         function creatorRegistro() {
-            fetch('ws_funcao_add.php')
+            fetch('ws_evento_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -121,19 +125,23 @@
         function createRegistro() {
             const form = document.forms['form-us-create'];
             const nome = form.nome.value;
+            const tipo_saldo = form.tipo_saldo.value;
+            const funcao = form.funcao.value;
 
-            fetch('scripts/ws_add_funcao.php', {
+            fetch('scripts/ws_add_evento.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 
-                    'nome='+encodeURIComponent(nome)
+                    'nome='+encodeURIComponent(nome)+
+                    '&tipo_saldo='+encodeURIComponent(tipo_saldo)+
+                    '&funcao='+encodeURIComponent(funcao)
             })
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_funcao.php"
+                    window.location.href = "ws_evento.php"
                 } else {
                     alert("Erro ao executar. Mensagem: "+data);
                 }
@@ -147,11 +155,11 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, nome, criado FROM funcao WHERE ativo=1") or die(mysqli_error($conn));
-        $tabela = 'funcao';
+        $sql = mysqli_query($conn, "SELECT id, nome, funcao, tipo_saldo, criado FROM evento WHERE ativo=1") or die(mysqli_error($conn));
+        $tabela = 'evento';
     ?>
     <div class="conteudo">
-        <h1>Funções</h1>
+        <h1>Eventos</h1>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>
@@ -166,15 +174,32 @@
                             <tr align="center" class="tr-cab">
                                 <td class="td-cab">ID</td>
                                 <td class="td-cab">Nome</td>
+                                <td class="td-cab">Tipo de Saldo</td>
+                                <td class="td-cab">Função</td>
                                 <td class="td-cab">Registrado</td>
                                 <td colspan="2">AÇÕES</td>
                             </tr>
                             <?php
                             while($row = mysqli_fetch_assoc($sql)) { 
+                                if($row['tipo_saldo'] == 1) {
+                                    $ts = "Positivo";
+                                }else{
+                                    $ts = "Negativo";
+                                }
+                                
+                                if($row['funcao'] == 1) {
+                                    $fc = "Folha de Pgto";
+                                }elseif($row['funcao'] == 2) { 
+                                    $fc = "Banco de Horas";
+                                }else {
+                                    $fc="Ambos";
+                                }
                                 echo "
                                     <tr align='left' class='tr-main'>
                                         <td align='center'>".$row['id']."</td>
                                         <td>".$row['nome']."</td>
+                                        <td align='center'>".$ts."</td>
+                                        <td align='center'>".$fc."</td>
                                         <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
                                         <td class="td-icon">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>

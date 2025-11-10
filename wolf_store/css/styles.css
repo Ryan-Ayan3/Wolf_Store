@@ -108,6 +108,18 @@ body {
     width: 100%;
 }
 
+/* TABELA COMPACTA MOSTRA REGISTROS*/
+.main-table-compact {
+    background-color: rgb(20, 20, 20);
+    border-radius: 9px;
+    padding: 15px 0px 15px 0px;
+    margin-top: 15px;
+    color: rgb(220, 220, 220);
+    border-collapse: collapse;
+    font-size: 16px;
+    width: 20%;
+}
+
 /* CABEÇALHO DE TABELA */
 .tr-cab {
     background-color: rgb(0, 31, 51);
@@ -195,6 +207,20 @@ select option:hover {
     background-size: cover;
 }
 
+.img-inclu {
+    background: url('../icons/inclu1.png');
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.2s ease;
+}
+
+.img-inclu:hover {
+    background: url('../icons/inclu1a.png');
+    background-size: cover;
+}
+
 /* CREATE ICON */
 .content-create {
     border: 2px solid rgb(112, 209, 149);
@@ -262,7 +288,6 @@ select option:hover {
 }
 
 /* H1 de Navegação */
-
 .nav-link { 
     text-decoration: none;
     color: rgb(240, 248, 255);
@@ -553,7 +578,6 @@ input[type=number] {
     padding: 20px 40px 20px 40px;
     margin-top: 120px;
     margin-left: 28%;
-    
 }
 .mens-nodata img {
     height: 40px;
@@ -570,7 +594,7 @@ input[type=number] {
 
 
 
-
+/* RADIO GLOBAL */
 .iradio {
   appearance: none;         /* Remove aparência padrão */
   -webkit-appearance: none;
@@ -613,4 +637,6 @@ input[type=number] {
 }
 
 .iradio {
-    vertical-align: sub;}
+    vertical-align: sub;
+}
+/* FIM RADIO GLOBAL */

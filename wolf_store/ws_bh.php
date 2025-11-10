@@ -35,8 +35,28 @@
             }
         }
 
+        function includeRegistro(id,tabela) {
+            if(confirm("Deseja iniciar a folha?")) {
+                fetch('scripts/ws_include_bh.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "ok") {
+                        location.reload(); // só recarrega se der certo
+                    } else {
+                        alert("Atenção, Mensagem: " + data);
+                    }
+                });
+            }
+        }
+
         function editorRegistro(id,tabela) {
-            fetch('ws_funcao_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_departamento_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -68,7 +88,7 @@
                 const nome = form.nome.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_funcao.php', {
+                    fetch('scripts/ws_edit_departamento.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -81,7 +101,7 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_funcao.php"
+                            window.location.href = "ws_departamento.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -90,7 +110,7 @@
             }
 
         function creatorRegistro() {
-            fetch('ws_funcao_add.php')
+            fetch('ws_departamento_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -122,7 +142,7 @@
             const form = document.forms['form-us-create'];
             const nome = form.nome.value;
 
-            fetch('scripts/ws_add_funcao.php', {
+            fetch('scripts/ws_add_departamento.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -133,7 +153,7 @@
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_funcao.php"
+                    window.location.href = "ws_bh.php"
                 } else {
                     alert("Erro ao executar. Mensagem: "+data);
                 }
@@ -147,11 +167,11 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, nome, criado FROM funcao WHERE ativo=1") or die(mysqli_error($conn));
-        $tabela = 'funcao';
+        $sql = mysqli_query($conn, "SELECT id, ano, encerrado FROM banco_horas WHERE ativo=1 AND encerrado=0") or die(mysqli_error($conn));
+        $tabela = 'banco_horas';
     ?>
     <div class="conteudo">
-        <h1>Funções</h1>
+        <h1>Bancos de Horas</h1>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>
@@ -159,25 +179,27 @@
         </div> 
         <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
-                <table class="main-table" align="center">
+                <table class="main-table-compact" align="center">
                     <?php
                         if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
                             ?>
                             <tr align="center" class="tr-cab">
-                                <td class="td-cab">ID</td>
-                                <td class="td-cab">Nome</td>
-                                <td class="td-cab">Registrado</td>
-                                <td colspan="2">AÇÕES</td>
+                                <td class="td-cab">Ano</td>
+                                <td class="td-cab">Encerrado</td>
+                                <td colspan="3">AÇÕES</td>
                             </tr>
                             <?php
-                            while($row = mysqli_fetch_assoc($sql)) { 
+                            while($row = mysqli_fetch_assoc($sql)) {
+                                if ($row['encerrado'] == 0) { $afas = "Não";}else{ $afas = "Sim";}
                                 echo "
-                                    <tr align='left' class='tr-main'>
-                                        <td align='center'>".$row['id']."</td>
-                                        <td>".$row['nome']."</td>
-                                        <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
+                                    <tr align='center' class='tr-main'>
+                                        <td>";?><a href="ws_bh_func.php" class="nav-link"><?php echo $row['ano'];?></a><?php echo "</td>
+                                        <td>".$afas."</td>";?>
                                         <td class="td-icon">
-                                            <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
+                                            <a href="#" alt="incluir" onclick="includeRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-inclu"></div></a>
+                                        </td>
+                                        <td class="td-icon">
+                                            <a href="#" alt="editar" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
                                         </td>
                                         <td class="td-icon">
                                             <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del"></div></a> 
@@ -191,6 +213,7 @@
                     ?>
                 </table>
             </form>
+            <h2>CRUD EM DESENVOLVIMENTO...<h2>
         </div>
     </div>
     <div id="workInfor" class="workInfor"></div>

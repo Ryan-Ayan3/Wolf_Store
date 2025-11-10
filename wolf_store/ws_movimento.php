@@ -177,14 +177,14 @@
                             while($row = mysqli_fetch_assoc($sql)) { 
                                 echo "
                                     <tr align='left' class='tr-main'>
-                                        <td>".$row['id']."</td>
-                                        <td>".$row['nome']."</td>";
+                                        <td align='center'>".$row['id']."</td>
+                                        <td align='center'>".$row['nome']."</td>";
                                         if ($row['tipo'] == 1) {
                                             $tipo_movimento = "Entrada";
                                         } elseif($row['tipo'] == 2) {
                                             $tipo_movimento = "Saída";
                                         }
-                                        echo "<td>".$tipo_movimento."</td>";
+                                        echo "<td align='center'>".$tipo_movimento."</td>";
                                         ?>
                                         <td class="td-icon">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
