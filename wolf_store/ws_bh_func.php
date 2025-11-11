@@ -2,6 +2,10 @@
     require_once('scripts/ws_credencial.php');
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
+    if (!isset($_SESSION['id_alfa'])) {
+        die('Acesso inválido ou tempo expirado.');
+    }
+    $id_alfa = (int) $_SESSION['id_alfa'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -191,7 +195,7 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, FROM banco_horas_func WHERE ativo=1 and categoria=2") or die(mysqli_error($conn));
+        $sql = mysqli_query($conn, "SELECT id FROM banco_horas_func WHERE ativo=1") or die(mysqli_error($conn));
         $tabela = 'banco_horas_func';
     ?>
     <div class="conteudo">
@@ -204,49 +208,84 @@
         <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
+                    <tr align="center" class="tr-cab">
+                        <td class="td-cab"></td>
+                        <td class="td-cab">FUNCIONÁRIO</td>
+                        <td class="td-cab">SALDO INICIAL</td>
+                        <td class="td-cab">JANEIRO</td>
+                        <td class="td-cab">FERVEREIRO</td>
+                        <td class="td-cab">MARÇO</td>
+                        <td class="td-cab">ABRIL</td>
+                        <td class="td-cab">MAIO</td>
+                        <td class="td-cab">JUNHO</td>
+                        <td class="td-cab">JULHO</td>
+                        <td class="td-cab">AGOSTO</td>
+                        <td class="td-cab">SETEMBRO</td>
+                        <td class="td-cab">OUTUBRO</td>
+                        <td class="td-cab">NOVEMBRO</td>
+                        <td class="td-cab">DEZEMBRO</td>
+                        <td class="td-cab">SALDO FINAL</td>
+                        <td colspan="2">AÇÕES</td>
+                    </tr>
                     <?php
-                        if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
+                    $sql_grupo = mysqli_query($conn,"SELECT
+                                                        g.nome AS gnome
+                                                     FROM 
+                                                        grupo g,
+                                                        banco_horas_func bhf,
+                                                        funcionario f
+                                                     WHERE
+                                                        f.matr=bhf.fk_matr AND
+                                                        g.id=f.fk_grupo AND
+                                                        g.ativo=1 AND
+                                                        f.ativo=1 AND
+                                                        bhf.fk_banco_horas = $id_alfa AND
+                                                        bhf.ativo=1
+                                                     GROUP BY G.nome
+                                                     ORDER BY g.nome ASC, f.nome ASC") or die(mysqli_error($conn));
+                    ?>
+                    <?php
+                        $sql_main = mysqli_query($conn,"SELECT
+                                                            g.id AS gid, g.nome AS gnome,
+                                                            f.nome AS fnome,
+                                                            bhf.fk_matr AS fk_matr
+                                                        FROM 
+                                                            grupo g,
+                                                            banco_horas_func bhf,
+                                                            funcionario f
+                                                        WHERE
+                                                            f.matr=bhf.fk_matr AND
+                                                            g.id=f.fk_grupo AND
+                                                            g.ativo=1 AND
+                                                            f.ativo=1 AND
+                                                            bhf.fk_banco_horas = $id_alfa AND
+                                                            bhf.ativo=1
+                                                        GROUP BY f.nome
+                                                        ORDER BY g.nome ASC, f.nome ASC") or die(mysqli_error($conn));
+ 
+
+                        while($row_main = mysqli_fetch_assoc($sql_main)) {
+                            $grupo = $row_main['gid'];
+                            $matr_temp = $row_main['fk_matr'];
                             ?>
-                            <tr align="center" class="tr-cab">
-                                <td class="td-cab">ID</td>
-                                <td class="td-cab">Nome</td>
-                                <td class="td-cab">CPF/CNPJ</td>
-                                <td class="td-cab">UF</td>
-                                <td class="td-cab">Município</td>
-                                <td class="td-cab">Contato</td>
-                                <td class="td-cab">Registrado</td>
-                                <td colspan="2">AÇÕES</td>
+                            <tr class="tr-cab">
+                                <td class="td-cab"><?php echo $row_main['gnome'];?></td>
+                                <td class="td-cab"><?php echo $row_main['fnome'];?></td>
+
+                                <?php
+                                $sql_meses = mysqli_query($conn,"SELECT
+                                                         	mes AS bhfmes, fk_matr, saldo
+                                                         FROM 
+                                                            banco_horas_func
+                                                         WHERE
+                                                         	ativo = 1 AND
+                                                      		fk_matr = $matr_temp") or die(mysqli_error($conn));
+                                while($row_meses = mysqli_fetch_assoc($sql_meses)) {
+                                    echo "<td class=''>".$row_meses['saldo']."</td>";
+                                }
+                                ?>
                             </tr>
                             <?php
-                            while($row = mysqli_fetch_assoc($sql)) { 
-                                echo "
-                                    <tr align='left' class='tr-main'>
-                                        <td>".$row['id']."</td>
-                                        <td>".$row['nome']."</td>
-                                        <td>";
-                                            if ($row['cpf'] != "") {
-                                                echo $row['cpf'];
-                                             } elseif($row['cnpj'] != "") {
-                                                echo $row['cnpj'];
-                                             } else {
-                                                echo "";
-                                             }
-                                        echo "</td>
-                                        <td>".$row['uf']."</td>
-                                        <td>".$row['municipio']."</td>
-                                        <td>".$row['contato']."</td>
-                                        <td>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
-                                        <td class="td-icon">
-                                            <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
-                                        </td>
-                                        <td class="td-icon">
-                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del"></div></a> 
-                                        </td>
-                                        <?php echo "
-                                    </tr>";
-                            }
-                        } else {
-                            include_once('scripts/mensagem_nodata.html');
                         }
                     ?>
                 </table>

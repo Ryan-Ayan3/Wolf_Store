@@ -2,6 +2,12 @@
     require_once('../conn/conn.php');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $matricula = trim(mysqli_real_escape_string($conn,$_POST['matricula']));
+        $sql_temp = mysqli_query($conn, "SELECT * FROM funcionario WHERE ativo=1 AND matr=$matricula") or die(mysqli_error($conn));
+        if (mysqli_num_rows($sql_temp) > 0) {
+            echo "Já existe um funcionário com essa matrícula";
+            exit;
+        }
+
         $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
         $dp = trim(mysqli_real_escape_string($conn,$_POST['dp']));
         if ($dp == 0) {

@@ -167,7 +167,7 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, ano, encerrado FROM banco_horas WHERE ativo=1 AND encerrado=0") or die(mysqli_error($conn));
+        $sql = mysqli_query($conn, "SELECT id, ano, encerrado FROM banco_horas WHERE ativo=1 ORDER BY ano DESC") or die(mysqli_error($conn));
         $tabela = 'banco_horas';
     ?>
     <div class="conteudo">
@@ -178,7 +178,7 @@
             </a>
         </div> 
         <div class="content-table">
-            <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+            <form name="form-us" action="scripts/ws_validacao_bh.php" method="POST">
                 <table class="main-table-compact" align="center">
                     <?php
                         if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
@@ -190,11 +190,17 @@
                             </tr>
                             <?php
                             while($row = mysqli_fetch_assoc($sql)) {
-                                if ($row['encerrado'] == 0) { $afas = "Não";}else{ $afas = "Sim";}
+                                if ($row['encerrado'] == 0) { $encerrado = "Não";}else{ $encerrado = "Sim";}
+                                $token = bin2hex(random_bytes(16));
+                                $_SESSION['tokens'][$token] = ['id' => $row['id'], 'time' => time()];
+
                                 echo "
                                     <tr align='center' class='tr-main'>
-                                        <td>";?><a href="ws_bh_func.php" class="nav-link"><?php echo $row['ano'];?></a><?php echo "</td>
-                                        <td>".$afas."</td>";?>
+                                        <td>";?>
+                                            <input type="hidden" name="tk_bh" value="<?= $token ?>">
+                                            <button type="submit" class="sub-link"><?= $row['ano']?></button>
+                                        <?php echo "</td>
+                                        <td>".$encerrado."</td>";?>
                                         <td class="td-icon">
                                             <a href="#" alt="incluir" onclick="includeRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-inclu"></div></a>
                                         </td>
