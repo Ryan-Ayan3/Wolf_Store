@@ -42,7 +42,7 @@
     <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
-                <td colspan="2" style="padding-bottom:20px;"><h2>Criar Funcionário</h2></td>
+                <td colspan="2" style="padding-bottom:20px;"><h2>Editar Funcionário</h2></td>
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Matrícula</td>

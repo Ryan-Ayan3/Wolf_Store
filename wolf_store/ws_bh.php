@@ -17,7 +17,7 @@
     <script>
         function deleteRegistro(id,tabela) {
             if(confirm("Deletar registro?")) {
-                fetch('scripts/ws_delete.php', {
+                fetch('scripts/ws_delete_bh.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -35,19 +35,19 @@
             }
         }
 
-        function includeRegistro(id,tabela) {
+        function includeRegistro(id,dest) {
             if(confirm("Deseja iniciar a folha?")) {
-                fetch('scripts/ws_include_bh.php', {
+                fetch('scripts/ws_naveg.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: 'id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela)
+                    body: 'id='+encodeURIComponent(id)+'&dest='+encodeURIComponent(dest)
                 })
                 .then(response => response.text())
                 .then(data => {
                     if (data === "ok") {
-                        location.reload(); // só recarrega se der certo
+                        window.location.href = "ws_selecionar_func.php";
                     } else {
                         alert("Atenção, Mensagem: " + data);
                     }
@@ -56,7 +56,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_departamento_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_bh_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -85,10 +85,10 @@
         }        
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
-                const nome = form.nome.value;
+                const ano = form.ano.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_departamento.php', {
+                    fetch('scripts/ws_edit_bh.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,12 +96,12 @@
                         body:
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
-                            '&nome='+encodeURIComponent(nome)
+                            '&ano='+encodeURIComponent(ano)
                     })
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_departamento.php"
+                            window.location.href = "ws_bh.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -110,7 +110,7 @@
             }
 
         function creatorRegistro() {
-            fetch('ws_departamento_add.php')
+            fetch('ws_bh_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -140,15 +140,15 @@
 
         function createRegistro() {
             const form = document.forms['form-us-create'];
-            const nome = form.nome.value;
+            const ano = form.ano.value;
 
-            fetch('scripts/ws_add_departamento.php', {
+            fetch('scripts/ws_add_bh.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 
-                    'nome='+encodeURIComponent(nome)
+                    'ano='+encodeURIComponent(ano)
             })
             .then(response => response.text())
             .then(data => {
@@ -202,13 +202,13 @@
                                         <?php echo "</td>
                                         <td>".$encerrado."</td>";?>
                                         <td class="td-icon">
-                                            <a href="#" alt="incluir" onclick="includeRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-inclu"></div></a>
+                                            <a href="#" alt="incluir" onclick="includeRegistro('<?= $row['id']?>','funcionario')"><div class="img-inclu" data-tooltip="Incluir sub-registros"></div></a>
                                         </td>
                                         <td class="td-icon">
-                                            <a href="#" alt="editar" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit"></div></a>
+                                            <a href="#" alt="editar" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>
                                         <td class="td-icon">
-                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del"></div></a> 
+                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                         </td>
                                         <?php echo "
                                     </tr>";

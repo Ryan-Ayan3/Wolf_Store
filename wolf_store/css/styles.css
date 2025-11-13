@@ -180,6 +180,7 @@ select option:hover {
 
 /* ICON DELETE */
 .img-del {
+    position: relative;
     background: url('../icons/delete1.png');
     width: 30px;
     height: 30px;
@@ -187,13 +188,33 @@ select option:hover {
     background-position: center;
     transition: background-image 0.2s ease;
 }
-
+.img-del::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 105%; /* posição acima do ícone */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(54, 54, 54);
+    color: rgb(243, 155, 155);
+    padding: 5px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    font-size: 14px;
+}
+.img-del:hover::after {
+    opacity:1;
+}
 .img-del:hover {
     background: url('../icons/delete1b.png');
     background-size: cover;
 }
 
+/* ICON EDIT */
 .img-edit {
+    position: relative;
     background: url('../icons/edit1.png');
     width: 30px;
     height: 30px;
@@ -201,13 +222,34 @@ select option:hover {
     background-position: center;
     transition: background-image 0.2s ease;
 }
-
+.img-edit::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 105%; /* posição acima do ícone */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(54, 54, 54);
+    color: rgb(237, 243, 155);
+    padding: 5px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    font-size: 14px;
+}
+.img-edit:hover::after {
+    opacity:1;
+}
 .img-edit:hover {
     background: url('../icons/edit1b.png');
     background-size: cover;
 }
 
+
+/* ICON INCLUDE */
 .img-inclu {
+    position: relative;
     background: url('../icons/inclu1.png');
     width: 30px;
     height: 30px;
@@ -215,13 +257,32 @@ select option:hover {
     background-position: center;
     transition: background-image 0.2s ease;
 }
-
+/* Tooltip estilizado */
+.img-inclu::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 105%; /* posição acima do ícone */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(54, 54, 54);
+    color: rgb(155, 223, 243);
+    padding: 5px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    font-size: 14px;
+}
+.img-inclu:hover::after {
+    opacity:1;
+}
 .img-inclu:hover {
     background: url('../icons/inclu1a.png');
     background-size: cover;
 }
 
-/* CREATE ICON */
+/* ICON DO CREATE*/
 .content-create {
     border: 2px solid rgb(112, 209, 149);
     width: 175px;

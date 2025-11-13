@@ -228,8 +228,9 @@
                         <td colspan="2">AÇÕES</td>
                     </tr>
                     <?php
+                    //BUSCA TODOS OS GRUPOS DE FUNCIONÁRIO ATIVOS E SOMENTE GRUPOS QUE ESTÃO NAS FOLHAS SELECIONADA
                     $sql_grupo = mysqli_query($conn,"SELECT
-                                                        g.nome AS gnome
+                                                        g.nome AS gnome, g.id AS grupoid
                                                      FROM 
                                                         grupo g,
                                                         banco_horas_func bhf,
@@ -241,29 +242,32 @@
                                                         f.ativo=1 AND
                                                         bhf.fk_banco_horas = $id_alfa AND
                                                         bhf.ativo=1
-                                                     GROUP BY G.nome
-                                                     ORDER BY g.nome ASC, f.nome ASC") or die(mysqli_error($conn));
-                    ?>
-                    <?php
-                        $sql_main = mysqli_query($conn,"SELECT
-                                                            g.id AS gid, g.nome AS gnome,
-                                                            f.nome AS fnome,
-                                                            bhf.fk_matr AS fk_matr
-                                                        FROM 
-                                                            grupo g,
-                                                            banco_horas_func bhf,
-                                                            funcionario f
-                                                        WHERE
-                                                            f.matr=bhf.fk_matr AND
-                                                            g.id=f.fk_grupo AND
-                                                            g.ativo=1 AND
-                                                            f.ativo=1 AND
-                                                            bhf.fk_banco_horas = $id_alfa AND
-                                                            bhf.ativo=1
-                                                        GROUP BY f.nome
-                                                        ORDER BY g.nome ASC, f.nome ASC") or die(mysqli_error($conn));
- 
+                                                     GROUP BY g.nome
+                                                     ORDER BY g.nome ASC") or die(mysqli_error($conn));
+                    
+                    
+                    while ($row_grupo = mysqli_fetch_assoc($sql_grupo)) {
+                        $grupoid = $row_grupo['grupoid'];
 
+                        //BUSCA AS INFORMAÇÕES DE BH POR CADA GRUPO
+                        $sql_main = mysqli_query($conn,"SELECT
+                                                        g.id AS gid, g.nome AS gnome,
+                                                        f.nome AS fnome,
+                                                        bhf.fk_matr AS fk_matr
+                                                    FROM 
+                                                        grupo g,
+                                                        banco_horas_func bhf,
+                                                        funcionario f
+                                                    WHERE
+                                                        f.matr=bhf.fk_matr AND
+                                                        g.id=f.fk_grupo AND
+                                                        g.id=$grupoid AND
+                                                        g.ativo=1 AND
+                                                        f.ativo=1 AND
+                                                        bhf.fk_banco_horas = $id_alfa AND
+                                                        bhf.ativo=1
+                                                    GROUP BY f.nome
+                                                    ORDER BY g.nome ASC, f.nome ASC") or die(mysqli_error($conn));
                         while($row_main = mysqli_fetch_assoc($sql_main)) {
                             $grupo = $row_main['gid'];
                             $matr_temp = $row_main['fk_matr'];
@@ -271,7 +275,6 @@
                             <tr class="tr-cab">
                                 <td class="td-cab"><?php echo $row_main['gnome'];?></td>
                                 <td class="td-cab"><?php echo $row_main['fnome'];?></td>
-
                                 <?php
                                 $sql_meses = mysqli_query($conn,"SELECT
                                                          	mes AS bhfmes, fk_matr, saldo
@@ -287,6 +290,10 @@
                             </tr>
                             <?php
                         }
+                        ?>
+                        <tr align="center" class="tr-divide" style="background-color:gray;"><td class="td_divide" style="padding:0px 0px 25px 0px;" colspan="18"></td></tr>
+                        <?php
+                    }
                     ?>
                 </table>
             </form>

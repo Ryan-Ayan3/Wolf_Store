@@ -10,6 +10,7 @@
 
         if (mysqli_num_rows($sql_inclu) > 0) {
             echo "Já existe funcionário incluído no ano ".$row_db['ano'];
+            exit;
         } else {
             $sql = mysqli_query($conn, "INSERT INTO banco_horas_func(
                                                     fk_banco_horas,
@@ -19,14 +20,9 @@
                                                     saldo,
                                                     criado, 
                                                     ativo) 
-                                                VALUES(
-                                                    '$banco_horas',
-                                                    '$matr',
-                                                    '$mes',
-                                                    '$',
-                                                    '$',
-                                                    '$dt_hr',
-                                                    1)") or die(mysqli_error($conn));
+                                                VALUES
+                                                    ('$banco_horas', '$matr', '', '1','$','$dt_hr',1),"),
+                                                    () or die(mysqli_error($conn));
             echo "ok";
         }
 
