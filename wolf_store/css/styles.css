@@ -288,6 +288,7 @@ select option:hover {
     width: 175px;
     border-radius: 10px;
     margin-left: 80%;
+    cursor: pointer;
 }
 .content-create:hover {
     border: 2px solid rgb(84, 236, 142);
@@ -308,7 +309,7 @@ select option:hover {
     background-position: center;
     transition: background-image 0.2s ease;
 }
-.img-create:hover {
+.content-create:hover .img-create {
     background: url('../icons/create1b.png');
     background-size: cover;
 }
@@ -319,6 +320,61 @@ select option:hover {
     font-size: 20px;
     padding: 5px;
     white-space: nowrap;
+}
+
+/* ICON DO SEND*/
+/* Remove estilo nativo do botão */
+.sub-content-send {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 15px;
+}
+/* Container do botão visual */
+.content-send {
+    border: 2px solid rgb(6, 199, 173);
+    width: 175px;
+    border-radius: 10px;
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    transition: 0.2s ease;
+}
+/* Hover geral */
+.content-send:hover {
+    border-color: rgb(66, 245, 221);
+    background-color: rgba(220, 220, 220, 0.1);
+}
+/* Ícone à esquerda */
+.img-send {
+    background: url('../icons/send1.png');
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.2s ease;
+    position: relative;
+}
+/* Ícone no hover */
+.content-send:hover .img-send {
+    background: url('../icons/send1a.png');
+    background-size: cover;
+}
+/* Texto dentro do botão */
+.img-send span {
+    margin-left: 30px;
+    position: absolute;
+    top: 8px;
+    font-size: 20px;
+    white-space: nowrap;
+    color: rgb(200, 200, 200);
+    transition: color 0.2s ease;
+}
+/* Hover no texto também */
+.content-send:hover .img-send span {
+    color: rgb(240, 240, 240);
 }
 
 /* FORM DE EDIÇÃO e CRIAÇÂO */
@@ -716,3 +772,54 @@ input[type=number] {
     vertical-align: sub;
 }
 /* FIM RADIO GLOBAL */
+
+
+
+
+/* CHECKBOX GLOBAL */
+
+.icheckbox {
+    /* Remove a aparência padrão */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+
+    border: 2px solid #555;
+    border-radius: 6px;
+    background: #1a1a1a;
+
+    display: inline-block;
+    vertical-align: middle;
+
+    transition: all 0.2s ease;
+}
+
+.icheckbox:hover {
+    border-color: #888;
+}
+
+/* Quando marcado */
+.icheckbox:checked {
+    background-color: #3c77c4;
+    border-color: #3c77c4;
+}
+
+/* Ícone ✓ */
+.icheckbox:checked::after {
+    content: "";
+    position: relative;
+    left: 6px;
+    top: 1px;
+
+    display: block;
+    width: 6px;
+    height: 12px;
+
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}

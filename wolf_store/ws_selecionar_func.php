@@ -14,23 +14,22 @@
     <link rel="icon" type="image/x-icon" href="imgs/wolf_store_logo.jpg">
 </head>
 <body>
+<script>
+</script>
 <?php
-    /* http://10.0.33.33/wolf_store/wolf_store/ws_selecionar_func.php */
+    /* http://10.0.33.33/wolf_store/wolf_store/ws_selecionar_func.php
+    unset($_SESSION['id_naveg']);
+    unset($_SESSION['dest_naveg']);
+    */
     include_once('scripts/ws_vbar.html');
-
-        if (!isset($_SESSION['id_naveg']) || !isset($_SESSION['dest_naveg'])) {
-            echo "<script>alert('pimba'); window.history.back();</script>";
-        }
-        /*
-        unset($_SESSION['id_naveg']);
-        unset($_SESSION['dest_naveg']);
-        */
-        
+    if (!isset($_SESSION['id_naveg']) || !isset($_SESSION['dest_naveg'])) {
+        echo "<script>alert(''); window.history.back();</script>";
+    } else {
         $sql = mysqli_query($conn, "SELECT 
-                                        f.id, f.matr, f.nome,
+                                        f.id AS fid, f.matr AS fmatr, f.nome AS fnome,
                                         d.nome AS dpnome,
                                         s.nome AS senome,
-                                        ff.nome AS funome,
+                                        ff.nome AS ffnome,
                                         g.nome AS gnome
                                     FROM funcionario f
                                     JOIN departamento d ON f.fk_departamento = d.id
@@ -39,13 +38,12 @@
                                     JOIN grupo g ON f.fk_grupo = g.id
                                     WHERE 
                                         f.ativo = 1
-                                    ORDER BY g.nome ASC, f.nome ASC") or die($conn);
-        $row = mysqli_fetch_assoc($sql);
+                                    ORDER BY f.nome ASC") or die($conn);
         ?>
         <div class="conteudo">
             <h1>SELECIONAR FUNCIONÁRIOS</h1>
             <div class="content-table">
-                <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+                <form name="form-us" action="" method="POST">
                     <table class="main-table" align="center">
                         <?php
                             if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
@@ -63,10 +61,13 @@
                                 while($row = mysqli_fetch_assoc($sql)) { 
                                     echo "
                                         <tr align='left' class='tr-main'>
-                                            <td><input type='checkbox' checked name='ids[]' value='{".$row['id']."}'></td>
-                                            <td align='center'>".$row['id']."</td>
-                                            <td>".$row['nome']."</td>"; ?>
-                                            <?php echo "
+                                            <td><input type='checkbox' class='icheckbox' checked name='ids[]' value='{".$row['fid']."}'></td>
+                                            <td align='center'>".$row['fmatr']."</td>
+                                            <td align='left'>".$row['fnome']."</td>
+                                            <td align='left'>".$row['dpnome']."</td>
+                                            <td align='center'>".$row['senome']."</td>
+                                            <td align='center'>".$row['ffnome']."</td>
+                                            <td align='center'>".$row['gnome']."</td>
                                         </tr>";
                                 }
                             } else {
@@ -74,11 +75,18 @@
                             }
                         ?>
                     </table>
+                    <button type="submit" class="sub-content-send">
+                        <div class="content-send">
+                            <div class="img-send">
+                                <span>Enviar Dados</span>
+                            </div>
+                        </div>
+                    </button>
                 </form>
             </div>
         </div>
-        <div id="workInfor" class="workInfor"></div>
         <?php
-    ?>
+    }
+?>
 </body>
 </html>
