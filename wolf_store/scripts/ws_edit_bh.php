@@ -18,12 +18,15 @@
             exit;
         }
 
-        $sql_valid = mysqli_query($conn, "SELECT * FROM banco_horas_func WHERE fk_banco_horas=$id_del AND ativo=1") or die(mysqli_error($conn));
-        $sql_db = mysqli_query($conn, "SELECT ano FROM $tabela_del WHERE id=$id_del AND ativo=1") or die(mysqli_error($conn));
+        $sql_valid = mysqli_query($conn, "SELECT * FROM banco_horas_func WHERE fk_banco_horas=$id_edit2 AND ativo=1") or die(mysqli_error($conn));
+        $sql_db = mysqli_query($conn, "SELECT ano FROM $tabela_edit2 WHERE id=$id_edit2 AND ativo=1") or die(mysqli_error($conn));
         $row_db = mysqli_fetch_assoc($sql_db);
+        $sql_db2 = mysqli_query($conn, "SELECT ano FROM $tabela_edit2 WHERE id=$id_edit2 AND ativo=1 AND encerrado=1") or die(mysqli_error($conn));
 
-        if (mysqli_num_rows($sql_valid) > 0) {
-            echo "Já existe funcionário incluído no ano ".$row_db['ano'];
+        if (mysqli_num_rows($sql_db2) > 0) {
+            echo "Banco de Horas encerrado não pode ser alterado!";
+        } elseif (mysqli_num_rows($sql_valid) > 0) {
+            echo "Já existe funcionário incluído no ano ".$row_db['ano']; 
         } else {
             $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 
                                         SET 

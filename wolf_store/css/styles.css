@@ -372,8 +372,63 @@ select option:hover {
     color: rgb(200, 200, 200);
     transition: color 0.2s ease;
 }
-/* Hover no texto também */
+/* Hover no texto */
 .content-send:hover .img-send span {
+    color: rgb(240, 240, 240);
+}
+
+/* ICON DO BACK*/
+/* Remove estilo nativo do botão */
+.sub-content-back {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 15px;
+}
+/* Container do botão visual */
+.content-back {
+    border: 2px solid rgb(117, 117, 117);
+    width: 110px;
+    border-radius: 10px;
+    margin-left: 15%;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    transition: 0.2s ease;
+}
+/* Hover geral */
+.content-back:hover {
+    border-color: rgb(92, 92, 92);
+    background-color: rgba(220, 220, 220, 0.1);
+}
+/* Ícone à esquerda */
+.img-back {
+    background: url('../icons/back1.png');
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.2s ease;
+    position: relative;
+}
+/* Ícone no hover */
+.content-back:hover .img-back {
+    background: url('../icons/back1a.png');
+    background-size: cover;
+}
+/* Texto dentro do botão */
+.img-back span {
+    margin-left: 30px;
+    position: absolute;
+    top: 8px;
+    font-size: 20px;
+    white-space: nowrap;
+    color: rgb(200, 200, 200);
+    transition: color 0.2s ease;
+}
+/* Hover no texto */
+.content-back:hover .img-back span {
     color: rgb(240, 240, 240);
 }
 

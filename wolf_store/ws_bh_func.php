@@ -225,6 +225,7 @@
                         <td class="td-cab">NOVEMBRO</td>
                         <td class="td-cab">DEZEMBRO</td>
                         <td class="td-cab">SALDO FINAL</td>
+                        <td class="td-cab" style="padding:0px 90px;">LEGENDA</td>
                         <td colspan="2">AÇÕES</td>
                     </tr>
                     <?php
@@ -287,6 +288,7 @@
                                     echo "<td class=''>".$row_meses['saldo']."</td>";
                                 }
                                 ?>
+                                <td>10:50:00</td>
                             </tr>
                             <?php
                         }

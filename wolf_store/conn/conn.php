@@ -10,7 +10,7 @@
 	$banco = "wolf_store";
 	$user = "root";
 	$senha = "";
-	$conn = mysqli_connect($servidor, $user, $senha, $banco) or die(mysqli_connect_errno()); 
+	$conn = mysqli_connect($servidor, $user, $senha, $banco) or die(mysqli_connect_erro()); 
 	if (!mysqli_set_charset($conn,"utf8"))
     {
 		echo 'Erro na configuração UTF-8';

@@ -36,23 +36,21 @@
         }
 
         function includeRegistro(id,dest) {
-            if(confirm("Deseja iniciar a folha?")) {
-                fetch('scripts/ws_naveg.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: 'id='+encodeURIComponent(id)+'&dest='+encodeURIComponent(dest)
-                })
-                .then(response => response.text())
-                .then(data => {
-                    if (data === "ok") {
-                        window.location.href = "ws_selecionar_func.php";
-                    } else {
-                        alert("Atenção, Mensagem: " + data);
-                    }
-                });
-            }
+            fetch('scripts/ws_naveg.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'id='+encodeURIComponent(id)+'&dest='+encodeURIComponent(dest)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "ok") {
+                    window.location.href = "ws_selecionar_func.php";
+                } else {
+                    alert("Atenção, Mensagem: " + data);
+                }
+            });
         }
 
         function editorRegistro(id,tabela) {
@@ -101,7 +99,7 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_bh.php"
+                            window.location.href = "ws_bh.php";
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -202,7 +200,7 @@
                                         <?php echo "</td>
                                         <td>".$encerrado."</td>";?>
                                         <td class="td-icon">
-                                            <a href="#" alt="incluir" onclick="includeRegistro('<?= $row['id']?>','funcionario')"><div class="img-inclu" data-tooltip="Incluir sub-registros"></div></a>
+                                            <a href="#" alt="incluir" onclick="includeRegistro('<?= $row['id']?>','bancohora')"><div class="img-inclu" data-tooltip="Incluir sub-registros"></div></a>
                                         </td>
                                         <td class="td-icon">
                                             <a href="#" alt="editar" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
