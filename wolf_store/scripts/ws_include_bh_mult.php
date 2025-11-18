@@ -17,7 +17,7 @@
             $row_func = mysqli_fetch_assoc($sql_func);
             $matr = $row_func['matr'];
             while ($mes >= 0 AND $mes <= 12) {
-                $sql = "INSERT INTO banco_horas_func (fk_banco_horas, fk_matr, mes, tipo_saldo, criado, ativo) VALUES ('$id_primary','$matr','$mes','1','$dt_hr','1')";
+                $sql = "INSERT INTO banco_horas_func (fk_banco_horas, fk_matr, mes, tipo_saldo, criado, ativo) VALUES ('$id_primary','$matr','$mes','0','$dt_hr','1')";
                 mysqli_query($conn, $sql) or die(mysqli_error($conn));
                 $mes++;
             }

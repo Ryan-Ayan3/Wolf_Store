@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['tk_bh'])) {
 }
 
 $tk = $_POST['tk_bh'];
+$alfa = $_POST['alfa_id'];
 if (!isset($_SESSION['tokens'][$tk])) {
     erro('Token inválido');
 }
@@ -24,7 +25,8 @@ if (time() - $data['time'] > 300) { // 5 min expiry
     erro('Token expirado');
 }
 
-$id_bh = (int) $data['id'];
+//$id_bh = (int) $data['id'];
+$id_bh = $alfa;
 
 $sql_validador = mysqli_query($conn, "SELECT * FROM banco_horas WHERE ativo=1 AND encerrado=1 AND id=$id_bh") or die(mysqli_error($conn));
 if (mysqli_num_rows($sql_validador) > 0) {

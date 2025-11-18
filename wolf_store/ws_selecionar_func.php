@@ -20,16 +20,13 @@
     }
 </script>
 <?php
-    /* http://10.0.33.33/wolf_store/wolf_store/ws_selecionar_func.php
-    unset($_SESSION['id_naveg']);
-    unset($_SESSION['dest_naveg']);
-    */
     include_once('scripts/ws_vbar.html');
     if (!isset($_SESSION['id_naveg']) || !isset($_SESSION['dest_naveg'])) {
         echo "<script>alert('Nenhum ID encontrado'); window.history.back();</script>";
     } else {
         if ($_SESSION['dest_naveg'] == "bancohora") {
             $id_sel = $_SESSION['id_naveg'];
+            
             $dest_naveg = "scripts/ws_include_bh_mult.php";
             $sql = mysqli_query($conn, "SELECT 
                                             f.id AS fid, f.matr AS fmatr, f.nome AS fnome,
@@ -63,7 +60,7 @@
         ?>
         <div class="conteudo">
             <a href="#" onclick="voltarPagina()" class="nav-link"><h1>Bancos de Horas</a> > SELECIONAR FUNCIONÁRIO</h1>
-            <h4>Obs: Lista apenas de funcionário não inclusos na operação</h4>
+            <h4>Obs: Lista apenas de funcionário não inclusos na operação <?= $id_sel?>;</h4>
             <div class="content-table">
                 <form name="form-us" action="<?=$dest_naveg?>" method="POST">
                     <table class="main-table" align="center">

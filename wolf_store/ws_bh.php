@@ -188,14 +188,16 @@
                             </tr>
                             <?php
                             while($row = mysqli_fetch_assoc($sql)) {
-                                if ($row['encerrado'] == 0) { $encerrado = "Não";}else{ $encerrado = "Sim";}
+                                $encerrado = $row['encerrado'] == 0 ? "Não" : "Sim";
                                 $token = bin2hex(random_bytes(16));
+                                $alfa_id = $row['id'];
                                 $_SESSION['tokens'][$token] = ['id' => $row['id'], 'time' => time()];
 
                                 echo "
                                     <tr align='center' class='tr-main'>
                                         <td>";?>
                                             <input type="hidden" name="tk_bh" value="<?= $token ?>">
+                                            <input type="hidden" name="alfa_id" value="<?= $alfa_id ?>">
                                             <button type="submit" class="sub-link"><?= $row['ano']?></button>
                                         <?php echo "</td>
                                         <td>".$encerrado."</td>";?>
@@ -206,7 +208,7 @@
                                             <a href="#" alt="editar" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>
                                         <td class="td-icon">
-                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
+                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div><?= $alfa_id ?></a> 
                                         </td>
                                         <?php echo "
                                     </tr>";

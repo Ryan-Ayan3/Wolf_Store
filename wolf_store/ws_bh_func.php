@@ -2,6 +2,7 @@
     require_once('scripts/ws_credencial.php');
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
+    include_once('scripts/ws_time.php');
     if (!isset($_SESSION['id_alfa'])) {
         die('Acesso inválido ou tempo expirado.');
     }
@@ -37,6 +38,24 @@
                     }
                 });
             }
+        }
+
+        function includeRegistro(id,dest) {
+            fetch('scripts/ws_naveg.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'id='+encodeURIComponent(id)+'&dest='+encodeURIComponent(dest)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "ok") {
+                    window.location.href = "ws_selecionar_func.php";
+                } else {
+                    alert("Atenção, Mensagem: " + data);
+                }
+            });
         }
 
         function editorRegistro(id,tabela) {
@@ -192,6 +211,9 @@
         function voltarPagina(){
             location.reload();
         }
+        function voltarPagina2() {
+            window.location.href = "ws_bh.php";
+        }
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
@@ -199,12 +221,20 @@
         $tabela = 'banco_horas_func';
     ?>
     <div class="conteudo">
-        <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > Funcionários</h1>
-        <div class="content-create">
-            <a href="#" onclick="creatorRegistro()">
-                <div class="img-create"><span>Criar Registro</span></div>
-            </a>
-        </div> 
+        <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > Funcionários<?= $id_alfa ?></h1>
+        <button type="button" onclick="includeRegistro('<?= $id_alfa?>','bancohora')" class="sub-content-include">
+            <div class="content-include">
+                <div class="img-include">
+                    <span>Incluir Registros</span>
+                </div>
+            </div>
+        </button><button type="button" onclick="creatorRegistro('')" class="sub-content-create2">
+            <div class="content-create2">
+                <div class="img-create2">
+                    <span>Criar Registro</span>
+                </div>
+            </div>
+        </button>
         <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
@@ -278,17 +308,38 @@
                                 <td class="td-cab"><?php echo $row_main['fnome'];?></td>
                                 <?php
                                 $sql_meses = mysqli_query($conn,"SELECT
-                                                         	mes AS bhfmes, fk_matr, saldo
+                                                         	mes AS bhfmes, fk_matr, saldo, tipo_saldo
                                                          FROM 
                                                             banco_horas_func
                                                          WHERE
                                                          	ativo = 1 AND
                                                       		fk_matr = $matr_temp") or die(mysqli_error($conn));
                                 while($row_meses = mysqli_fetch_assoc($sql_meses)) {
-                                    echo "<td class=''>".$row_meses['saldo']."</td>";
+                                    if ($row_meses['tipo_saldo'] == 1) {
+                                        $hora1 += paraSegundos($row_meses['saldo']);
+                                        echo "<td class='' style='color:skyblue;'>".$row_meses['saldo']."</td>";
+                                    }elseif ($row_meses['tipo_saldo'] == 2) {
+                                        $hora2 += paraSegundos($row_meses['saldo']);
+                                        echo "<td class='' style='color:red;'>".$row_meses['saldo']."</td>";
+                                    }else {
+                                        $hora1 += 0;
+                                        echo "<td class='' style='color:white;'>".$row_meses['saldo']."</td>";
+                                    }
+                                    
                                 }
+                                if($hora2 > $hora1) {
+                                    $saldo1 = $hora2 - $hora1;
+                                    echo "<td style='color:red;'>".paraHora($saldo1);
+                                    echo "</td>";
+                                }else {
+                                    $saldo1 = $hora1 - $hora2;
+                                    echo "<td style='color:skyblue;'>".paraHora($saldo1);
+                                    echo "</td>";
+                                }
+                                $hora1 = 0;
+                                $hora2 = 0;
+                                $saldo1 = 0;
                                 ?>
-                                <td>10:50:00</td>
                             </tr>
                             <?php
                         }
@@ -298,6 +349,13 @@
                     }
                     ?>
                 </table>
+                <button type="button" onclick="voltarPagina2()" class="sub-content-back">
+                    <div class="content-back">
+                        <div class="img-back">
+                            <span>Voltar</span>
+                        </div>
+                    </div>
+                </button>
             </form>
         </div>
     </div>

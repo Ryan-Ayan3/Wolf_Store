@@ -432,6 +432,119 @@ select option:hover {
     color: rgb(240, 240, 240);
 }
 
+
+/* ICON DO INCLUDE*/
+/* Remove estilo nativo do botão */
+.sub-content-include {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 15px;
+}
+/* Container do botão visual */
+.content-include {
+    border: 2px solid rgb(155, 223, 243);
+    width: 200px;
+    border-radius: 10px;
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    transition: 0.2s ease;
+}
+/* Hover geral */
+.content-include:hover {
+    border-color: rgb(172, 224, 240);
+    background-color: rgba(220, 220, 220, 0.1);
+}
+/* Ícone à esquerda */
+.img-include {
+    background: url('../icons/inclu1.png');
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.2s ease;
+    position: relative;
+}
+/* Ícone no hover */
+.content-include:hover .img-include {
+    background: url('../icons/inclu1a.png');
+    background-size: cover;
+}
+/* Texto dentro do botão */
+.img-include span {
+    margin-left: 30px;
+    position: absolute;
+    top: 8px;
+    font-size: 20px;
+    white-space: nowrap;
+    color: rgb(200, 200, 200);
+    transition: color 0.2s ease;
+}
+/* Hover no texto */
+.content-include:hover .img-include span {
+    color: rgb(240, 240, 240);
+}
+
+
+/* ICON DO CREATE BUTTON*/
+/* Remove estilo nativo do botão */
+.sub-content-create2 {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 15px;
+}
+/* Container do botão visual */
+.content-create2 {
+    border: 2px solid rgb(112, 209, 149);
+    width: 180px;
+    border-radius: 10px;
+    margin-left: 15%;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    transition: 0.2s ease;
+}
+/* Hover geral */
+.content-create2:hover {
+    border-color: rgb(84, 236, 142);
+    background-color: rgba(220, 220, 220, 0.1);
+}
+/* Ícone à esquerda */
+.img-create2 {
+    background: url('../icons/create2.png');
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.2s ease;
+    position: relative;
+}
+/* Ícone no hover */
+.content-create2:hover .img-create2 {
+    background: url('../icons/create1b.png');
+    background-size: cover;
+}
+/* Texto dentro do botão */
+.img-create2 span {
+    margin-left: 30px;
+    position: absolute;
+    top: 8px;
+    font-size: 20px;
+    white-space: nowrap;
+    color: rgb(200, 200, 200);
+    transition: color 0.2s ease;
+}
+/* Hover no texto */
+.content-create2:hover .img-create2 span {
+    color: rgb(240, 240, 240);
+}
+
+
 /* FORM DE EDIÇÃO e CRIAÇÂO */
 .workInfor {
     position: relative;
