@@ -4,7 +4,8 @@
     require_once('conn/conn.php');
     include_once('scripts/ws_time.php');
     if (!isset($_SESSION['id_alfa'])) {
-        die('Acesso inválido ou tempo expirado.');
+        echo "<script>alert('Acesso inválido ou tempo expirado.'); window.location.href = 'ws_selecionar_func.php';</script>";
+        exit;
     }
     $id_alfa = (int) $_SESSION['id_alfa'];
 ?>
@@ -41,7 +42,7 @@
         }
 
         function includeRegistro(id,dest) {
-            fetch('scripts/ws_naveg.php', {
+            fetch('scripts/ws_naveg_bh.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -207,6 +208,25 @@
             });
         }
 
+        function detalheFunc(id) {
+            fetch('scripts/ws_naveg_fdetalhe.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'id='+encodeURIComponent(id)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "ok") {
+                    alert("Yupiiii: " + data);
+                    /*window.location.href = "ws_selecionar_func.php";*/
+                } else {
+                    alert("Atenção, Mensagem: " + data);
+                }
+            });
+        }
+
         /* Na página destino do Fetch() anterior está o acionador da function a seguir */
         function voltarPagina(){
             location.reload();
@@ -221,7 +241,7 @@
         $tabela = 'banco_horas_func';
     ?>
     <div class="conteudo">
-        <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > Funcionários<?= $id_alfa ?></h1>
+        <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > Funcionários</h1>
         <button type="button" onclick="includeRegistro('<?= $id_alfa?>','bancohora')" class="sub-content-include">
             <div class="content-include">
                 <div class="img-include">
@@ -308,33 +328,45 @@
                                 <td class="td-cab"><?php echo $row_main['fnome'];?></td>
                                 <?php
                                 $sql_meses = mysqli_query($conn,"SELECT
-                                                         	mes AS bhfmes, fk_matr, saldo, tipo_saldo
+                                                         	id, mes AS bhfmes, fk_matr, saldo, tipo_saldo
                                                          FROM 
                                                             banco_horas_func
                                                          WHERE
                                                          	ativo = 1 AND
                                                       		fk_matr = $matr_temp") or die(mysqli_error($conn));
                                 while($row_meses = mysqli_fetch_assoc($sql_meses)) {
+                                    $id_bhf = $row_meses['id'];
                                     if ($row_meses['tipo_saldo'] == 1) {
-                                        $hora1 += paraSegundos($row_meses['saldo']);
-                                        echo "<td class='' style='color:skyblue;'>".$row_meses['saldo']."</td>";
+                                        $hora1 += paraSegundos($row_meses['saldo']);?>
+                                        <td style="color:skyblue;">
+                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
+                                        </td>
+                                        <?php
                                     }elseif ($row_meses['tipo_saldo'] == 2) {
-                                        $hora2 += paraSegundos($row_meses['saldo']);
-                                        echo "<td class='' style='color:red;'>".$row_meses['saldo']."</td>";
+                                        $hora2 += paraSegundos($row_meses['saldo']);?>
+                                        <td style="color:red;">
+                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
+                                        </td>
+                                        <?php
                                     }else {
-                                        $hora1 += 0;
-                                        echo "<td class='' style='color:white;'>".$row_meses['saldo']."</td>";
+                                        $hora1 += 0;?>
+                                        <td style="color:skyblue;">
+                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
+                                        </td>
+                                        <?php
                                     }
                                     
                                 }
                                 if($hora2 > $hora1) {
                                     $saldo1 = $hora2 - $hora1;
-                                    echo "<td style='color:red;'>".paraHora($saldo1);
-                                    echo "</td>";
+                                    ?>
+                                    <td style="color:red;"><?= paraHora($saldo1)?></td>
+                                    <?php
                                 }else {
                                     $saldo1 = $hora1 - $hora2;
-                                    echo "<td style='color:skyblue;'>".paraHora($saldo1);
-                                    echo "</td>";
+                                    ?>
+                                    <td style="color:skyblue;"><?= paraHora($saldo1)?></td>
+                                    <?php
                                 }
                                 $hora1 = 0;
                                 $hora2 = 0;

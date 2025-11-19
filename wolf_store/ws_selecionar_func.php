@@ -26,6 +26,8 @@
     } else {
         if ($_SESSION['dest_naveg'] == "bancohora") {
             $id_sel = $_SESSION['id_naveg'];
+            unset($_SESSION['dest_naveg']);
+            unset($_SESSION['id_naveg']);
             
             $dest_naveg = "scripts/ws_include_bh_mult.php";
             $sql = mysqli_query($conn, "SELECT 
@@ -60,7 +62,7 @@
         ?>
         <div class="conteudo">
             <a href="#" onclick="voltarPagina()" class="nav-link"><h1>Bancos de Horas</a> > SELECIONAR FUNCIONÁRIO</h1>
-            <h4>Obs: Lista apenas de funcionário não inclusos na operação <?= $id_sel?>;</h4>
+            <h4>Obs: Lista apenas de funcionário não inclusos na operação</h4>
             <div class="content-table">
                 <form name="form-us" action="<?=$dest_naveg?>" method="POST">
                     <table class="main-table" align="center">

@@ -28,15 +28,37 @@
                 .then(data => {
                     if (data === "ok") {
                         location.reload(); // só recarrega se der certo
-                    } else {
-                        alert("Erro ao excluir: " + data);
+                    }else if(data === "Token expirado" || data === "Procedimento Inválido"){
+                        alert('Token expirado');
+                        window.history.back();
+                    }
+                    else {
+                        alert("Atenção, erro: " + data);
                     }
                 });
             }
         }
 
+        function acessarRegistro(token, id) {
+            fetch('scripts/ws_validacao_bh.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'token='+encodeURIComponent(token)+'&id='+encodeURIComponent(id)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "ok") {
+                    window.location.href = "ws_bh_func.php";
+                } else {
+                    alert("Atenção, Mensagem: " + data);
+                }
+            });
+        }
+
         function includeRegistro(id,dest) {
-            fetch('scripts/ws_naveg.php', {
+            fetch('scripts/ws_naveg_bh.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -176,7 +198,7 @@
             </a>
         </div> 
         <div class="content-table">
-            <form name="form-us" action="scripts/ws_validacao_bh.php" method="POST">
+            <form name="form-us">
                 <table class="main-table-compact" align="center">
                     <?php
                         if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
@@ -190,15 +212,13 @@
                             while($row = mysqli_fetch_assoc($sql)) {
                                 $encerrado = $row['encerrado'] == 0 ? "Não" : "Sim";
                                 $token = bin2hex(random_bytes(16));
-                                $alfa_id = $row['id'];
+                                //$alfa_id = $row['id'];
                                 $_SESSION['tokens'][$token] = ['id' => $row['id'], 'time' => time()];
-
+                                
                                 echo "
                                     <tr align='center' class='tr-main'>
                                         <td>";?>
-                                            <input type="hidden" name="tk_bh" value="<?= $token ?>">
-                                            <input type="hidden" name="alfa_id" value="<?= $alfa_id ?>">
-                                            <button type="submit" class="sub-link"><?= $row['ano']?></button>
+                                            <button type="button" onclick="acessarRegistro('<?php echo $token; ?>','<?php $_SESSION['tokens']; ?>')" class="sub-link"><?= $row['ano']?></button>
                                         <?php echo "</td>
                                         <td>".$encerrado."</td>";?>
                                         <td class="td-icon">
@@ -208,7 +228,7 @@
                                             <a href="#" alt="editar" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>
                                         <td class="td-icon">
-                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div><?= $alfa_id ?></a> 
+                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                         </td>
                                         <?php echo "
                                     </tr>";
