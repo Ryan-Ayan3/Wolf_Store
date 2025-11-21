@@ -219,8 +219,7 @@
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    alert("Yupiiii: " + data);
-                    /*window.location.href = "ws_selecionar_func.php";*/
+                    window.location.href = "ws_bh_func_detalhe.php";
                 } else {
                     alert("Atenção, Mensagem: " + data);
                 }
@@ -231,13 +230,12 @@
         function voltarPagina(){
             location.reload();
         }
-        function voltarPagina2() {
+        function voltarPagina3() {
             window.location.href = "ws_bh.php";
         }
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id FROM banco_horas_func WHERE ativo=1") or die(mysqli_error($conn));
         $tabela = 'banco_horas_func';
     ?>
     <div class="conteudo">
@@ -381,7 +379,7 @@
                     }
                     ?>
                 </table>
-                <button type="button" onclick="voltarPagina2()" class="sub-content-back">
+                <button type="button" onclick="voltarPagina3()" class="sub-content-back">
                     <div class="content-back">
                         <div class="img-back">
                             <span>Voltar</span>

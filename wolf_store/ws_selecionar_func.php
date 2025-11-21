@@ -16,7 +16,7 @@
 <body>
 <script>
     function voltarPagina() {
-        window.location.href = "ws_bh.php";
+        window.history.back();
     }
 </script>
 <?php
