@@ -30,7 +30,7 @@ $idf = intval($_GET['idf']); //Conversor para tipo INT. Medida de segurança
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Valor</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="valor" placeholder="HH:MM:SS" required></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="valor" placeholder="HH:MM:SS" required oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\d{2})(\d)/, '$1:$2').replace(/(\d{2}:\d{2})(\d)/, '$1:$2').slice(0, 8);"></input></td>
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Observação</td>

@@ -42,7 +42,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_funcao_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_bh_func_detalhe_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -71,10 +71,13 @@
         }        
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
-                const nome = form.nome.value;
+                const idf = form.idf.value;
+                const evento = form.evento.value;
+                const valor = form.valor.value;
+                const obs = form.obs.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_funcao.php', {
+                    fetch('scripts/ws_edit_bh_func_detalhe.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -82,12 +85,15 @@
                         body:
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
-                            '&nome='+encodeURIComponent(nome)
+                            '&idf='+encodeURIComponent(idf)+
+                            '&evento='+encodeURIComponent(evento)+
+                            '&valor='+encodeURIComponent(valor)+
+                            '&obs='+encodeURIComponent(obs)
                     })
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_funcao.php"
+                            location.reload();
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -137,7 +143,10 @@
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 
-                    'idf='+encodeURIComponent(idf)+'&evento='+encodeURIComponent(evento)+'&valor='+encodeURIComponent(valor)+'&obs='+encodeURIComponent(obs)
+                    'idf='+encodeURIComponent(idf)+
+                    '&evento='+encodeURIComponent(evento)+
+                    '&valor='+encodeURIComponent(valor)+
+                    '&obs='+encodeURIComponent(obs)
             })
             .then(response => response.text())
             .then(data => {
@@ -164,6 +173,10 @@
         include_once('scripts/ws_vbar.html');
         $tabela = 'banco_horas_func_detalhe';
         $sql = mysqli_query($conn, "SELECT id,fk_evento,valor,obs,criado FROM $tabela WHERE ativo=1 AND fk_banco_horas_func=$fdetalhe") or die(mysqli_error($conn));
+        
+        $sql_bh = mysqli_query($conn, "SELECT tipo_saldo, saldo FROM banco_horas_func WHERE ativo=1 AND id=$fdetalhe") or die(mysqli_error($conn));
+        $row_bh = mysqli_fetch_assoc($sql_bh);
+        $evento_bh = ($row_bh['tipo_saldo'] == 1) ? "+" : "-";
     ?>
     <div class="conteudo">
         <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > <a href="#" onclick="voltar2()" class="nav-link">Funcionários</a> > Detalhe</h1>
@@ -210,6 +223,13 @@
                             include_once('scripts/mensagem_nodata.html');
                         }
                     ?>
+                    <tr align="center" class="tr-cab">
+                        <td class="td-cab">SALDO</td>
+                        <td class="td-cab"><?= $evento_bh.$row_bh['saldo']?></td>
+                        <td class="td-cab"></td>
+                        <td class="td-cab"></td>
+                        <td colspan="2"></td>
+                    </tr>
                 </table>
             </form>
         </div>
