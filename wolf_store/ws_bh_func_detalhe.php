@@ -41,8 +41,8 @@
             }
         }
 
-        function editorRegistro(id,tabela) {
-            fetch('ws_bh_func_detalhe_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+        function editorRegistro(id,idf,tabela) {
+            fetch('ws_bh_func_detalhe_editor.php?id='+encodeURIComponent(id)+'&idf='+encodeURIComponent(idf)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -211,7 +211,7 @@
                                         <td><?= $row['obs']?></td>
                                         <td class="td-icon">
                                             
-                                            <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
+                                            <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?= $fdetalhe ?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>
                                         <td class="td-icon">
                                             <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
@@ -219,17 +219,20 @@
                                         <?php echo "
                                     </tr>";
                             }
+                            ?>
+                            <tr align="center" class="tr-cab">
+                                <td class="td-cab">SALDO</td>
+                                <td class="td-cab"><?= $evento_bh.$row_bh['saldo']?></td>
+                                <td class="td-cab"></td>
+                                <td class="td-cab"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <?php
                         } else {
                             include_once('scripts/mensagem_nodata.html');
                         }
                     ?>
-                    <tr align="center" class="tr-cab">
-                        <td class="td-cab">SALDO</td>
-                        <td class="td-cab"><?= $evento_bh.$row_bh['saldo']?></td>
-                        <td class="td-cab"></td>
-                        <td class="td-cab"></td>
-                        <td colspan="2"></td>
-                    </tr>
+                    
                 </table>
             </form>
         </div>

@@ -4,6 +4,12 @@
         $id_edit2 = intval($_POST['id']); //Conversor para tipo INT. Medida de segurança
         $tabela_edit2 = preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['tabela']); //Sanitização para permisão somente de letras, números e underline. Medida de segurança
         $matricula = trim(mysqli_real_escape_string($conn,$_POST['matricula']));
+        $sql_temp = mysqli_query($conn, "SELECT * FROM funcionario WHERE ativo=1 AND matr=$matricula AND NOT id=$id_edit2") or die(mysqli_error($conn));
+        if (mysqli_num_rows($sql_temp) > 0) {
+            echo "Já existe um funcionário com essa matrícula";
+            exit;
+        }
+
         $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
         $dp = trim(mysqli_real_escape_string($conn,$_POST['dp']));
         $setor = trim(mysqli_real_escape_string($conn,$_POST['setor']));

@@ -1,6 +1,7 @@
 <?php
     require_once('conn/conn.php');
     $id_edit = intval($_GET['id']); //Conversor para tipo INT. Medida de segurança
+    $idf = intval($_GET['idf']);
     $tabela_edit = preg_replace('/[^a-zA-Z0-9_]/', '', $_GET['tabela']); //Sanitização para permisão somente de letras, números e underline. Medida de segurança
 
     $sql = mysqli_query($conn, "SELECT * FROM $tabela_edit WHERE id=$id_edit") or die(mysqli_error($conn));
@@ -57,7 +58,7 @@
             </tr>
             <tr align="center">
                 <td colspan="2">
-                    <input onclick="createRegistro()" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
+                    <input onclick="editRegistro('<?php echo $id_edit;?>','<?php echo $tabela_edit;?>')" type="button" class="sub-create" name="sub-create" value="Enviar"></input>
                     <input onclick="voltarPagina()" type="button" class="sub-back" name="sub-back" value="Voltar"></input>
                 </td>
             </tr>

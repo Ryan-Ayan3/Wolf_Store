@@ -1,5 +1,6 @@
 <?php
     require_once('../conn/conn.php');
+    include_once('ws_time.php');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_edit2 = intval($_POST['id']); //Conversor para tipo INT. Medida de segurança
         $tabela_edit2 = preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['tabela']); //Sanitização para permisão somente de letras, números e underline. Medida de segurança
@@ -15,9 +16,11 @@
 
         $obs = trim(mysqli_real_escape_string($conn,$_POST['obs']));
 
+        //Consultar Saldo total para soma
         $sql_bh = mysqli_query($conn, "SELECT id, tipo_saldo, saldo FROM banco_horas_func WHERE ativo=1 AND id=$idf") or die(mysqli_error($conn));
         $row_bh = mysqli_fetch_assoc($sql_bh);
 
+        //Consultar para estornar valor anterior da edição
         $sql_bhd = mysqli_query($conn, "SELECT
                                             bhd.id, bhd.valor AS valorbhd, e.id as ide
                                         FROM
@@ -36,18 +39,19 @@
         $saldo = paraSegundos($row_bh['saldo']);
         $saldo = ($row_bh['tipo_saldo'] == 1) ? $saldo : -$saldo;
 
-        $tempoAnt = ($row_bhd['valor']);
+        // Estornar tempo anterior para $saldo
+        $tempoAnt = paraSegundos($row_bhd['valorbhd']);
         $tempoAnt = ($row_bhd['ide'] == 1) ? -$tempoAnt : $tempoAnt;
-        // Estornar tempo anterior para saldo
         $saldo = $saldo + $tempoAnt;
 
         // Converte tempo para segundos com sinal
+        $tempo = paraSegundos($valor);
         $tempoNv = ($row_evento['tipo_saldo'] == 1) ? $tempo : -$tempo;
 
-        // Resultado
+        // Resultado com estorno e soma do novo tempo
         $saldof = $saldo + $tempoNv;
 
-        // Determina o tipo do resultado
+        // Determina o tipo do resultado do saldo
         if ($saldof > 0) {
             $resultado = "pos";
             $ts = 1;
@@ -61,12 +65,11 @@
 
         // Remover sinal negativo se tiver, medida de segurança.
         $saldof = abs($saldof);
-        $tempo = abs($tempo);
+        $tempoNv = abs($tempoNv);
         $saldof = paraHora($saldof);
-        $tempo = paraHora($tempo);
+        $tempoNv = paraHora($tempoNv);
 
-        $alterar_f = $dt_hr;
-        
+        // Atualizar edição
         $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 
                                         SET 
                                             fk_evento='$evento',
@@ -74,6 +77,14 @@
                                             obs='$obs',
                                             alterado='$alterar_f' 
                                         WHERE id=$id_edit2") or die(mysqli_error($conn));
+
+        // Atualizar saldo
+        $sql2 = mysqli_query($conn,"UPDATE banco_horas_func
+                                        SET 
+                                            saldo='$saldof',
+                                            tipo_saldo='$ts'
+                                        WHERE id=$idf") or die(mysqli_error($conn));
+                    
         
         echo "ok";
     }
