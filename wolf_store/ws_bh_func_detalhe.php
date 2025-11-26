@@ -21,14 +21,14 @@
 </head>
 <body>
     <script>
-        function deleteRegistro(id,tabela) {
+        function deleteRegistro(id,idf,tabela) {
             if(confirm("Deletar registro?")) {
-                fetch('scripts/ws_delete.php', {
+                fetch('scripts/ws_delete_bh_func_detalhe.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: 'id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela)
+                    body: 'id='+encodeURIComponent(id)+'&idf='+encodeURIComponent(idf)+'&tabela='+encodeURIComponent(tabela)
                 })
                 .then(response => response.text())
                 .then(data => {
@@ -214,7 +214,7 @@
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?= $fdetalhe ?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>
                                         <td class="td-icon">
-                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
+                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?= $fdetalhe ?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                         </td>
                                         <?php echo "
                                     </tr>";

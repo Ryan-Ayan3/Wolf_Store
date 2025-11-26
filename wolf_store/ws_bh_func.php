@@ -21,14 +21,14 @@
 </head>
 <body>
     <script>
-        function deleteRegistro(id,tabela) {
+        function deleteRegistro(id,idalfa,tabela) {
             if(confirm("Deletar registro?")) {
-                fetch('scripts/ws_delete.php', {
+                fetch('scripts/ws_delete_bh_func.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: 'id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela)
+                    body: 'id='+encodeURIComponent(id)+'&idalfa='+encodeURIComponent(idalfa)+'&tabela='+encodeURIComponent(tabela)
                 })
                 .then(response => response.text())
                 .then(data => {
@@ -58,82 +58,6 @@
                 }
             });
         }
-
-        function editorRegistro(id,tabela) {
-            fetch('ws_cliente_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
-            .then(response => response.text())
-            .then(html => {
-                const container = document.getElementById('workInfor');
-                container.innerHTML = html;
-                /* ESC para voltar*/
-                document.addEventListener("keydown", function(event) {
-                    if (event.key === "Escape") {
-                        location.reload();
-                    }
-                });
-
-                /* Click fora do MODAL para voltar */
-                const modal = document.getElementById('main-table-form');
-                const div1 = document.getElementById('div-us-edit');
-                const div2 = document.getElementById('workInfor');
-
-                function voltarPagina2(event) {
-                if (!modal.contains(event.target)) {
-                    location.reload();
-                }
-                }
-                div1.addEventListener('click', voltarPagina2);
-                div2.addEventListener('click', voltarPagina2);
-            });
-            workInfor.style.display = 'block';
-        }        
-        function editRegistro(id,tabela) {
-                const form = document.forms['form-us-edit'];
-                const nome = form.nome.value;
-                const cadastro = form.cadastro.value;
-                const uf = form.uf.value;
-                const cep = form.cep.value;
-                const municipio = form.municipio.value;
-                const bairro = form.bairro.value;
-                const rua = form.rua.value;
-                const endereco = form.endereco.value;
-                const complemento = form.complemento.value;
-                const contato = form.contato.value;
-                const email = form.email.value;
-                const obs = form.obs.value;
-
-                if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_cliente.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body:
-                            'id='+encodeURIComponent(id)+
-                            '&tabela='+encodeURIComponent(tabela)+
-                            '&nome='+encodeURIComponent(nome)+
-                            '&cadastro='+encodeURIComponent(cadastro)+
-                            '&uf='+encodeURIComponent(uf)+
-                            '&cep='+encodeURIComponent(cep)+
-                            '&municipio='+encodeURIComponent(municipio)+
-                            '&bairro='+encodeURIComponent(bairro)+
-                            '&rua='+encodeURIComponent(rua)+
-                            '&endereco='+encodeURIComponent(endereco)+
-                            '&complemento='+encodeURIComponent(complemento)+
-                            '&contato='+encodeURIComponent(contato)+
-                            '&email='+encodeURIComponent(email)+
-                            '&obs='+encodeURIComponent(obs)
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        if (data === "ok") {
-                            window.location.href = "ws_cliente.php"
-                        } else {
-                            alert("Erro ao executar. Mensagem: "+data);
-                        }
-                    });
-                }
-            }
 
         function creatorRegistro() {
             fetch('ws_cliente_add.php')
@@ -370,11 +294,17 @@
                                 $hora2 = 0;
                                 $saldo1 = 0;
                                 ?>
+                                <td>legenda<td>
+                                <td class="td-icon">
+                                    <a href="#" onclick="deleteRegistro('<?= $id_bhf ;?>','<?= $id_alfa ?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
+                                </td>
                             </tr>
                             <?php
                         }
                         ?>
-                        <tr align="center" class="tr-divide" style="background-color:gray;"><td class="td_divide" style="padding:0px 0px 25px 0px;" colspan="18"></td></tr>
+                        <tr align="center" class="tr-divide" style="background-color:gray;">
+                            <td class="td_divide" style="padding:0px 0px 25px 0px;" colspan="20"></td>
+                        </tr>
                         <?php
                     }
                     ?>

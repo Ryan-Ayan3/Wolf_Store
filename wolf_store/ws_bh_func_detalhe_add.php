@@ -14,7 +14,7 @@ $idf = intval($_GET['idf']); //Conversor para tipo INT. Medida de segurança
                 <td class="td-tit" name="td-tit">Evento</td>
                 <td class="td-tit" name="td-tit">
                     <select name="evento">
-                        <option value="0">SELECIONE DP</option>
+                        <option value="0">SELECIONE EVENTO</option>
                         <?php
                         $sql_ev = mysqli_query($conn, "SELECT id, nome FROM evento WHERE ativo=1 AND (funcao=2 OR funcao=3) ORDER BY id ASC")or die(mysqli_error($conn));
                         if (mysqli_num_rows($sql_ev) > 0) {
