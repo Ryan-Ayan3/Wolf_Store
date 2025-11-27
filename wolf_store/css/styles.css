@@ -606,6 +606,28 @@ input[type=number] {
     background-color: #6b6b6b;
 }
 
+/* Paginação das telas */
+.paginacao {
+    text-align: center;
+    margin: 15px 0;
+}
+.paginacao a {
+    padding: 6px 10px;
+    margin: 2px;
+    background: rgb(61, 61, 61);
+    border-radius: 4px;
+    text-decoration: none;
+    color: rgb(224, 224, 224);
+}
+.paginacao a:hover {
+    background: rgb(75, 75, 75);
+}
+.paginacao a.ativo {
+    background: #275e92;
+    color: rgb(224, 224, 224);
+    font-weight: bold;
+}
+
 
 /*
    ████████  ██         ███████   ██████       ██     ██      
@@ -842,7 +864,7 @@ input[type=number] {
     margin-left: 250px;
     height: 95%;
     width: 80%;
-    background-image: url('../imgs/wolf_store_2.jpg');
+    background-image: url('../imgs/wolf_store_2a.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     z-index: -1;
@@ -990,4 +1012,28 @@ input[type=number] {
     border: solid white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+}
+
+
+
+/* Paginação das telas */
+.paginacao {
+    text-align: center;
+    margin: 15px 0;
+}
+.paginacao a {
+    padding: 6px 10px;
+    margin: 2px;
+    background: rgb(61, 61, 61);
+    border-radius: 4px;
+    text-decoration: none;
+    color: rgb(224, 224, 224);
+}
+.paginacao a:hover {
+    background: rgb(75, 75, 75);
+}
+.paginacao a.ativo {
+    background: #275e92;
+    color: rgb(224, 224, 224);
+    font-weight: bold;
 }

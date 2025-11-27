@@ -171,12 +171,17 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
+
+        $sql_bh = mysqli_query($conn, "SELECT tipo_saldo, saldo FROM banco_horas_func WHERE ativo=1 AND id=$fdetalhe") or die(mysqli_error($conn));
+        if (mysqli_num_rows($sql_bh) == 0) {
+            echo "<script>alert('Período Funcionário Inválido'); window.history.back();</script>";
+        }
+        $row_bh = mysqli_fetch_assoc($sql_bh);
+        $evento_bh = ($row_bh['tipo_saldo'] == 1) ? "+" : "-";
+
         $tabela = 'banco_horas_func_detalhe';
         $sql = mysqli_query($conn, "SELECT id,fk_evento,valor,obs,criado FROM $tabela WHERE ativo=1 AND fk_banco_horas_func=$fdetalhe") or die(mysqli_error($conn));
         
-        $sql_bh = mysqli_query($conn, "SELECT tipo_saldo, saldo FROM banco_horas_func WHERE ativo=1 AND id=$fdetalhe") or die(mysqli_error($conn));
-        $row_bh = mysqli_fetch_assoc($sql_bh);
-        $evento_bh = ($row_bh['tipo_saldo'] == 1) ? "+" : "-";
     ?>
     <div class="conteudo">
         <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > <a href="#" onclick="voltar2()" class="nav-link">Funcionários</a> > Detalhe</h1>
@@ -201,7 +206,7 @@
                             <?php
                             while($row = mysqli_fetch_assoc($sql)) {
                                 $fkevento = $row['fk_evento'];
-                                $sql_evento = mysqli_query($conn, "SELECT nome, tipo_saldo FROM evento WHERE ativo=1 AND (funcao=2 OR funcao=3) AND id=$fkevento") or die(mysqli_error($conn));
+                                $sql_evento = mysqli_query($conn, "SELECT nome FROM evento WHERE ativo=1 AND (funcao=2 OR funcao=3) AND id=$fkevento") or die(mysqli_error($conn));
                                 $row_evento = mysqli_fetch_assoc($sql_evento);
                                 echo "
                                     <tr align='left' class='tr-main'>
@@ -234,6 +239,13 @@
                     ?>
                     
                 </table>
+                <button type="button" onclick="voltar2()" class="sub-content-back">
+                    <div class="content-back">
+                        <div class="img-back">
+                            <span>Voltar</span>
+                        </div>
+                    </div>
+                </button>
             </form>
         </div>
     </div>

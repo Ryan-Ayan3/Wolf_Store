@@ -8,7 +8,7 @@
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Matrícula</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="matricula" placeholder="Número da Matrícula" required oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6)" maxlength="6"></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="matricula" placeholder="Número da Matrícula" required oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6)"></input></td>
             </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>

@@ -6,7 +6,7 @@
             echo "<script>alert('Nenhum item selecionado!'); window.history.back();</script>";
             exit;
         }
-        $id_primary = $_SESSION['id_naveg'];    
+        $id_primary = $_SESSION['id_naveg'];
         $ids = $_POST['ids'];
 
         // Exemplo: inserir todos os IDs em outra tabela

@@ -191,8 +191,30 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, nome, cpf, cnpj, uf, municipio, contato, email, criado FROM pessoa WHERE ativo=1 and categoria=1") or die(mysqli_error($conn));
         $tabela = 'pessoa';
+        $registrosPorPagina = 10;
+        // Página atual
+        $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
+        if ($pagina < 1) $pagina = 1;
+
+        // Calcular o offset
+        $offset = ($pagina - 1) * $registrosPorPagina;
+
+        // Quantidade total de registros
+        $totalSql = mysqli_query($conn, "SELECT COUNT(*) AS total FROM $tabela WHERE ativo = 1");
+        $total = mysqli_fetch_assoc($totalSql)['total'];
+
+        // Total de páginas
+        $totalPaginas = ceil($total / $registrosPorPagina);
+
+        $sql = mysqli_query($conn, "SELECT 
+                                        id, nome, cpf, cnpj, uf, municipio, contato, email, criado 
+                                    FROM $tabela 
+                                    WHERE 
+                                        ativo=1 and
+                                        categoria=1
+                                    LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
+        
     ?>
     <div class="conteudo">
         <h1>Fornecedores</h1>
@@ -205,7 +227,7 @@
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
                     <?php
-                        if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
+                        if ($total > 0) {
                             ?>
                             <tr align="center" class="tr-cab">
                                 <td class="td-cab">ID</td>
@@ -248,8 +270,27 @@
                         } else {
                             include_once('scripts/mensagem_nodata.html');
                         }
-                    ?>
+                        ?>
                 </table>
+                <?php if ($totalPaginas > 1) { ?>
+                        <div class="paginacao">
+                        <!-- Página anterior -->
+                        <?php if ($pagina > 1) { ?>
+                            <a href="?pagina=<?php echo $pagina - 1; ?>">&laquo; Anterior</a>
+                        <?php } ?>
+                        <!-- Números das páginas -->
+                        <?php for ($i = 1; $i <= $totalPaginas; $i++) { ?>
+                            <a href="?pagina=<?php echo $i; ?>"
+                            class="<?php echo ($i == $pagina) ? 'ativo' : ''; ?>">
+                                <?php echo $i; ?>
+                            </a>
+                        <?php } ?>
+                        <!-- Próxima página -->
+                        <?php if ($pagina < $totalPaginas) { ?>
+                            <a href="?pagina=<?php echo $pagina + 1; ?>">Próxima &raquo;</a>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
             </form>
         </div>
     </div>

@@ -26,10 +26,9 @@
     } else {
         if ($_SESSION['dest_naveg'] == "bancohora") {
             $id_sel = $_SESSION['id_naveg'];
-            unset($_SESSION['dest_naveg']);
-            unset($_SESSION['id_naveg']);
             
             $dest_naveg = "scripts/ws_include_bh_mult.php";
+            //Busca todos os funcionários que estão ativos e que já não estão vinculados ao Banco_horas especifico
             $sql = mysqli_query($conn, "SELECT 
                                             f.id AS fid, f.matr AS fmatr, f.nome AS fnome,
                                             d.nome AS dpnome,
@@ -67,7 +66,7 @@
                 <form name="form-us" action="<?=$dest_naveg?>" method="POST">
                     <table class="main-table" align="center">
                         <?php
-                            if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
+                            if (mysqli_num_rows($sql) > 0) {
                                 ?>
                                 <tr align="center" class="tr-cab">
                                     <td class="td-cab"></td>

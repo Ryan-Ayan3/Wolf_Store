@@ -187,8 +187,23 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
-        $sql = mysqli_query($conn, "SELECT id, ano, encerrado FROM banco_horas WHERE ativo=1 ORDER BY ano DESC") or die(mysqli_error($conn));
         $tabela = 'banco_horas';
+        $registrosPorPagina = 10;
+        // Página atual
+        $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
+        if ($pagina < 1) $pagina = 1;
+
+        // Calcular o offset
+        $offset = ($pagina - 1) * $registrosPorPagina;
+
+        // Quantidade total de registros
+        $totalSql = mysqli_query($conn, "SELECT COUNT(*) AS total FROM $tabela WHERE ativo = 1");
+        $total = mysqli_fetch_assoc($totalSql)['total'];
+
+        // Total de páginas
+        $totalPaginas = ceil($total / $registrosPorPagina);
+        $sql = mysqli_query($conn, "SELECT id, ano, encerrado FROM $tabela WHERE ativo=1 ORDER BY ano DESC LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
+
     ?>
     <div class="conteudo">
         <h1>Bancos de Horas</h1>
@@ -201,7 +216,7 @@
             <form name="form-us">
                 <table class="main-table-compact" align="center">
                     <?php
-                        if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
+                        if ($total > 0) {
                             ?>
                             <tr align="center" class="tr-cab">
                                 <td class="td-cab">Ano</td>
@@ -212,7 +227,6 @@
                             while($row = mysqli_fetch_assoc($sql)) {
                                 $encerrado = $row['encerrado'] == 0 ? "Não" : "Sim";
                                 $token = bin2hex(random_bytes(16));
-                                //$alfa_id = $row['id'];
                                 $_SESSION['tokens'][$token] = ['id' => $row['id'], 'time' => time()];
                                 
                                 echo "
@@ -236,10 +250,28 @@
                         } else {
                             include_once('scripts/mensagem_nodata.html');
                         }
-                    ?>
+                        ?>
                 </table>
+                <?php if ($totalPaginas > 1) { ?>
+                        <div class="paginacao">
+                        <!-- Página anterior -->
+                        <?php if ($pagina > 1) { ?>
+                            <a href="?pagina=<?php echo $pagina - 1; ?>">&laquo; Anterior</a>
+                        <?php } ?>
+                        <!-- Números das páginas -->
+                        <?php for ($i = 1; $i <= $totalPaginas; $i++) { ?>
+                            <a href="?pagina=<?php echo $i; ?>"
+                            class="<?php echo ($i == $pagina) ? 'ativo' : ''; ?>">
+                                <?php echo $i; ?>
+                            </a>
+                        <?php } ?>
+                        <!-- Próxima página -->
+                        <?php if ($pagina < $totalPaginas) { ?>
+                            <a href="?pagina=<?php echo $pagina + 1; ?>">Próxima &raquo;</a>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
             </form>
-            <h2>CRUD EM DESENVOLVIMENTO...<h2>
         </div>
     </div>
     <div id="workInfor" class="workInfor"></div>

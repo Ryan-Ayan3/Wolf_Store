@@ -65,7 +65,7 @@
         }        
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
-                const matricula = form.matricula.value;
+                const matricula = form.matricula.value.padStart(6, '0');
                 const nome = form.nome.value;
                 const dp = form.dp.value;
                 const setor = form.setor.value;
@@ -134,7 +134,7 @@
 
         function createRegistro() {
             const form = document.forms['form-us-create'];
-            const matricula = form.matricula.value;
+            const matricula = form.matricula.value.padStart(6, '0');
             const nome = form.nome.value;
             const dp = form.dp.value;
             const setor = form.setor.value;
@@ -175,20 +175,37 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.html');
+        $tabela = 'funcionario';
+        $registrosPorPagina = 10;
+        // Página atual
+        $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
+        if ($pagina < 1) $pagina = 1;
+
+        // Calcular o offset
+        $offset = ($pagina - 1) * $registrosPorPagina;
+
+        // Quantidade total de registros
+        $totalSql = mysqli_query($conn, "SELECT COUNT(*) AS total FROM $tabela WHERE ativo = 1");
+        $total = mysqli_fetch_assoc($totalSql)['total'];
+
+        // Total de páginas
+        $totalPaginas = ceil($total / $registrosPorPagina);
+
         $sql = mysqli_query($conn, "SELECT 
                                         f.id, f.matr, f.nome, f.fk_funcao, f.afastado, f.criado,
                                         d.nome AS dpnome,
                                         s.nome AS senome,
                                         ff.nome AS funome
-                                    FROM funcionario f
+                                    FROM $tabela f
                                     JOIN departamento d ON f.fk_departamento = d.id
                                     JOIN setor s ON f.fk_setor = s.id
                                     JOIN funcao ff ON f.fk_funcao = ff.id
-                                    WHERE 
-                                        f.ativo = 1
-                                    ORDER BY f.nome ASC") or die(mysqli_error($conn));
-        $tabela = 'funcionario';
-    ?>
+                                    WHERE f.ativo = 1
+                                    ORDER BY f.nome ASC
+                                    LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
+
+
+        ?>
     <div class="conteudo">
         <h1>Funcionários</h1>
         <div class="content-create">
@@ -200,53 +217,73 @@
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                 <table class="main-table" align="center">
                     <?php
-                        if (mysqli_num_rows($sql) <= 15 && mysqli_num_rows($sql) > 0) {
-                            ?>
-                            <tr align="center" class="tr-cab">
-                                <td class="td-cab">ID</td>
-                                <td class="td-cab">Matrícula</td>
-                                <td class="td-cab">Nome</td>
-                                <td class="td-cab">Departamento</td>
-                                <td class="td-cab">Setor</td>
-                                <td class="td-cab">Função</td>
-                                <td class="td-cab">Afastado</td>
-                                <td class="td-cab">Registrado</td>
-                                <td colspan="2">AÇÕES</td>
-                            </tr>
-                            <?php
-                            while($row = mysqli_fetch_assoc($sql)) { 
-                                if ($row['afastado'] == 1) {
-                                    $afastado = "Sim";
-                                } else {
-                                    $afastado = "Não";
-                                }
-                                echo "
-                                    <tr align='left' class='tr-main'>
-                                        <td align='center'>".$row['id']."</td>
-                                        <td align='center'>".$row['matr']."</td>
-                                        <td>".$row['nome']."</td>
-                                        <td align='center'>".$row['dpnome']."</td>
-                                        <td align='center'>".$row['senome']."</td>
-                                        <td>".$row['funome']."</td>
-                                        <td align='center'>".$afastado."</td>
-                                        <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
-                                        <td class="td-icon">
-                                            <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
-                                        </td>
-                                        <td class="td-icon">
-                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
-                                        </td>
-                                        <?php echo "
-                                    </tr>";
+                    if ($total > 0) {
+                        ?>
+                        <tr align="center" class="tr-cab">
+                            <td class="td-cab">ID</td>
+                            <td class="td-cab">Matrícula</td>
+                            <td class="td-cab">Nome</td>
+                            <td class="td-cab">Departamento</td>
+                            <td class="td-cab">Setor</td>
+                            <td class="td-cab">Função</td>
+                            <td class="td-cab">Afastado</td>
+                            <td class="td-cab">Registrado</td>
+                            <td colspan="2">AÇÕES</td>
+                        </tr>
+                        <?php
+                        while($row = mysqli_fetch_assoc($sql)) { 
+                            if ($row['afastado'] == 1) {
+                                $afastado = "Sim";
+                            } else {
+                                $afastado = "Não";
                             }
-                        } else {
-                            include_once('scripts/mensagem_nodata.html');
+                            echo "
+                                <tr align='left' class='tr-main'>
+                                    <td align='center'>".$row['id']."</td>
+                                    <td align='center'>".$row['matr']."</td>
+                                    <td>".$row['nome']."</td>
+                                    <td align='center'>".$row['dpnome']."</td>
+                                    <td align='center'>".$row['senome']."</td>
+                                    <td>".$row['funome']."</td>
+                                    <td align='center'>".$afastado."</td>
+                                    <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
+                                    <td class="td-icon">
+                                        <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
+                                    </td>
+                                    <td class="td-icon">
+                                        <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
+                                    </td>
+                                    <?php echo "
+                                </tr>";
                         }
-                    ?>
+                    } else {
+                        include_once('scripts/mensagem_nodata.html');
+                    }
+                   ?>
                 </table>
+                <?php if ($totalPaginas > 1) { ?>
+                        <div class="paginacao">
+                        <!-- Página anterior -->
+                        <?php if ($pagina > 1) { ?>
+                            <a href="?pagina=<?php echo $pagina - 1; ?>">&laquo; Anterior</a>
+                        <?php } ?>
+                        <!-- Números das páginas -->
+                        <?php for ($i = 1; $i <= $totalPaginas; $i++) { ?>
+                            <a href="?pagina=<?php echo $i; ?>"
+                            class="<?php echo ($i == $pagina) ? 'ativo' : ''; ?>">
+                                <?php echo $i; ?>
+                            </a>
+                        <?php } ?>
+                        <!-- Próxima página -->
+                        <?php if ($pagina < $totalPaginas) { ?>
+                            <a href="?pagina=<?php echo $pagina + 1; ?>">Próxima &raquo;</a>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
             </form>
         </div>
     </div>
+    
     <div id="workInfor" class="workInfor"></div>
 </body>
 </html>

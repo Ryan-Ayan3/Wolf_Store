@@ -21,14 +21,14 @@
 </head>
 <body>
     <script>
-        function deleteRegistro(id,idalfa,tabela) {
+        function deleteRegistro(matr,idalfa,tabela) {
             if(confirm("Deletar registro?")) {
                 fetch('scripts/ws_delete_bh_func.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: 'id='+encodeURIComponent(id)+'&idalfa='+encodeURIComponent(idalfa)+'&tabela='+encodeURIComponent(tabela)
+                    body: 'matr='+encodeURIComponent(matr)+'&idalfa='+encodeURIComponent(idalfa)+'&tabela='+encodeURIComponent(tabela)
                 })
                 .then(response => response.text())
                 .then(data => {
@@ -182,7 +182,7 @@
                 <table class="main-table" align="center">
                     <tr align="center" class="tr-cab">
                         <td class="td-cab"></td>
-                        <td class="td-cab">FUNCIONÁRIO</td>
+                        <td class="td-cab" style="padding:0px 120px;">FUNCIONÁRIO</td>
                         <td class="td-cab">SALDO INICIAL</td>
                         <td class="td-cab">JANEIRO</td>
                         <td class="td-cab">FERVEREIRO</td>
@@ -197,7 +197,7 @@
                         <td class="td-cab">NOVEMBRO</td>
                         <td class="td-cab">DEZEMBRO</td>
                         <td class="td-cab">SALDO FINAL</td>
-                        <td class="td-cab" style="padding:0px 90px;">LEGENDA</td>
+                        <td class="td-cab" style="padding:0px 100px;">LEGENDA</td>
                         <td colspan="2">AÇÕES</td>
                     </tr>
                     <?php
@@ -225,7 +225,7 @@
                         //BUSCA AS INFORMAÇÕES DE BH POR CADA GRUPO
                         $sql_main = mysqli_query($conn,"SELECT
                                                         g.id AS gid, g.nome AS gnome,
-                                                        f.nome AS fnome,
+                                                        f.nome AS fnome, f.matr AS fmatr,
                                                         bhf.fk_matr AS fk_matr
                                                     FROM 
                                                         grupo g,
@@ -247,15 +247,17 @@
                             ?>
                             <tr class="tr-cab">
                                 <td class="td-cab"><?php echo $row_main['gnome'];?></td>
-                                <td class="td-cab"><?php echo $row_main['fnome'];?></td>
+                                <td class="td-cab"><?php echo $row_main['fmatr']." - ".$row_main['fnome'];?></td>
                                 <?php
+                                //Consulta de do banco de horas de funcionário por meses
                                 $sql_meses = mysqli_query($conn,"SELECT
-                                                         	id, mes AS bhfmes, fk_matr, saldo, tipo_saldo
+                                                         	id, saldo, tipo_saldo
                                                          FROM 
                                                             banco_horas_func
                                                          WHERE
                                                          	ativo = 1 AND
-                                                      		fk_matr = $matr_temp") or die(mysqli_error($conn));
+                                                      		fk_matr = $matr_temp AND
+                                                            fk_banco_horas = $id_alfa ") or die(mysqli_error($conn));
                                 while($row_meses = mysqli_fetch_assoc($sql_meses)) {
                                     $id_bhf = $row_meses['id'];
                                     if ($row_meses['tipo_saldo'] == 1) {
@@ -296,7 +298,7 @@
                                 ?>
                                 <td>legenda<td>
                                 <td class="td-icon">
-                                    <a href="#" onclick="deleteRegistro('<?= $id_bhf ;?>','<?= $id_alfa ?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
+                                    <a href="#" onclick="deleteRegistro('<?= $matr_temp ;?>','<?= $id_alfa ?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                 </td>
                             </tr>
                             <?php
