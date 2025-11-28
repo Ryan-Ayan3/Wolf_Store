@@ -59,8 +59,8 @@
             });
         }
 
-        function creatorRegistro() {
-            fetch('ws_cliente_add.php')
+        function creatorRegistro(idbh) {
+            fetch('ws_bh_func_add.php?idbh='+encodeURIComponent(idbh))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -69,6 +69,30 @@
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
                         location.reload();
+                    }
+                });
+                /* BUSCA Registro através de Input */
+                document.getElementById('pesquisador').addEventListener('input', function () {
+                    const intel = this.value;
+
+                    if (intel.length < 1) {
+                        document.getElementById('busca').innerHTML = '';
+                        return;
+                    }
+
+                    fetch('scripts/buscar_funcionario.php?i='+encodeURIComponent(intel)+'&idbh='+encodeURIComponent(idbh))
+                        .then(resp => resp.text())
+                        .then(dados => {
+                        document.getElementById('busca').innerHTML = dados;
+                        });
+                });
+                /* Click para selecionar registro */
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('busca-item')) {
+                        const in2 = e.target.getAttribute('data-in2');
+                        document.getElementById('pesquisador').value = e.target.textContent;
+                        document.getElementById('funcionario_in').value = in2;
+                        document.getElementById('busca').innerHTML = '';
                     }
                 });
 
@@ -88,44 +112,23 @@
             workInfor.style.display = 'block';
         }
 
-        function createRegistro() {
+        function createRegistro(idbh) {
             const form = document.forms['form-us-create'];
-            const nome = form.nome.value;
-            const cadastro = form.cadastro.value;
-            const uf = form.uf.value;
-            const cep = form.cep.value;
-            const municipio = form.municipio.value;
-            const bairro = form.bairro.value;
-            const rua = form.rua.value;
-            const endereco = form.endereco.value;
-            const complemento = form.complemento.value;
-            const contato = form.contato.value;
-            const email = form.email.value;
-            const obs = form.obs.value;
+            const funcionario = form.funcionario_in.value;
 
-            fetch('scripts/ws_add_cliente.php', {
+            fetch('scripts/ws_include_bh_solo.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 
-                    'nome='+encodeURIComponent(nome)+
-                    '&cadastro='+encodeURIComponent(cadastro)+
-                    '&uf='+encodeURIComponent(uf)+
-                    '&cep='+encodeURIComponent(cep)+
-                    '&municipio='+encodeURIComponent(municipio)+
-                    '&bairro='+encodeURIComponent(bairro)+
-                    '&rua='+encodeURIComponent(rua)+
-                    '&endereco='+encodeURIComponent(endereco)+
-                    '&complemento='+encodeURIComponent(complemento)+
-                    '&contato='+encodeURIComponent(contato)+
-                    '&email='+encodeURIComponent(email)+
-                    '&obs='+encodeURIComponent(obs)
+                    'idbh='+encodeURIComponent(idbh)+
+                    '&funcionario='+encodeURIComponent(funcionario)
             })
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_cliente.php"
+                    location.reload();
                 } else {
                     alert("Erro ao executar. Mensagem: "+data);
                 }
@@ -170,7 +173,7 @@
                     <span>Incluir Registros</span>
                 </div>
             </div>
-        </button><button type="button" onclick="creatorRegistro('')" class="sub-content-create2">
+        </button><button type="button" onclick="creatorRegistro('<?= $id_alfa ?>')" class="sub-content-create2">
             <div class="content-create2">
                 <div class="img-create2">
                     <span>Criar Registro</span>
@@ -185,7 +188,7 @@
                         <td class="td-cab" style="padding:0px 120px;">FUNCIONÁRIO</td>
                         <td class="td-cab">SALDO INICIAL</td>
                         <td class="td-cab">JANEIRO</td>
-                        <td class="td-cab">FERVEREIRO</td>
+                        <td class="td-cab">FEVEREIRO</td>
                         <td class="td-cab">MARÇO</td>
                         <td class="td-cab">ABRIL</td>
                         <td class="td-cab">MAIO</td>
@@ -261,13 +264,13 @@
                                 while($row_meses = mysqli_fetch_assoc($sql_meses)) {
                                     $id_bhf = $row_meses['id'];
                                     if ($row_meses['tipo_saldo'] == 1) {
-                                        $hora1 += paraSegundos($row_meses['saldo']);?>
+                                        $hora1 += paraMinutos($row_meses['saldo']);?>
                                         <td style="color:skyblue;">
                                             <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
                                         </td>
                                         <?php
                                     }elseif ($row_meses['tipo_saldo'] == 2) {
-                                        $hora2 += paraSegundos($row_meses['saldo']);?>
+                                        $hora2 += paraMinutos($row_meses['saldo']);?>
                                         <td style="color:red;">
                                             <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
                                         </td>
@@ -284,12 +287,12 @@
                                 if($hora2 > $hora1) {
                                     $saldo1 = $hora2 - $hora1;
                                     ?>
-                                    <td style="color:red;"><?= paraHora($saldo1)?></td>
+                                    <td style="color:red;"><?= paraDia($saldo1)?></td>
                                     <?php
                                 }else {
                                     $saldo1 = $hora1 - $hora2;
                                     ?>
-                                    <td style="color:skyblue;"><?= paraHora($saldo1)?></td>
+                                    <td style="color:skyblue;"><?= paraDia($saldo1)?></td>
                                     <?php
                                 }
                                 $hora1 = 0;

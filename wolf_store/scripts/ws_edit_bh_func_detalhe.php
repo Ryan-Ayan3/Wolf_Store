@@ -9,8 +9,8 @@
         $evento = trim(mysqli_real_escape_string($conn,$_POST['evento']));
         $valor = trim(mysqli_real_escape_string($conn,$_POST['valor']));
 
-        if (!validarHora($valor)) {
-            echo "Formato de hora inválido. Minutos e Segundos não podem ser igual ou maior que 60";
+        if (!validarTempo($valor)) {
+            echo "Formato de hora inválido. Horas devem ser menor que 24 e Segundos devem ser menor que 60";
             exit;
         }
 
@@ -36,16 +36,16 @@
         $row_evento = mysqli_fetch_assoc($sql_evento);
 
         // Converte saldo para segundos com sinal
-        $saldo = paraSegundos($row_bh['saldo']);
+        $saldo = paraMinutos($row_bh['saldo']);
         $saldo = ($row_bh['tipo_saldo'] == 1) ? $saldo : -$saldo;
 
         // Estornar tempo anterior para $saldo
-        $tempoAnt = paraSegundos($row_bhd['valorbhd']);
+        $tempoAnt = paraMinutos($row_bhd['valorbhd']);
         $tempoAnt = ($row_bhd['ide'] == 1) ? -$tempoAnt : $tempoAnt;
         $saldo = $saldo + $tempoAnt;
 
         // Converte tempo para segundos com sinal
-        $tempo = paraSegundos($valor);
+        $tempo = paraMinutos($valor);
         $tempoNv = ($row_evento['tipo_saldo'] == 1) ? $tempo : -$tempo;
 
         // Resultado com estorno e soma do novo tempo
@@ -66,8 +66,8 @@
         // Remover sinal negativo se tiver, medida de segurança.
         $saldof = abs($saldof);
         $tempoNv = abs($tempoNv);
-        $saldof = paraHora($saldof);
-        $tempoNv = paraHora($tempoNv);
+        $saldof = paraDia($saldof);
+        $tempoNv = paraDia($tempoNv);
 
         // Atualizar edição
         $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 

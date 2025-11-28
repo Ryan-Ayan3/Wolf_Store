@@ -23,11 +23,11 @@
         $row_bhd = mysqli_fetch_assoc($sql_bhd);
 
         // Converte saldo para segundos com sinal
-        $saldo = paraSegundos($row_bh['saldo']);
+        $saldo = paraMinutos($row_bh['saldo']);
         $saldo = ($row_bh['tipo_saldo'] == 1) ? $saldo : -$saldo;
 
         // Estornar tempo anterior para $saldo
-        $tempoAnt = paraSegundos($row_bhd['valorbhd']);
+        $tempoAnt = paraMinutos($row_bhd['valorbhd']);
         $tempoAnt = ($row_bhd['ide'] == 1) ? -$tempoAnt : $tempoAnt;
         $saldo = $saldo + $tempoAnt;
 
@@ -48,7 +48,7 @@
 
         // Remover sinal negativo se tiver, medida de segurança.
         $saldof = abs($saldof);
-        $saldof = paraHora($saldof);
+        $saldof = paraDia($saldof);
 
         // Deletar detalhe
         $sql3 = mysqli_query($conn,"UPDATE $tabela_del SET ativo=0,deletado='$dt_hr' WHERE id=$id_del") or die(mysqli_error($conn));

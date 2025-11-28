@@ -12,8 +12,8 @@
 
         $valor = trim(mysqli_real_escape_string($conn,$_POST['valor']));
 
-        if (!validarHora($valor)) {
-            echo "Formato de hora inválido. Minutos e Segundos não podem ser igual ou maior que 60";
+        if (!validarTempo($valor)) {
+            echo "Formato de hora inválido. Horas devem ser menor que 24 e Segundos devem ser menor que 60";
             exit;
         }
 
@@ -31,11 +31,11 @@
         60(POSITIVO)
         */
         // Converte saldo para segundos com sinal
-        $saldo = paraSegundos($row_bh['saldo']);
+        $saldo = paraMinutos($row_bh['saldo']);
         $saldo = ($row_bh['tipo_saldo'] == 1) ? $saldo : -$saldo;
 
         // Converte tempo para segundos com sinal
-        $tempo = paraSegundos($valor);
+        $tempo = paraMinutos($valor);
         $tempo = ($row_evento['tipo_saldo'] == 1) ? $tempo : -$tempo;
 
         // Resultado
@@ -56,8 +56,8 @@
         // Remover sinal negativo se tiver, medida de segurança.
         $saldof = abs($saldof);
         $tempo = abs($tempo);
-        $saldof = paraHora($saldof);
-        $tempo = paraHora($tempo);
+        $saldof = paraDia($saldof);
+        $tempo = paraDia($tempo);
 
         $sql = mysqli_query($conn, "INSERT INTO banco_horas_func_detalhe(
                                                     fk_banco_horas_func,
@@ -76,6 +76,6 @@
         $sql = mysqli_query($conn, "UPDATE banco_horas_func SET saldo='$saldof', tipo_saldo='$ts' WHERE ativo=1 AND id=$idf ") or die(mysqli_error($conn));
 
         echo "ok";
-        //echo "Saldo Anterior: ".paraHora($saldo)."| - Valor Novo: ".$tempo."| Saldo Final: ".$saldof."/".$resultado;
+        //echo "Saldo Anterior: ".paraDia($saldo)."| - Valor Novo: ".$tempo."| Saldo Final: ".$saldof."/".$resultado;
     }
 ?>
