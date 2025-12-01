@@ -32,19 +32,58 @@
         $m = intval($m);
 
         // Valida limites
-        if ($h < 0 || $h > 23) return false;
-        if ($m < 0 || $m > 59) return false;
+        //if ($h < 0 || $h > 23) return false;
+        //if ($m < 0 || $m > 59) return false;
         //if ($h >= 8 && $m >= 48) return false;
 
         return true; // tudo OK
     }
 
-    /*
-    Preciso de um SCRIPT especial aonde ele pegará uma Variável com valor de tempo e preciso que seja impresso em texto por extenso o valor em Dias, Horas e Minutos.
-Ex: 01:20:25 para ser escrito por extenso como: Um dia, vinte horas e vinte e cinco minutos.
+    function tempoPorExtenso($minutosTotal) {
 
-Porém é necessário que seja considerado o seguinte. 1 Dia é igual à 8horas e 48minutos, 1hora igual à 60minutos como o normal e minuto é minuto.
+        // 1 DIA = 8h48 = 528 minutos
+        $dias = floor($minutosTotal / 528);
+        $minutosTotal %= 528;
 
-A variável que receberá para entrar nesse script em tempo e sair em texto eu consigo enviar tanto como "dd:hh:mm / 01:20:25" como tudo em minuto(Ex: ) já convertido. Escolha qual valor de variável ficaria melhor já para evitar linhas extras de códigos. O código deve ser todo em PHP, eu já tenho duas function paraMinutos() que recebe no formato dd:hh:mm e devolve em minutos e tenho a function paraDia() que recebe em minutos e devolve em dd:hh:mm
-    */
+        // horas comuns
+        $horas = floor($minutosTotal / 60);
+        $minutos = $minutosTotal % 60;
+
+        // Função interna para escrever números por extenso
+        $numeros = [
+            0=>"zero",1=>"um",2=>"dois",3=>"três",4=>"quatro",5=>"cinco",6=>"seis",7=>"sete",8=>"oito",9=>"nove",
+            10=>"dez",11=>"onze",12=>"doze",13=>"treze",14=>"quatorze",15=>"quinze",
+            16=>"dezesseis",17=>"dezessete",18=>"dezoito",19=>"dezenove",
+            20=>"vinte",30=>"trinta",40=>"quarenta",50=>"cinquenta"
+        ];
+
+        // Converte número para texto até 59
+        $toText = function($n) use ($numeros) {
+            if ($n <= 20 || $n % 10 == 0) return $numeros[$n];
+            $dezena = floor($n / 10) * 10;
+            $unidade = $n % 10;
+            return $numeros[$dezena] . " e " . $numeros[$unidade];
+        };
+
+        // Montagem do texto final
+        $partes = [];
+
+        if ($dias > 0) {
+            $partes[] = $toText($dias) . " " . ($dias == 1 ? "dia" : "dias");
+        }
+        if ($horas > 0) {
+            $partes[] = $toText($horas) . " " . ($horas == 1 ? "hora" : "horas");
+        }
+        if ($minutos > 0) {
+            $partes[] = $toText($minutos) . " " . ($minutos == 1 ? "minuto" : "minutos");
+        }
+
+        // Caso seja zero de tudo
+        if (empty($partes)) return "zero minutos";
+
+        // Junta com vírgulas e “e” no final
+        $ultimo = array_pop($partes);
+        if (empty($partes)) return $ultimo;
+        return implode(", ", $partes) . " e " . $ultimo;
+    }
 ?>

@@ -295,16 +295,16 @@
                                     <td style="color:skyblue;"><?= paraDia($saldo1)?></td>
                                     <?php
                                 }
-                                $hora1 = 0;
-                                $hora2 = 0;
-                                $saldo1 = 0;
                                 ?>
-                                <td>legenda<td>
+                                <td><?php echo tempoPorExtenso($saldo1);?><td>
                                 <td class="td-icon">
                                     <a href="#" onclick="deleteRegistro('<?= $matr_temp ;?>','<?= $id_alfa ?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                 </td>
                             </tr>
                             <?php
+                            $hora1 = 0;
+                            $hora2 = 0;
+                            $saldo1 = 0;
                         }
                         ?>
                         <tr align="center" class="tr-divide" style="background-color:gray;">
