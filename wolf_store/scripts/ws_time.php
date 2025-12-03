@@ -33,7 +33,7 @@
 
         // Valida limites
         //if ($h < 0 || $h > 23) return false;
-        //if ($m < 0 || $m > 59) return false;
+        if ($m < 0 || $m > 59) return false;
         //if ($h >= 8 && $m >= 48) return false;
 
         return true; // tudo OK

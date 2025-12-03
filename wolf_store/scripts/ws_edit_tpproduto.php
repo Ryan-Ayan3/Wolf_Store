@@ -8,10 +8,10 @@
         $alterar_f = $dt_hr;
         
         $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 
-                                        SET 
-                                            nome='$nome_f',
-                                            alterado='$alterar_f' 
-                                        WHERE id=$id_edit2") or die(mysqli_error($conn));
+                                    SET 
+                                        nome='$nome_f',
+                                        alterado='$alterar_f' 
+                                    WHERE id=$id_edit2") or die(mysqli_error($conn));
         
         echo "ok";
     }
