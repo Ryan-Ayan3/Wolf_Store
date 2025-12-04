@@ -2,6 +2,11 @@
     require_once('scripts/ws_credencial.php');
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
+    require_once('scripts/autenticar.php');
+
+    if (!moduloPermissao('Banco de Horas', $conn)) {
+        echo "<script>alert('Área restrita para seu nível'); window.history.back();</script>";
+    }
 
     if (!isset($_SESSION['id_fdetalhe'])) {
         echo "<script>alert('Acesso inválido ou tempo expirado.'); window.history.back();";
@@ -170,7 +175,7 @@
         }
     </script>
     <?php
-        include_once('scripts/ws_vbar.html');
+        include_once('scripts/ws_vbar.php');
 
         $sql_bh = mysqli_query($conn, "SELECT tipo_saldo, saldo FROM banco_horas_func WHERE ativo=1 AND id=$fdetalhe") or die(mysqli_error($conn));
         if (mysqli_num_rows($sql_bh) == 0) {

@@ -20,7 +20,7 @@
     }
 </script>
 <?php
-    include_once('scripts/ws_vbar.html');
+    include_once('scripts/ws_vbar.php');
     if (!isset($_SESSION['id_naveg']) || !isset($_SESSION['dest_naveg'])) {
         echo "<script>alert('Nenhum ID encontrado'); window.history.back();</script>";
     } else {

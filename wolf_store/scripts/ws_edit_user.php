@@ -18,7 +18,7 @@
                                         SET 
                                             login='$login_f',
                                             senha='$senha_f',
-                                            nivel='$nivel_f',
+                                            fk_nivel='$nivel_f',
                                             email='$email_f',
                                             cargo='$cargo_f',
                                             nome='$nome_f',
@@ -29,7 +29,7 @@
                                         SET 
                                             login='$login_f',
                                             nivel='$nivel_f',
-                                            email='$email_f',
+                                            fk_email='$email_f',
                                             cargo='$cargo_f',
                                             nome='$nome_f',
                                             alterado='$alterar_f' 

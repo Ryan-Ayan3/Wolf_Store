@@ -3,8 +3,14 @@
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
     include_once('scripts/ws_time.php');
+    require_once('scripts/autenticar.php');
+
+    if (!moduloPermissao('Banco de Horas', $conn)) {
+        echo "<script>alert('Área restrita para seu nível'); window.history.back();</script>";
+    }
+
     if (!isset($_SESSION['id_alfa'])) {
-        echo "<script>alert('Acesso inválido ou tempo expirado.'); window.location.href = 'ws_selecionar_func.php';</script>";
+        echo "<script>alert('Acesso inválido ou tempo expirado.'); window.history.back();</script>";
         exit;
     }
     $id_alfa = (int) $_SESSION['id_alfa'];
@@ -162,7 +168,7 @@
         }
     </script>
     <?php
-        include_once('scripts/ws_vbar.html');
+        include_once('scripts/ws_vbar.php');
         $tabela = 'banco_horas_func';
     ?>
     <div class="conteudo">

@@ -12,7 +12,7 @@
         $sql = mysqli_query($conn, "INSERT INTO usuario(
                                                     login, 
                                                     senha, 
-                                                    nivel, 
+                                                    fk_nivel, 
                                                     email, 
                                                     cargo, 
                                                     nome, 

@@ -25,12 +25,13 @@
             $login = trim(mysqli_real_escape_string($conn,strtolower($_POST['usuario'])));
             $senha = mysqli_real_escape_string($conn, ($_POST['senha']));
             
-            $sql = mysqli_query($conn,"SELECT login, senha FROM usuario WHERE login='$login'");
+            $sql = mysqli_query($conn,"SELECT id, login, senha FROM usuario WHERE login='$login' AND ativo=1");
             $result = mysqli_fetch_assoc($sql);
             
             if ($result && password_verify($senha, $result['senha'])) {
                 echo "<script>document.location.href='ws_home.php';</script>";
                 $_SESSION["conectado"] = $login;
+                $_SESSION["usuarioId"] = $result['id'];
             } else {
                 echo "<script>alert('Usuário ou Senha incorreto');</script>";
             }

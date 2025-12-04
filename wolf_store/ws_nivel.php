@@ -2,9 +2,10 @@
     require_once('scripts/ws_credencial.php');
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
+
     require_once('scripts/autenticar.php');
 
-    if (!moduloPermissao('Gerir Departamento', $conn)) {
+    if (!moduloPermissao('Nível', $conn)) {
         echo "<script>alert('Área restrita para seu nível'); window.history.back();</script>";
     }
 ?>
@@ -41,7 +42,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_departamento_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_nivel_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -73,7 +74,7 @@
                 const nome = form.nome.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_departamento.php', {
+                    fetch('scripts/ws_edit_nivel.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -86,7 +87,7 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_departamento.php"
+                            window.location.href = "ws_nivel.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -95,7 +96,7 @@
             }
 
         function creatorRegistro() {
-            fetch('ws_departamento_add.php')
+            fetch('ws_nivel_add.php')
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -127,7 +128,7 @@
             const form = document.forms['form-us-create'];
             const nome = form.nome.value;
 
-            fetch('scripts/ws_add_departamento.php', {
+            fetch('scripts/ws_add_nivel.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -138,7 +139,7 @@
             .then(response => response.text())
             .then(data => {
                 if (data === "ok") {
-                    window.location.href = "ws_departamento.php"
+                    window.location.href = "ws_nivel.php"
                 } else {
                     alert("Erro ao executar. Mensagem: "+data);
                 }
@@ -152,7 +153,7 @@
     </script>
     <?php
         include_once('scripts/ws_vbar.php');
-        $tabela = 'departamento';
+        $tabela = 'nivel';
         $registrosPorPagina = 10;
         // Página atual
         $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
@@ -168,11 +169,17 @@
         // Total de páginas
         $totalPaginas = ceil($total / $registrosPorPagina);
 
-        $sql = mysqli_query($conn, "SELECT id, nome, criado FROM $tabela WHERE ativo=1 LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
+        $sql = mysqli_query($conn, "SELECT 
+                                        id, nome, criado
+                                    FROM $tabela
+                                    WHERE ativo = 1
+                                    ORDER BY nome ASC
+                                    LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
 
-    ?>
+
+        ?>
     <div class="conteudo">
-        <h1>Departamentos</h1>
+        <h1>Níveis</h1>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>
@@ -180,36 +187,36 @@
         </div> 
         <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
-                <table class="main-table" align="center">
+                <table class="main-table-compact" align="center">
                     <?php
-                        if ($total > 0) {
-                            ?>
-                            <tr align="center" class="tr-cab">
-                                <td class="td-cab">ID</td>
-                                <td class="td-cab">Nome</td>
-                                <td class="td-cab">Registrado</td>
-                                <td colspan="2">AÇÕES</td>
-                            </tr>
-                            <?php
-                            while($row = mysqli_fetch_assoc($sql)) { 
-                                echo "
-                                    <tr align='left' class='tr-main'>
-                                        <td align='center'>".$row['id']."</td>
-                                        <td>".$row['nome']."</td>
-                                        <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
-                                        <td class="td-icon">
-                                            <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
-                                        </td>
-                                        <td class="td-icon">
-                                            <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
-                                        </td>
-                                        <?php echo "
-                                    </tr>";
-                            }
-                        } else {
-                            include_once('scripts/mensagem_nodata.html');
-                        }
+                    if ($total > 0) {
                         ?>
+                        <tr align="center" class="tr-cab">
+                            <td class="td-cab">ID</td>
+                            <td class="td-cab">Nome</td>
+                            <td class="td-cab">Registrado</td>
+                            <td colspan="2">AÇÕES</td>
+                        </tr>
+                        <?php
+                        while($row = mysqli_fetch_assoc($sql)) { 
+                            echo "
+                                <tr align='left' class='tr-main'>
+                                    <td align='right'>".$row['id']."</td>
+                                    <td align='center'>".$row['nome']."</td>
+                                    <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
+                                    <td class="td-icon">
+                                        <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
+                                    </td>
+                                    <td class="td-icon">
+                                        <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
+                                    </td>
+                                    <?php echo "
+                                </tr>";
+                        }
+                    } else {
+                        include_once('scripts/mensagem_nodata.html');
+                    }
+                   ?>
                 </table>
                 <?php if ($totalPaginas > 1) { ?>
                         <div class="paginacao">
@@ -233,6 +240,7 @@
             </form>
         </div>
     </div>
+    
     <div id="workInfor" class="workInfor"></div>
 </body>
 </html>

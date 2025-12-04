@@ -2,6 +2,11 @@
     require_once('scripts/ws_credencial.php');
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
+    require_once('scripts/autenticar.php');
+
+    if (!moduloPermissao('Gerir Setor', $conn)) {
+        echo "<script>alert('Área restrita para seu nível'); window.history.back();</script>";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -146,7 +151,7 @@
         }
     </script>
     <?php
-        include_once('scripts/ws_vbar.html');
+        include_once('scripts/ws_vbar.php');
         $tabela = 'setor';
         $registrosPorPagina = 10;
         // Página atual

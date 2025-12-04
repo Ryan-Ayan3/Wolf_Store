@@ -2,6 +2,11 @@
     require_once('scripts/ws_credencial.php');
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
+    require_once('scripts/autenticar.php');
+
+    if (!moduloPermissao('Usuário', $conn)) {
+        echo "<script>alert('Área restrita para seu nível'); window.history.back();</script>";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -166,7 +171,7 @@
         }
     </script>
     <?php
-        include_once('scripts/ws_vbar.html');
+        include_once('scripts/ws_vbar.php');
         $tabela = 'usuario';
 
         $registrosPorPagina = 10;
@@ -184,7 +189,7 @@
         // Total de páginas
         $totalPaginas = ceil($total / $registrosPorPagina);
 
-        $sql = mysqli_query($conn, "SELECT id, login, nivel, cargo, nome FROM $tabela WHERE ativo=1 LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
+        $sql = mysqli_query($conn, "SELECT id, login, fk_nivel, cargo, nome FROM $tabela WHERE ativo=1 LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
         
     ?>
     <div class="conteudo">
@@ -214,7 +219,7 @@
                                     <tr align='left' class='tr-main'>
                                         <td align='center'>".$row['id']."</td>
                                         <td align='center'>".$row['login']."</td>
-                                        <td align='center'>".$row['nivel']."</td>
+                                        <td align='center'>".$row['fk_nivel']."</td>
                                         <td align='center'>".$row['cargo']."</td>
                                         <td>".$row['nome']."</td>";?>
                                         <td class="td-icon">

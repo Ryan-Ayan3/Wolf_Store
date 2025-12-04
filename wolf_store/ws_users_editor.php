@@ -5,8 +5,8 @@
 
     $sql = mysqli_query($conn, "SELECT * FROM $tabela_edit WHERE id=$id_edit") or die(mysqli_error($conn));
     $row = mysqli_fetch_assoc($sql);
-    $temp = $row['nivel'];
-    $sql2 = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE nivel=$temp") or die(mysqli_error($conn));
+    $temp = $row['fk_nivel'];
+    $sql2 = mysqli_query($conn, "SELECT id, nome FROM nivel WHERE id=$temp") or die(mysqli_error($conn));
     $row2 = mysqli_fetch_assoc($sql2);
 
     if ($row['alterado'] == NULL){
@@ -35,15 +35,14 @@
                 <td class="td-tit" name="td-tit">Nível</td>
                 <td class="td-tit" name="td-tit">
                     <select name="nivel">
-                        <option value="<?php echo $row['nivel'];?>" selected><?php echo $row2['nome']; ?></option>
-                        <option>SELECIONE NÍVEL</option>
+                        <option value="<?php echo $row['id'];?>" selected><?php echo $row2['nome']; ?></option>
                         <?php 
-                            $sql_nivel = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE ativo=1") or die(mysqli_error($conn));
+                            $sql_nivel = mysqli_query($conn, "SELECT id, nome FROM nivel_ac WHERE ativo=1 AND id <> '$temp'") or die(mysqli_error($conn));
                             $numero = 1;
                             if (mysqli_num_rows($sql_nivel) > 0) {
                                 while($row_nivel = mysqli_fetch_assoc($sql_nivel)) {
                                     ?>
-                                    <option value="<?php echo $row_nivel['nivel'];?>"><?php echo $numero." - ".$row_nivel['nome']; ?></option>
+                                    <option value="<?php echo $row_nivel['id'];?>"><?php echo $row_nivel['id']." - ".$row_nivel['nome']; ?></option>
                                     <?php
                                     $numero++;
                                 }

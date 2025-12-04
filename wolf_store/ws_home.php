@@ -1,7 +1,8 @@
 <?php 
     require_once('scripts/ws_credencial.php');
-    include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
+    include_once('scripts/ws_logoff.php');
+    require_once('scripts/autenticar.php');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,7 +15,7 @@
     <link rel="icon" type="image/x-icon" href="imgs/wolf_store_logo.jpg">
 </head>
 <body>
-    <?php include_once('scripts/ws_vbar.html');?>
+    <?php include_once('scripts/ws_vbar.php');?>
     <div class="conteudo">
         <h1>Bem-vindo à:</h1>
     </div>

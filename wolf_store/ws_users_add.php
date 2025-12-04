@@ -20,11 +20,11 @@
                     <select name="nivel">
                         <option>SELECIONE NÍVEL</option>
                         <?php 
-                            $sql_nivel = mysqli_query($conn, "SELECT nome, nivel FROM nivel_ac WHERE ativo=1") or die(mysqli_error($conn));
+                            $sql_nivel = mysqli_query($conn, "SELECT id, nome FROM nivel WHERE ativo=1") or die(mysqli_error($conn));
                             if (mysqli_num_rows($sql_nivel) > 0) {
                                 while($row_nivel = mysqli_fetch_assoc($sql_nivel)) {
                                     ?>
-                                    <option value="<?php echo $row_nivel['nivel'];?>"><?php echo $row_nivel['nivel']." - ".$row_nivel['nome']; ?></option>
+                                    <option value="<?php echo $row_nivel['id'];?>"><?php echo $row_nivel['id']." - ".$row_nivel['nome']; ?></option>
                                     <?php
                                 }
                             }
