@@ -1,0 +1,56 @@
+<?php
+    require_once('../conn/conn.php');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $matricula = trim(mysqli_real_escape_string($conn,$_POST['matricula']));
+        $sql_temp = mysqli_query($conn, "SELECT * FROM funcionario WHERE ativo=1 AND matr=$matricula") or die(mysqli_error($conn));
+        if (mysqli_num_rows($sql_temp) > 0) {
+            echo "Já existe um funcionário com essa matrícula";
+            exit;
+        }
+
+        $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
+        $dp = trim(mysqli_real_escape_string($conn,$_POST['dp']));
+        if ($dp == 0) {
+            echo "CAMPO DEPARTAMENTO OBRIGATÓRIO";
+            exit;
+        }
+        $setor = trim(mysqli_real_escape_string($conn,$_POST['setor']));
+        if ($setor == 0) {
+            echo "CAMPO SETOR OBRIGATÓRIO";
+            exit;
+        }
+        $funcao = trim(mysqli_real_escape_string($conn,$_POST['funcao']));
+        if ($funcao == 0) {
+            echo "CAMPO FUNÇÃO OBRIGATÓRIO";
+            exit;
+        }
+        $grupo = trim(mysqli_real_escape_string($conn,$_POST['grupo']));
+        $salario = trim(mysqli_real_escape_string($conn,str_replace(',', '.', $_POST['salario'])));
+        $afastado = trim(mysqli_real_escape_string($conn,$_POST['afastado']));
+        
+        $sql = mysqli_query($conn, "INSERT INTO funcionario(
+                                                    matr,
+                                                    nome,
+                                                    fk_departamento,
+                                                    fk_setor,
+                                                    fk_funcao,
+                                                    fk_grupo,
+                                                    salario,
+                                                    afastado,
+                                                    criado, 
+                                                    ativo) 
+                                                VALUES(
+                                                    '$matricula',
+                                                    '$nome',
+                                                    '$dp',
+                                                    '$setor',
+                                                    '$funcao',
+                                                    '$grupo',
+                                                    '$salario',
+                                                    '$afastado',
+                                                    '$dt_hr',
+                                                    1)") or die(mysqli_error($conn));
+
+        echo "ok";
+    }
+?>

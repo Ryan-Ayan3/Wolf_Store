@@ -303,7 +303,7 @@
                                 }
                                 ?>
                                 <td><?php echo tempoPorExtenso($saldo1);?><td>
-                                <td class="td-icon">
+                                <td class="td-icon" align="center">
                                     <a href="#" onclick="deleteRegistro('<?= $matr_temp ;?>','<?= $id_alfa ?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                 </td>
                             </tr>

@@ -295,10 +295,10 @@
                                         <td>".$row['nome']."</td>
                                         <td>".$row_tipo['nome']."</td>
                                         <td>".$row_medida['nome']."</td>";?>
-                                        <td class="td-icon">
+                                        <td class="td-icon" align="center">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>
-                                        <td class="td-icon">
+                                        <td class="td-icon" align="center">
                                             <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                         </td>
                                         <?php echo "

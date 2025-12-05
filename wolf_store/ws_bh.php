@@ -240,13 +240,13 @@
                                             <button type="button" onclick="acessarRegistro('<?php echo $token; ?>','<?php $_SESSION['tokens']; ?>')" class="sub-link"><?= $row['ano']?></button>
                                         <?php echo "</td>
                                         <td>".$encerrado."</td>";?>
-                                        <td class="td-icon">
+                                        <td class="td-icon" align="center">
                                             <a href="#" alt="incluir" onclick="includeRegistro('<?= $row['id']?>','bancohora')"><div class="img-inclu" data-tooltip="Incluir sub-registros"></div></a>
                                         </td>
-                                        <td class="td-icon">
+                                        <td class="td-icon" align="center">
                                             <a href="#" alt="editar" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>
-                                        <td class="td-icon">
+                                        <td class="td-icon" align="center">
                                             <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                         </td>
                                         <?php echo "

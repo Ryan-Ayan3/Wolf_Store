@@ -2,7 +2,6 @@
     require_once('scripts/ws_credencial.php');
     include_once('scripts/ws_logoff.php');
     require_once('conn/conn.php');
-
     require_once('scripts/autenticar.php');
 
     if (!moduloPermissao('Nível', $conn)) {
@@ -204,10 +203,10 @@
                                     <td align='right'>".$row['id']."</td>
                                     <td align='center'>".$row['nome']."</td>
                                     <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
-                                    <td class="td-icon">
+                                    <td class="td-icon" align="center">
                                         <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                     </td>
-                                    <td class="td-icon">
+                                    <td class="td-icon" align="center">
                                         <a href="#" onclick="deleteRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                     </td>
                                     <?php echo "

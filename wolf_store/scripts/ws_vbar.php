@@ -89,7 +89,7 @@
                 <?php } if (acessoModulo('Nível', $conn)) { ?>
                     <li><a href="ws_nivel.php">Nível</a></li>
                 <?php } if (acessoModulo('Módulo', $conn)) { ?>
-                    <li><a href="#">Módulo #</a></li>
+                    <li><a href="ws_modulo.php">Módulo</a></li>
                 <?php } if (acessoModulo('Tipos de Movimentação', $conn)) { ?>
                     <li><a href="ws_movimento.php">Tipos de Movimentação</a></li>
                 <?php } if (acessoModulo('Unidades de Medidas', $conn)) { ?>
