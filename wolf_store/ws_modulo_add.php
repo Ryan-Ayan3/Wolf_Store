@@ -5,12 +5,13 @@
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
                 <td colspan="2" style="padding-bottom:20px;"><h2>Criar Módulo</h2></td>
+            </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Módulo" required></input></td>
             </tr>
             <tr aligh="left" class="tr-main-form">
-                <td class="td-tit" name="td-tit">Módulo Pai</td>
+                <td class="td-tit" name="td-tit">Módulo Associado</td>
                 <td class="td-tit" name="td-tit">
                     <select name="setor" id="sl-setor">
                         <option value="0">SELECIONE MÓDULO</option>
@@ -28,7 +29,7 @@
                 </td>
             </tr>
             <tr aligh="left" class="tr-main-form">
-                <td class="td-tit" name="td-tit">Módulo Pai?</td>
+                <td class="td-tit" name="td-tit">É Módulo Pai?</td>
                 <td class="td-tit" name="td-tit"><input type='checkbox' class='icheckbox' name='ePai' id="cb-epai" value='pai'></input></td>
             </tr>
             <tr align="center">

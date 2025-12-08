@@ -41,7 +41,7 @@
         }
 
         function editorRegistro(id,tabela) {
-            fetch('ws_funcionario_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
+            fetch('ws_modulo_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
             .then(html => {
                 const container = document.getElementById('workInfor');
@@ -52,7 +52,24 @@
                         location.reload();
                     }
                 });
+                // Script para desconsiderar SELECT quando Checkbox estiver marcado
+                document.getElementById("cb-epai").addEventListener("change", function () {
+                    const selectSetor = document.getElementById("sl-setor");
+                    if (this.checked) {
+                        // Resetar para "SELECIONE MÓDULO"
+                        selectSetor.value = "0";
+                        // Ocultar
+                        selectSetor.style.display = "none";
+                        // Impedir envio no POST
+                        selectSetor.disabled = true;
+                    } else {
+                        // Mostrar novamente
+                        selectSetor.style.display = "inline-block";
+                        // Permitir envio no POST
+                        selectSetor.disabled = false;
+                    }
 
+                });
                 /* Click fora do MODAL para voltar */
                 const modal = document.getElementById('main-table-form');
                 const div1 = document.getElementById('div-us-edit');
@@ -80,7 +97,7 @@
                 const afastado = form.afastado.value;
 
                 if(confirm("Registrar alteração?")) {
-                    fetch('scripts/ws_edit_funcionario.php', {
+                    fetch('scripts/ws_edit_modulo.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -100,7 +117,7 @@
                     .then(response => response.text())
                     .then(data => {
                         if (data === "ok") {
-                            window.location.href = "ws_funcionario.php"
+                            window.location.href = "ws_modulo.php"
                         } else {
                             alert("Erro ao executar. Mensagem: "+data);
                         }
@@ -132,7 +149,6 @@
                     }
 
                 });
-
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
