@@ -13,10 +13,10 @@
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Módulo Associado</td>
                 <td class="td-tit" name="td-tit">
-                    <select name="setor" id="sl-setor">
+                    <select name="modulo" id="sl-modulo">
                         <option value="0">SELECIONE MÓDULO</option>
                         <?php
-                        $sql_setor = mysqli_query($conn, "SELECT id, nome FROM modulo WHERE ativo=1 AND id < 50 ORDER BY nome ASC")or die(mysqli_error($conn));
+                        $sql_setor = mysqli_query($conn, "SELECT id, nome FROM modulo WHERE ativo=1 AND id < 50 ORDER BY id ASC")or die(mysqli_error($conn));
                         if (mysqli_num_rows($sql_setor) > 0) {
                             while ($row_setor = mysqli_fetch_assoc($sql_setor)) {
                                  ?>
@@ -30,7 +30,11 @@
             </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">É Módulo Pai?</td>
-                <td class="td-tit" name="td-tit"><input type='checkbox' class='icheckbox' name='ePai' id="cb-epai" value='pai'></input></td>
+                <td class="td-tit" name="td-tit">
+                    <input type="radio" class="iradio" name='ePai' id="cb-epai" value="1" required>Sim</input>
+                    <input type="radio" class="iradio" name='ePai' id="cb-epai" value="0" required checked>Não</input>
+                    <input type="hidden" name="mark" id="mark" value="A2"></input>
+                </td>
             </tr>
             <tr align="center">
                 <td colspan="2">

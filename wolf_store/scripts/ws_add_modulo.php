@@ -1,55 +1,54 @@
 <?php
     require_once('../conn/conn.php');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $matricula = trim(mysqli_real_escape_string($conn,$_POST['matricula']));
-        $sql_temp = mysqli_query($conn, "SELECT * FROM funcionario WHERE ativo=1 AND matr=$matricula") or die(mysqli_error($conn));
-        if (mysqli_num_rows($sql_temp) > 0) {
-            echo "Já existe um funcionário com essa matrícula";
+        $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
+        $modulo = trim(mysqli_real_escape_string($conn,$_POST['modulo']));
+        $ePai = trim(mysqli_real_escape_string($conn,$_POST['ePai']));
+        $mark = trim(mysqli_real_escape_string($conn,$_POST['mark']));
+
+        //PARA REMOVER ACENTUAÇÕES DE CARACTERES
+        $mapa = ['á' => 'a', 'à' => 'a', 'ã' => 'a', 'â' => 'a', 'é' => 'e', 'ê' => 'e', 'í' => 'i', 'ó' => 'o', 'õ' => 'o', 'ô' => 'o', 'ú' => 'u', 'ç' => 'c', 'Á' => 'a', 'É' => 'e', 'Í' => 'i', 'Ó' => 'o', 'Ú' => 'u', 'Ç' => 'c'];
+
+        if ($nome == '') {
+            echo "CAMPO NOME VÁZIO";
             exit;
         }
 
-        $nome = trim(mysqli_real_escape_string($conn,$_POST['nome']));
-        $dp = trim(mysqli_real_escape_string($conn,$_POST['dp']));
-        if ($dp == 0) {
-            echo "CAMPO DEPARTAMENTO OBRIGATÓRIO";
-            exit;
+        //TRANSFORMAR PARA MINÚSCULA
+        $temp1 = mb_strtolower($nome, 'UTF-8');
+        //REMOVER ACENTUAÇÃO COM ICONV
+        $temp1 = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $temp1);
+        $sqlTemp1 = mysqli_query($conn, "SELECT nome FROM modulo WHERE ativo=1") or die(mysqli_error($conn));
+
+        //Consulta todos os nomes de Módulos e verifica se já há algum existente
+        while ($rowTemp1 = mysqli_fetch_assoc($sqlTemp1)) {
+            $temp2 = mb_strtolower($rowTemp1['nome'], 'UTF-8');
+            //REMOVE AS ACENTUAÇÕES DAS LETRAS
+            $temp2 = strtr($temp2, $mapa);
+            if ($temp1 == $temp2) {
+                echo "JÁ EXISTE UM MÓDULO COM ESTE NOME";
+                exit;
+            }
         }
-        $setor = trim(mysqli_real_escape_string($conn,$_POST['setor']));
-        if ($setor == 0) {
-            echo "CAMPO SETOR OBRIGATÓRIO";
-            exit;
-        }
-        $funcao = trim(mysqli_real_escape_string($conn,$_POST['funcao']));
-        if ($funcao == 0) {
-            echo "CAMPO FUNÇÃO OBRIGATÓRIO";
-            exit;
-        }
-        $grupo = trim(mysqli_real_escape_string($conn,$_POST['grupo']));
-        $salario = trim(mysqli_real_escape_string($conn,str_replace(',', '.', $_POST['salario'])));
-        $afastado = trim(mysqli_real_escape_string($conn,$_POST['afastado']));
         
-        $sql = mysqli_query($conn, "INSERT INTO funcionario(
-                                                    matr,
-                                                    nome,
-                                                    fk_departamento,
-                                                    fk_setor,
-                                                    fk_funcao,
-                                                    fk_grupo,
-                                                    salario,
-                                                    afastado,
-                                                    criado, 
-                                                    ativo) 
-                                                VALUES(
-                                                    '$matricula',
-                                                    '$nome',
-                                                    '$dp',
-                                                    '$setor',
-                                                    '$funcao',
-                                                    '$grupo',
-                                                    '$salario',
-                                                    '$afastado',
-                                                    '$dt_hr',
-                                                    1)") or die(mysqli_error($conn));
+        if ($mark === "A2" and $modulo == 0) {
+            echo "CAMPO MÓDULO ASSOCIADO OBRIGATÓRIO";
+            exit;
+        }
+
+        //Se for Módulo PAI
+        if ($modulo == 0) {
+            //Consultar último de módulo pai
+            $sqlTemp2 = mysqli_query($conn, "SELECT id FROM modulo WHERE ativo=1 AND id < 50 ORDER BY id DESC LIMIT 1") or die(mysqli_error($conn));
+            $rowTemp2 = mysqli_fetch_assoc($sqlTemp2);
+            $ultId = $rowTemp2['id'] + 1;
+            $sql = mysqli_query($conn, "INSERT INTO modulo(id,nome,criado,ativo) VALUES($ultId,'$nome','$dt_hr', 1)") or die(mysqli_error($conn));
+        //Se for Módulo Filho
+        } else {
+            $sql = mysqli_query($conn, "INSERT INTO modulo(nome,id_pai,criado,ativo) VALUES('$nome',$modulo,'$dt_hr', 1)") or die(mysqli_error($conn));
+        }
+
+        //$sql = mysqli_query($conn, "INSERT INTO modulo(id,nome, modulo, criado, ativo) VALUES('$id_temp','$nome', '$modulo','$dt_hr', 1)") or die(mysqli_error($conn));
 
         echo "ok";
     }

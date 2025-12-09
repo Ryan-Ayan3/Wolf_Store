@@ -195,7 +195,7 @@
                                 echo "
                                     <tr align='left' class='tr-main'>
                                         <td align='center'>".$row['id']."</td>
-                                        <td align='center'>".$row['nome']."</td>";?>
+                                        <td align='left'>".$row['nome']."</td>";?>
                                         <td class="td-icon" align="center">
                                             <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                         </td>

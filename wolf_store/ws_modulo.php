@@ -52,23 +52,29 @@
                         location.reload();
                     }
                 });
-                // Script para desconsiderar SELECT quando Checkbox estiver marcado
-                document.getElementById("cb-epai").addEventListener("change", function () {
-                    const selectSetor = document.getElementById("sl-setor");
-                    if (this.checked) {
-                        // Resetar para "SELECIONE MÓDULO"
-                        selectSetor.value = "0";
-                        // Ocultar
-                        selectSetor.style.display = "none";
-                        // Impedir envio no POST
-                        selectSetor.disabled = true;
-                    } else {
-                        // Mostrar novamente
-                        selectSetor.style.display = "inline-block";
-                        // Permitir envio no POST
-                        selectSetor.disabled = false;
-                    }
+                document.querySelectorAll("input[name='ePai']").forEach(radio => {
+                    radio.addEventListener("change", function () {
+                        const selectModulo = document.getElementById("sl-modulo");
+                        const mark = document.getElementById("mark");
+                        if (this.value == "1") {
+                            // Resetar para "SELECIONE MÓDULO"
+                            selectModulo.value = "0";
+                            // Ocultar
+                            selectModulo.style.display = "none";
+                            // Impedir envio no POST
+                            selectModulo.disabled = true;
 
+                            //
+                            mark.value = "A1";
+                        } else {
+                            // Mostrar novamente
+                            selectModulo.style.display = "inline-block";
+                            // Permitir envio no POST
+                            selectModulo.disabled = false;
+
+                            mark.value = "A2";
+                        }
+                    });
                 });
                 /* Click fora do MODAL para voltar */
                 const modal = document.getElementById('main-table-form');
@@ -132,22 +138,29 @@
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
                 // Script para desconsiderar SELECT quando Checkbox estiver marcado
-                document.getElementById("cb-epai").addEventListener("change", function () {
-                    const selectSetor = document.getElementById("sl-setor");
-                    if (this.checked) {
-                        // Resetar para "SELECIONE MÓDULO"
-                        selectSetor.value = "0";
-                        // Ocultar
-                        selectSetor.style.display = "none";
-                        // Impedir envio no POST
-                        selectSetor.disabled = true;
-                    } else {
-                        // Mostrar novamente
-                        selectSetor.style.display = "inline-block";
-                        // Permitir envio no POST
-                        selectSetor.disabled = false;
-                    }
+                document.querySelectorAll("input[name='ePai']").forEach(radio => {
+                    radio.addEventListener("change", function () {
+                        const selectModulo = document.getElementById("sl-modulo");
+                        const mark = document.getElementById("mark");
+                        if (this.value == "1") {
+                            // Resetar para "SELECIONE MÓDULO"
+                            selectModulo.value = "0";
+                            // Ocultar
+                            selectModulo.style.display = "none";
+                            // Impedir envio no POST
+                            selectModulo.disabled = true;
 
+                            //
+                            mark.value = "A1";
+                        } else {
+                            // Mostrar novamente
+                            selectModulo.style.display = "inline-block";
+                            // Permitir envio no POST
+                            selectModulo.disabled = false;
+
+                            mark.value = "A2";
+                        }
+                    });
                 });
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
@@ -175,7 +188,9 @@
         function createRegistro() {
             const form = document.forms['form-us-create'];
             const nome = form.nome.value;
-            const idPai = form.idPai.value;
+            const modulo = form.modulo.value;
+            const ePai = form.ePai.value;
+            const mark = form.mark.value;
 
             fetch('scripts/ws_add_modulo.php', {
                 method: 'POST',
@@ -184,7 +199,9 @@
                 },
                 body: 
                     'nome='+encodeURIComponent(nome)+
-                    '&idPai='+encodeURIComponent(idPai)
+                    '&modulo='+encodeURIComponent(modulo)+
+                    '&ePai='+encodeURIComponent(ePai)+
+                    '&mark='+encodeURIComponent(mark)
             })
             .then(response => response.text())
             .then(data => {
@@ -222,7 +239,7 @@
         $sql = mysqli_query($conn, "SELECT id,nome,id_pai,criado
                                     FROM $tabela 
                                     WHERE ativo = 1
-                                    ORDER BY id_pai ASC, nome ASC
+                                    ORDER BY id_pai ASC, id ASC
                                     LIMIT $registrosPorPagina OFFSET $offset") or die(mysqli_error($conn));
 
 

@@ -6,12 +6,6 @@
     $sql = mysqli_query($conn, "SELECT * FROM $tabela_edit WHERE id=$id_edit") or die(mysqli_error($conn));
     $row = mysqli_fetch_assoc($sql);
 
-    if (empty($row['id_pai'])) {
-        $temp1 = "checked";
-    } else {
-        $temp1 = "";
-    }
-
     if ($row['alterado'] == NULL){
         $dataAlt = "Sem dado";
     } else {
@@ -33,10 +27,10 @@
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Módulo Associado</td>
                 <td class="td-tit" name="td-tit">
-                    <select name="setor" id="sl-setor">
+                    <select name="modulo" id="sl-modulo">
                         <option value="0">SELECIONE MÓDULO</option>
                         <?php
-                        $sql_setor = mysqli_query($conn, "SELECT id, nome FROM modulo WHERE ativo=1 AND id < 50 ORDER BY nome ASC")or die(mysqli_error($conn));
+                        $sql_setor = mysqli_query($conn, "SELECT id, nome FROM modulo WHERE ativo=1 AND id < 50 AND id <> $id_edit ORDER BY id ASC")or die(mysqli_error($conn));
                         if (mysqli_num_rows($sql_setor) > 0) {
                             while ($row_setor = mysqli_fetch_assoc($sql_setor)) {
                                  ?>
@@ -50,11 +44,11 @@
             </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">É Módulo Pai?</td>
-                <td class="td-tit" name="td-tit"><input type='checkbox' class='icheckbox' name='ePai' id="cb-epai" value='pai' <?= $temp1 ?>></input></td>
-            </tr>
-            <tr align="left" class="tr-main-form">
-                <td class="td-tit" name="td-tit">Alterado</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" disabled value="<?php echo $dataAlt;?>"></input></td>
+                <td class="td-tit" name="td-tit">
+                    <input type="radio" class="iradio" name='ePai' id="cb-epai" value="1" required <?php if (empty($row['id_pai'])){echo "checked";} ?>>Sim</input>
+                    <input type="radio" class="iradio" name='ePai' id="cb-epai" value="0" required <?php if (!empty($row['id_pai'])){echo "checked";} ?>>Não</input>
+                    <input type="hidden" name="mark" id="mark" value="A2"></input>
+                </td>
             </tr>
             <tr align="center">
                 <td colspan="2">
