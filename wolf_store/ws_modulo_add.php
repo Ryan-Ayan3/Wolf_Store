@@ -8,7 +8,7 @@
             </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Módulo" required></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Verifique o nome corretamente" required></input></td>
             </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Módulo Associado</td>
