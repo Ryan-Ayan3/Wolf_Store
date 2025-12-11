@@ -2,7 +2,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(240, 248, 255);
     background-color: rgb(4, 12, 27);
-    width: 100%;
+    width: 99%;
     height: 100%;
     overflow-x: auto;
     overflow-y: auto;
@@ -544,29 +544,40 @@ select option:hover {
     color: rgb(240, 240, 240);
 }
 
+/* OVERLAY DO FORM CRIAR e EDITAR */
+.div-us-create, .div-us-edit {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    left: 15%;
+    top: 0;
+    padding-top: 10px;    
+    background: rgba(0,0,0,0.4);
+}
 
 /* FORM DE EDIÇÃO e CRIAÇÂO */
 .workInfor {
     position: relative;
-    margin-left: 250px;
-    margin-right: 35px;
-    
-    z-index: +1;
+    margin-left: 15%;
+    z-index: 998;
     padding: 20px;
     display: none;
-    padding-bottom: 50px;
+    width: 80%;
     
 }
 
+/* TABELA PRINCIPAL CREATOR E EDITOR */
 .main-table-form {
     padding: 50px;
     background-color: rgb(30, 30, 30);
     border: 4px solid rgb(35, 35, 35);
     border-radius: 20px;
-    z-index: +2;
+    z-index: 999;
     position: relative;
-}
 
+    margin-left: 25%;
+    margin-top: 5%;
+}
 .tr-main-form td {
     padding-top: 15px;
     padding-right: 10px;
@@ -577,11 +588,15 @@ select option:hover {
     text-decoration: none;
     color: rgb(240, 248, 255);
 }
-
 .nav-link:hover {
     color: white;
     cursor: pointer;
 }
+.nav-link, .nav-link h1 {
+    margin-left: 28px;
+    top: 25%;
+}
+
 
 /* Remover Spin de Iinput Number */
 input[type=number]::-webkit-inner-spin-button,
@@ -763,7 +778,7 @@ input[type=number] {
 
 /* MENU LATERAL GLOBAL */
 .vbar {
-    width: 230px;
+    width: 15%;
     height: 100%;
     background-color: rgb(21, 39, 73);
     color: rgb(250, 250, 250);
@@ -861,7 +876,7 @@ input[type=number] {
 
 .bg-conteudo {
     position: fixed;
-    margin-left: 250px;
+    margin-left: 15%;
     height: 95%;
     width: 80%;
     background-image: url('../imgs/wolf_store_2.jpg');
@@ -870,10 +885,10 @@ input[type=number] {
     z-index: -1;
     filter: blur(1px);
 }
-
+ 
 .conteudo {
     position: absolute;
-    margin-left: 250px;
+    margin-left: 15%;
     padding: 20px;
     width: 80%;
     height: 90%;

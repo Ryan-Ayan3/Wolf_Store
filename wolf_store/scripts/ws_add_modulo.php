@@ -48,8 +48,6 @@
             $sql = mysqli_query($conn, "INSERT INTO modulo(nome,id_pai,criado,ativo) VALUES('$nome',$modulo,'$dt_hr', 1)") or die(mysqli_error($conn));
         }
 
-        //$sql = mysqli_query($conn, "INSERT INTO modulo(id,nome, modulo, criado, ativo) VALUES('$id_temp','$nome', '$modulo','$dt_hr', 1)") or die(mysqli_error($conn));
-
         echo "ok";
     }
 ?>

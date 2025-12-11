@@ -64,7 +64,6 @@
                             // Impedir envio no POST
                             selectModulo.disabled = true;
 
-                            //
                             mark.value = "A1";
                         } else {
                             // Mostrar novamente
@@ -82,25 +81,21 @@
                 const div2 = document.getElementById('workInfor');
 
                 function voltarPagina2(event) {
-                if (!modal.contains(event.target)) {
-                    location.reload();
-                }
+                    if (!modal.contains(event.target)) {
+                        location.reload();
+                    }
                 }
                 div1.addEventListener('click', voltarPagina2);
                 div2.addEventListener('click', voltarPagina2);
             });
             workInfor.style.display = 'block';
-        }        
+        }
         function editRegistro(id,tabela) {
                 const form = document.forms['form-us-edit'];
-                const matricula = form.matricula.value.padStart(6, '0');
                 const nome = form.nome.value;
-                const dp = form.dp.value;
-                const setor = form.setor.value;
-                const funcao = form.funcao.value;
-                const grupo = form.grupo.value;
-                const salario = form.salario.value;
-                const afastado = form.afastado.value;
+                const modulo = form.modulo.value;
+                const ePai = form.ePai.value;
+                const mark = form.mark.value;
 
                 if(confirm("Registrar alteração?")) {
                     fetch('scripts/ws_edit_modulo.php', {
@@ -111,14 +106,10 @@
                         body:
                             'id='+encodeURIComponent(id)+
                             '&tabela='+encodeURIComponent(tabela)+
-                            '&matricula='+encodeURIComponent(matricula)+
                             '&nome='+encodeURIComponent(nome)+
-                            '&dp='+encodeURIComponent(dp)+
-                            '&setor='+encodeURIComponent(setor)+
-                            '&funcao='+encodeURIComponent(funcao)+
-                            '&grupo='+encodeURIComponent(grupo)+
-                            '&salario='+encodeURIComponent(salario)+
-                            '&afastado='+encodeURIComponent(afastado)
+                            '&modulo='+encodeURIComponent(modulo)+
+                            '&ePai='+encodeURIComponent(ePai)+
+                            '&mark='+encodeURIComponent(mark)
                     })
                     .then(response => response.text())
                     .then(data => {
@@ -149,15 +140,14 @@
                             selectModulo.style.display = "none";
                             // Impedir envio no POST
                             selectModulo.disabled = true;
-
-                            //
+                            // Para verificar se houve preenchimento
                             mark.value = "A1";
                         } else {
                             // Mostrar novamente
                             selectModulo.style.display = "inline-block";
                             // Permitir envio no POST
                             selectModulo.disabled = false;
-
+                            // Para verificar se houve preenchimento
                             mark.value = "A2";
                         }
                     });

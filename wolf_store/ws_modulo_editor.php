@@ -22,19 +22,27 @@
             </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Módulo" required></input></td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" value="<?= $row['nome']?>" required></input></td>
             </tr>
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Módulo Associado</td>
                 <td class="td-tit" name="td-tit">
                     <select name="modulo" id="sl-modulo">
+                        <?php 
+                        if (!empty($row['id_pai'])) {
+                            ?>
+                            <option value="<?= $row['id_pai']?>"><?= $row['nome']?></option>
+                            <input type="hidden" name="mark" id="mark" value="A2"></input>
+                            <?php
+                        }
+                        ?>
                         <option value="0">SELECIONE MÓDULO</option>
                         <?php
-                        $sql_setor = mysqli_query($conn, "SELECT id, nome FROM modulo WHERE ativo=1 AND id < 50 AND id <> $id_edit ORDER BY id ASC")or die(mysqli_error($conn));
-                        if (mysqli_num_rows($sql_setor) > 0) {
-                            while ($row_setor = mysqli_fetch_assoc($sql_setor)) {
+                        $sql_modulo = mysqli_query($conn, "SELECT id, nome FROM modulo WHERE ativo=1 AND id < 50 AND id <> $id_edit ORDER BY id ASC")or die(mysqli_error($conn));
+                        if (mysqli_num_rows($sql_modulo) > 0) {
+                            while ($row_modulo = mysqli_fetch_assoc($sql_modulo)) {
                                  ?>
-                                 <option value="<?php echo $row_setor['id'];?>"><?php echo $row_setor['id']." - ".$row_setor['nome'];?></option>
+                                 <option value="<?php echo $row_modulo['id'];?>"><?php echo $row_modulo['id']." - ".$row_modulo['nome'];?></option>
                                  <?php
                             }
                         }
@@ -46,8 +54,14 @@
                 <td class="td-tit" name="td-tit">É Módulo Pai?</td>
                 <td class="td-tit" name="td-tit">
                     <input type="radio" class="iradio" name='ePai' id="cb-epai" value="1" required <?php if (empty($row['id_pai'])){echo "checked";} ?>>Sim</input>
-                    <input type="radio" class="iradio" name='ePai' id="cb-epai" value="0" required <?php if (!empty($row['id_pai'])){echo "checked";} ?>>Não</input>
-                    <input type="hidden" name="mark" id="mark" value="A2"></input>
+                    <input type="radio" class="iradio" name='ePai' id="cb-epai" value="0" required <?php if (!empty($row['id_pai'])){echo "checked";} ?>>Não</input> 
+                    <?php
+                    if (empty($row['id_pai'])) {
+                            ?>
+                            <input type="hidden" name="mark" id="mark" value="A2"></input>
+                            <?php
+                        }
+                    ?>
                 </td>
             </tr>
             <tr align="center">
