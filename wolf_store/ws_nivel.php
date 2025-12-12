@@ -40,6 +40,24 @@
             }
         }
 
+        function includeRegistro(id) {
+            fetch('scripts/ws_naveg_nivel.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'id='+encodeURIComponent(id)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "ok") {
+                    window.location.href = "ws_selecionar_modulo.php";
+                } else {
+                    alert("Atenção, Mensagem: " + data);
+                }
+            });
+        }
+
         function editorRegistro(id,tabela) {
             fetch('ws_nivel_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
@@ -194,7 +212,7 @@
                             <td class="td-cab">ID</td>
                             <td class="td-cab">Nome</td>
                             <td class="td-cab">Registrado</td>
-                            <td colspan="2">AÇÕES</td>
+                            <td colspan="3">AÇÕES</td>
                         </tr>
                         <?php
                         while($row = mysqli_fetch_assoc($sql)) { 
@@ -203,6 +221,9 @@
                                     <td align='right'>".$row['id']."</td>
                                     <td align='center'>".$row['nome']."</td>
                                     <td align='center'>".$dataAlt = date("d/m/Y", strtotime($row['criado']));"</td>";?>
+                                    <td class="td-icon" align="center">
+                                            <a href="#" alt="incluir" onclick="includeRegistro('<?= $row['id']?>')"><div class="img-inclu" data-tooltip="Incluir Módulos"></div></a>
+                                        </td>
                                     <td class="td-icon" align="center">
                                         <a href="#" onclick="editorRegistro('<?php echo $row['id'];?>','<?php echo $tabela;?>')"><div class="img-edit" data-tooltip="Editar Registro"></div></a>
                                     </td>

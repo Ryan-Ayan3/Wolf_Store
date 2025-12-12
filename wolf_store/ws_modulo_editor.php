@@ -27,15 +27,22 @@
             <tr aligh="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Módulo Associado</td>
                 <td class="td-tit" name="td-tit">
-                    <select name="modulo" id="sl-modulo">
-                        <?php 
-                        if (!empty($row['id_pai'])) {
-                            ?>
-                            <option value="<?= $row['id_pai']?>"><?= $row['nome']?></option>
-                            <input type="hidden" name="mark" id="mark" value="A2"></input>
-                            <?php
-                        }
+                    <?php 
+                    //SE MÓDULO FOR FILHO
+                    if (!empty($row['id_pai'])) {
                         ?>
+                        <input type="hidden" name="mark" id="mark" value="A2"></input>
+                        <select name="modulo" id="sl-modulo">
+                        <option value="<?= $row['id_pai']?>"><?= $row['nome']?></option>
+                        <?php
+                    // SE MÓDULO FOR PAI
+                    } else {
+                        ?>
+                        <input type="hidden" name="mark" id="mark" value="A1"></input>
+                        <select name="modulo" id="sl-modulo">
+                        <?php
+                    }
+                    ?>
                         <option value="0">SELECIONE MÓDULO</option>
                         <?php
                         $sql_modulo = mysqli_query($conn, "SELECT id, nome FROM modulo WHERE ativo=1 AND id < 50 AND id <> $id_edit ORDER BY id ASC")or die(mysqli_error($conn));
@@ -55,13 +62,6 @@
                 <td class="td-tit" name="td-tit">
                     <input type="radio" class="iradio" name='ePai' id="cb-epai" value="1" required <?php if (empty($row['id_pai'])){echo "checked";} ?>>Sim</input>
                     <input type="radio" class="iradio" name='ePai' id="cb-epai" value="0" required <?php if (!empty($row['id_pai'])){echo "checked";} ?>>Não</input> 
-                    <?php
-                    if (empty($row['id_pai'])) {
-                            ?>
-                            <input type="hidden" name="mark" id="mark" value="A2"></input>
-                            <?php
-                        }
-                    ?>
                 </td>
             </tr>
             <tr align="center">

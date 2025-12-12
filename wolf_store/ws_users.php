@@ -39,7 +39,7 @@
                 });
             }
         }
-
+        
         function editorRegistro(id,tabela) {
             fetch('ws_users_editor.php?id='+encodeURIComponent(id)+'&tabela='+encodeURIComponent(tabela))
             .then(response => response.text())
@@ -211,7 +211,7 @@
                                 <td class="td-cab">Nível</td>
                                 <td class="td-cab">Cargo</td>
                                 <td class="td-cab">Nome</td>
-                                <td colspan="2">AÇÕES</td>
+                                <td colspan="3">AÇÕES</td>
                             </tr>
                             <?php
                             while($row = mysqli_fetch_assoc($sql)) { 

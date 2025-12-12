@@ -35,17 +35,20 @@
             }
         }
         
-        if ($mark === "A2" and $modulo == 0) {
+        if ($mark === "A2" AND $modulo == 0) {
             echo "CAMPO MÓDULO ASSOCIADO OBRIGATÓRIO";
             exit;
         }
-        /*
+        
+        // ATUALIZAR COMO MÓDULO PAI
         if ($modulo == 0) {
             $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 
                                             SET 
                                                 nome='$nome',
+                                                id_pai=NULL,
                                                 alterado='$alterar_f' 
                                             WHERE id=$id_edit2") or die(mysqli_error($conn));
+        // ATUALIZAR COMO MÓDULO FILHO
         } else {
             $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 
                                             SET 
@@ -54,7 +57,7 @@
                                                 alterado='$alterar_f' 
                                             WHERE id=$id_edit2") or die(mysqli_error($conn));
         }
-        */
-        echo "oka";
+        
+        echo "ok";
     }
 ?>
