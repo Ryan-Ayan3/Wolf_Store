@@ -29,31 +29,30 @@
     if (!isset($_SESSION['id_nivel'])) {
         echo "<script>alert('Nenhum ID encontrado'); window.history.back();</script>";
     } else {
-        if ($_SESSION['dest_naveg'] == "bancohora") {
-            $id_sel = $_SESSION['id_naveg'];
-            
-            $dest_naveg = "scripts/ws_include_.php";
-            //Busca todos os funcionários que estão ativos e que já não estão vinculados ao Banco_horas especifico
-            $sql = mysqli_query($conn, "SELECT 
-                                            *
-                                        FROM
-                                            modulo m
-                                        WHERE 
-                                            m.ativo=1") or die($conn);
-        } elseif ($_SESSION['dest_naveg'] == "folha") {
-            $dest_naveg = "";
-        } else {
-            unset($_SESSION['id_naveg']);
-            unset($_SESSION['dest_naveg']);
-            echo "<script>alert('Navegação Incorreta'); window.history.back();</script>";
-        }
+        $id_nivel = $_SESSION['id_nivel'];
+        
+        $dest_naveg = "scripts/ws_include_modulo.php";
+        //Busca todos os funcionários que estão ativos e que já não estão vinculados ao Banco_horas especifico
+        $sql = mysqli_query($conn, "SELECT 
+                                        m.id as idModulo, m.nome AS nomeModulo, m.id_pai AS idPai,
+                                        n.id AS nivel_Id,
+                                        mp.id AS perm_id
+                                    FROM
+                                        modulo m
+                                    LEFT JOIN nivel n ON n.id = $id_nivel
+                                    AND n.ativo = 1
+                                    LEFT JOIN modulo_permissao mp ON m.id = mp.fk_modulo
+                                    AND n.id = mp.fk_nivel
+                                    AND mp.ativo = 1
+                                    WHERE 
+                                        m.ativo=1
+                                    ORDER BY idPai ASC, nomeModulo ASC") or die($conn);
         ?>
         <div class="conteudo">
             <a href="#" onclick="voltarPagina()" class="nav-link"><h1>Níveis</a> > SELECIONAR MÓDULO</h1>
-            <h4>Obs: Lista apenas de MÓDULOS não inclusos no Nível</h4>
             <div class="content-table">
                 <form name="form-us" action="<?=$dest_naveg?>" method="POST">
-                    <table class="main-table" align="center">
+                    <table class="main-table-compact" align="center">
                         <?php
                             if (mysqli_num_rows($sql) > 0) {
                                 ?>
@@ -64,30 +63,26 @@
                                 </tr>
                                 <?php
                                 while($row = mysqli_fetch_assoc($sql)) {
-                                    $id_pai = $row['id_pai'];
+                                    $id_pai = $row['idPai'];
                                     if (!empty($id_pai)) {
                                         $sql2 = mysqli_query($conn, "SELECT nome
-                                                                    FROM $tabela
+                                                                    FROM modulo
                                                                     WHERE ativo = 1 
                                                                     AND id = '$id_pai'
                                                                     AND id < 50") or die(mysqli_error($conn));
                                         $row2 = mysqli_fetch_assoc($sql2);
-
-                                        if (!empty($row2['nome'])) {
-                                            $moduloPai = $row2['nome'];
-                                        } else {
-                                            $moduloPai = "Não Há";
-                                        }
-
+                                        $moduloPai = $row2['nome'];
                                     } else {
-                                        $moduloPai = "Não Há";
+                                        $moduloPai = "";
                                     }
-                                    echo "
-                                        <tr align='left' class='tr-main'>
-                                            <td><input type='checkbox' class='icheckbox' checked name='ids[]' value='".$row['fid']."'></td>
-                                            <td align='center'>".$row['nome']."</td>
-                                            <td align='left'>".$$moduloPai."</td>
-                                        </tr>";
+                                    ?>
+                                    <tr align="left" class="tr-main">
+                                        <input type="hidden" name="ids[<?= $row['idModulo']?>]" value="0">
+                                        <td><input type="checkbox" class="icheckbox" name="ids[<?= $row['idModulo']?>]" value="1" <?php if (!empty($row['perm_id'])) { echo "checked";} ?>></td>
+                                        <td align="left"><?= $row['nomeModulo']?></td>
+                                        <td align="left"><?= $moduloPai?></td>
+                                    </tr>
+                                    <?php
                                 }
                             } else {
                                 include_once('scripts/mensagem_nodata.html');
