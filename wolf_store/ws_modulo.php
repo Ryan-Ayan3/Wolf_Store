@@ -22,7 +22,7 @@
     <script>
         function deleteRegistro(id,tabela) {
             if(confirm("Deletar registro?")) {
-                fetch('scripts/ws_delete.php', {
+                fetch('scripts/ws_delete_modulo.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -267,12 +267,9 @@
 
                                 if (!empty($row2['nome'])) {
                                     $moduloPai = $row2['nome'];
-                                } else {
-                                    $moduloPai = "Não Há";
                                 }
-
                             } else {
-                                $moduloPai = "Não Há";
+                                $moduloPai = "";
                             }
                             echo "
                                 <tr align='center' class='tr-main'>

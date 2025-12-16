@@ -36,7 +36,7 @@
                     $idPerm = $row_perm['idPerm'];
                     $sql2 = mysqli_query($conn,"UPDATE modulo_permissao SET ativo=1, alterado='$dt_hr' WHERE id=$idPerm");
                 } else {
-                    echo "<script>alert('Erro 1512, tente novamente se o erro persistir contate a TI'); window.history.back();</script>";
+                    echo "<script>alert('Erro 1512, tente novamente. Se o erro persistir contate a TI'); window.history.back();</script>";
                     exit;
                 }
                 

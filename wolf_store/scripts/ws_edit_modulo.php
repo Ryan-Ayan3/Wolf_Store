@@ -39,7 +39,19 @@
             echo "CAMPO MÓDULO ASSOCIADO OBRIGATÓRIO";
             exit;
         }
-        
+
+        // Verifica se MÓDULO possue vínculo com a tabela modulo_permissao
+        $sqlTemp2 = mysqli_query($conn, "SELECT 1
+                                         FROM
+                                            modulo m
+                                         LEFT JOIN modulo_permissao mp ON mp.fk_modulo = m.id
+                                         WHERE
+                                            m.id =$id_edit2") or die(mysqli_error($conn));
+        if (mysqli_num_rows($sqlTemp2) > 0) {
+            echo "MÓDULO JÁ POSSUE PERMISSÕES REGISTRADA";
+            exit;
+        }
+
         // ATUALIZAR COMO MÓDULO PAI
         if ($modulo == 0) {
             $sql3 = mysqli_query($conn,"UPDATE $tabela_edit2 
