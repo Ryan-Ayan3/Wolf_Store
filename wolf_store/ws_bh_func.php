@@ -188,9 +188,9 @@
         </button>
         <div class="content-table">
             <form name="form-us" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
-                <table class="main-table" align="center">
-                    <tr align="center" class="tr-cab">
-                        <td class="td-cab"></td>
+                <table class="main-table-alternative" align="center">
+                    <tr align="center" class="tr-cab-alternative">
+                        <td class="td-cab" style="padding:0px 80px;"></td>
                         <td class="td-cab" style="padding:0px 120px;">FUNCIONÁRIO</td>
                         <td class="td-cab">SALDO INICIAL</td>
                         <td class="td-cab">JANEIRO</td>
@@ -207,7 +207,7 @@
                         <td class="td-cab">DEZEMBRO</td>
                         <td class="td-cab">SALDO FINAL</td>
                         <td class="td-cab" style="padding:0px 100px;">LEGENDA</td>
-                        <td colspan="2">AÇÕES</td>
+                        <td>AÇÕES</td>
                     </tr>
                     <?php
                     //BUSCA TODOS OS GRUPOS DE FUNCIONÁRIO ATIVOS E SOMENTE GRUPOS QUE ESTÃO NAS FOLHAS SELECIONADA
@@ -254,7 +254,7 @@
                             $grupo = $row_main['gid'];
                             $matr_temp = $row_main['fk_matr'];
                             ?>
-                            <tr class="tr-cab">
+                            <tr class="tr-main-alternative">
                                 <td class="td-cab"><?php echo $row_main['gnome'];?></td>
                                 <td class="td-cab"><?php echo $row_main['fmatr']." - ".$row_main['fnome'];?></td>
                                 <?php
@@ -271,20 +271,20 @@
                                     $id_bhf = $row_meses['id'];
                                     if ($row_meses['tipo_saldo'] == 1) {
                                         $hora1 += paraMinutos($row_meses['saldo']);?>
-                                        <td style="color:skyblue;">
-                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
+                                        <td style="color: rgba(25, 206, 34, 1);" align="center">
+                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link-alternative"><?= $row_meses['saldo']?></button>
                                         </td>
                                         <?php
                                     }elseif ($row_meses['tipo_saldo'] == 2) {
                                         $hora2 += paraMinutos($row_meses['saldo']);?>
-                                        <td style="color:red;">
-                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
+                                        <td style="color: rgba(218, 22, 22, 1);" align="center">
+                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link-alternative"><?= $row_meses['saldo']?></button>
                                         </td>
                                         <?php
                                     }else {
                                         $hora1 += 0;?>
-                                        <td style="color:skyblue;">
-                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link"><?= $row_meses['saldo']?></button>
+                                        <td style="color: rgba(130, 208, 253, 1);" align="center">
+                                            <button type="button" onclick="detalheFunc('<?= $id_bhf ?>')" class="sub-link-alternative"><?= $row_meses['saldo']?></button>
                                         </td>
                                         <?php
                                     }
@@ -302,7 +302,7 @@
                                     <?php
                                 }
                                 ?>
-                                <td><?php echo tempoPorExtenso($saldo1);?><td>
+                                <td><?php echo tempoPorExtenso($saldo1);?></td>
                                 <td class="td-icon" align="center">
                                     <a href="#" onclick="deleteRegistro('<?= $matr_temp ;?>','<?= $id_alfa ?>','<?php echo $tabela;?>')"><div class="img-del" data-tooltip="Deletar Registro"></div></a> 
                                 </td>
@@ -313,8 +313,8 @@
                             $saldo1 = 0;
                         }
                         ?>
-                        <tr align="center" class="tr-divide" style="background-color:gray;">
-                            <td class="td_divide" style="padding:0px 0px 25px 0px;" colspan="20"></td>
+                        <tr align="center" class="tr-divide">
+                            <td class="td_divide" colspan="18"></td>
                         </tr>
                         <?php
                     }
