@@ -16,7 +16,7 @@ $idbh = intval($_GET['idbh']); //Conversor para tipo INT. Medida de segurança
                     <input type="text" class="itxt-l" name="funcionario" id="pesquisador" autocomplete="off" value="" placeholder="Digite matrícula ou nome"></input>
                     <input type="hidden" id="funcionario_in" name="funcionario_in" value=""></input></td>
             </tr>
-            <tr align="left" class="tr-main-form">
+            <tr align="left">
                 <td class="td-tit" name="td-tit"><td><div class="busca" id="busca"></div></td>
             </tr>
             <tr align="left" class="tr-main-form">

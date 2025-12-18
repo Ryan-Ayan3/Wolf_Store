@@ -210,7 +210,7 @@
                         <td>AÇÕES</td>
                     </tr>
                     <?php
-                    //BUSCA TODOS OS GRUPOS DE FUNCIONÁRIO ATIVOS E SOMENTE GRUPOS QUE ESTÃO NAS FOLHAS SELECIONADA
+                    //BUSCA TODOS OS GRUPOS DE FUNCIONÁRIO ATIVOS E SOMENTE GRUPOS QUE ESTÃO NO BANCO DE HORAS SELECIONADO
                     $sql_grupo = mysqli_query($conn,"SELECT
                                                         g.nome AS gnome, g.id AS grupoid
                                                      FROM 
@@ -227,7 +227,8 @@
                                                      GROUP BY g.nome
                                                      ORDER BY g.nome ASC") or die(mysqli_error($conn));
                     
-                    
+                    $num_grupo = mysqli_num_rows($sql_grupo);
+                    $cont_grupo = 1;
                     while ($row_grupo = mysqli_fetch_assoc($sql_grupo)) {
                         $grupoid = $row_grupo['grupoid'];
 
@@ -250,6 +251,7 @@
                                                         bhf.ativo=1
                                                     GROUP BY f.nome
                                                     ORDER BY g.nome ASC, f.nome ASC") or die(mysqli_error($conn));
+                        // WHILE CONSIDERANDO CADA GRUPO
                         while($row_main = mysqli_fetch_assoc($sql_main)) {
                             $grupo = $row_main['gid'];
                             $matr_temp = $row_main['fk_matr'];
@@ -258,7 +260,7 @@
                                 <td class="td-cab"><?php echo $row_main['gnome'];?></td>
                                 <td class="td-cab"><?php echo $row_main['fmatr']." - ".$row_main['fnome'];?></td>
                                 <?php
-                                //Consulta de do banco de horas de funcionário por meses
+                                //Consulta do banco de horas de funcionário por meses com base no grupo
                                 $sql_meses = mysqli_query($conn,"SELECT
                                                          	id, saldo, tipo_saldo
                                                          FROM 
@@ -266,7 +268,8 @@
                                                          WHERE
                                                          	ativo = 1 AND
                                                       		fk_matr = $matr_temp AND
-                                                            fk_banco_horas = $id_alfa ") or die(mysqli_error($conn));
+                                                            fk_banco_horas = $id_alfa") or die(mysqli_error($conn));
+                                //WHILE EXIBINDO TODOS OS REGISTROS DE UM GRUPO
                                 while($row_meses = mysqli_fetch_assoc($sql_meses)) {
                                     $id_bhf = $row_meses['id'];
                                     if ($row_meses['tipo_saldo'] == 1) {
@@ -312,11 +315,33 @@
                             $hora2 = 0;
                             $saldo1 = 0;
                         }
-                        ?>
-                        <tr align="center" class="tr-divide">
-                            <td class="td_divide" colspan="18"></td>
-                        </tr>
+                        if ($cont_grupo < $num_grupo) { ?>
+                            <tr align="center" class="tr-divide">
+                                <td class="td_divide" colspan="18"></td>
+                            </tr>
+                            <tr align="center" class="tr-cab-alternative">
+                                <td class="td-cab" style="padding:0px 80px;"></td>
+                                <td class="td-cab" style="padding:0px 120px;">FUNCIONÁRIO</td>
+                                <td class="td-cab">SALDO INICIAL</td>
+                                <td class="td-cab">JANEIRO</td>
+                                <td class="td-cab">FEVEREIRO</td>
+                                <td class="td-cab">MARÇO</td>
+                                <td class="td-cab">ABRIL</td>
+                                <td class="td-cab">MAIO</td>
+                                <td class="td-cab">JUNHO</td>
+                                <td class="td-cab">JULHO</td>
+                                <td class="td-cab">AGOSTO</td>
+                                <td class="td-cab">SETEMBRO</td>
+                                <td class="td-cab">OUTUBRO</td>
+                                <td class="td-cab">NOVEMBRO</td>
+                                <td class="td-cab">DEZEMBRO</td>
+                                <td class="td-cab">SALDO FINAL</td>
+                                <td class="td-cab" style="padding:0px 100px;">LEGENDA</td>
+                                <td>AÇÕES</td>
+                            </tr>
                         <?php
+                        }
+                        $cont_grupo++;
                     }
                     ?>
                 </table>

@@ -58,7 +58,7 @@
                 <td class="td-tit" name="td-tit">Preço(R$)</td>
                 <td class="td-tit" name="td-tit"><input type="number" step="0.01" class="itxt-l" name="preco" placeholder="Preço do Produto"></input></td>
             </tr>
-            <tr align="left" class="tr-main-form">
+            <tr align="left" class="tr-main-form>
                 <td class="td-tit" name="td-tit">Vincular Fornecedor</td>
                 <td class="td-tit" name="td-tit">
                     <input type="text" class="itxt-l" name="fornecedor" id="pesquisador" autocomplete="off" value="" placeholder="Consulte um fornecedor"></input>

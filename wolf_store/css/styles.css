@@ -1,7 +1,9 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(240, 248, 255);
-    background-color: rgb(4, 12, 27);
+    background-color: rgb(0, 0, 0);
+    background-color: #02091b;
+    background-color: black;
     width: 99%;
     height: 100%;
     overflow-x: auto;
@@ -146,7 +148,7 @@ body {
 
 /* PRINCIPAL TABELA ALTERNATIVA */
 .main-table-alternative {
-    background-color: rgb(20, 20, 20);
+    
     border-radius: 9px;
     padding: 15px 0px 15px 0px;
     margin-top: 15px;
@@ -157,7 +159,7 @@ body {
 }
     /* CABEÇALHO DE TABELA */
     .tr-cab-alternative {
-        background-color: rgb(51, 0, 63);
+        background-color: rgb(16, 43, 59);
         color: white;
         cursor: default;
     }
@@ -166,6 +168,9 @@ body {
     }
 
     /* LINHAS DA TABELA */
+    .tr-main-alternative:nth-child(even) {
+        background-color: rgb(20, 20, 20);
+    }
     .tr-main-alternative:nth-child(odd) {
         background-color:  rgb(30, 30, 30);
     }
@@ -179,12 +184,9 @@ body {
     .tr-main-alternative .td-icon {
         padding: 4px 16px 4px 16px;
     }
-    .tr-divide {
-        padding: 10px 0px;
-    }
     .tr-divide td {
-        background-color: rgba(51, 0, 63, 0.8);
-        padding:5px 0px;
+        background-color: rgba(255, 255, 255, 0);
+        padding:25px 0px;
     }
     .sub-link-alternative {
         background:none;
@@ -934,8 +936,17 @@ input[type=number] {
     margin-left: 15%;
     height: 95%;
     width: 80%;
-    background-image: url('../imgs/wolf_store_2.jpg');
     background-repeat: no-repeat;
+    /* IBAP */
+    /*
+    background-image: url('../imgs/ibap.png');
+    margin-top: 10%;
+    background-size: 100% auto;
+    */
+
+    /* WOLF STORE */
+    /*background-image: url('../imgs/wolf_store_2.jpg');*/
+    background-color: black;
     background-size: cover;
     z-index: -1;
     filter: blur(1px);
