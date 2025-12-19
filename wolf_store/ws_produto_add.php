@@ -58,13 +58,13 @@
                 <td class="td-tit" name="td-tit">Preço(R$)</td>
                 <td class="td-tit" name="td-tit"><input type="number" step="0.01" class="itxt-l" name="preco" placeholder="Preço do Produto"></input></td>
             </tr>
-            <tr align="left" class="tr-main-form>
+            <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Vincular Fornecedor</td>
                 <td class="td-tit" name="td-tit">
                     <input type="text" class="itxt-l" name="fornecedor" id="pesquisador" autocomplete="off" value="" placeholder="Consulte um fornecedor"></input>
                     <input type="hidden" id="fornecedor_in" name="fornecedor_in" value=""></input></td>
             </tr>
-            <tr align="left" class="tr-main-form">
+            <tr align="left">
                 <td class="td-tit" name="td-tit"><td><div class="busca" id="busca"></div></td>
             </tr>
             <tr align="left" class="tr-main-form">
