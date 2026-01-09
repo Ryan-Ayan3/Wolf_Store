@@ -46,6 +46,7 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                document.body.style.overflow = 'hidden';
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
@@ -110,6 +111,7 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                document.body.style.overflow = 'hidden';
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {

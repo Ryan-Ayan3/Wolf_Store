@@ -71,6 +71,7 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                document.body.style.overflow = 'hidden';
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
@@ -172,7 +173,10 @@
         $tabela = 'banco_horas_func';
     ?>
     <div class="conteudo">
-        <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > Funcionários</h1>
+        <ul class="breadcrumb">
+            <li><a href="ws_bh.php"><span class="icon-start"></span>Bancos de Horas</a></li>
+            <li><a href="#" onclick="voltarPagina()"><span></span>Funcionários</a></li>
+        </ul><br>
         <button type="button" onclick="includeRegistro('<?= $id_alfa?>','bancohora')" class="sub-content-include">
             <div class="content-include">
                 <div class="img-include">
@@ -316,8 +320,8 @@
                             $saldo1 = 0;
                         }
                         if ($cont_grupo < $num_grupo) { ?>
-                            <tr align="center" class="tr-divide">
-                                <td class="td_divide" colspan="18"></td>
+                            <tr class="tr-divide">
+                                <td></td>
                             </tr>
                             <tr align="center" class="tr-cab-alternative">
                                 <td class="td-cab" style="padding:0px 80px;"></td>

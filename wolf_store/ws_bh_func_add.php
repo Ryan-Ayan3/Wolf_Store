@@ -4,7 +4,11 @@ $idbh = intval($_GET['idbh']); //Conversor para tipo INT. Medida de segurança
 
 ?>
 <div class="div-us-create" id="div-us-create">
-    <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > <a href="" onclick="voltarPagina()" class="nav-link">Funcionários</a> > Inserir</h1>
+    <ul class="breadcrumb">
+        <li><a href="ws_bh.php"><span class="icon-start"></span>Bancos de Horas</a></li>
+        <li><a href="#" onclick="voltarPagina()"><span></span>Funcionários</a></li>
+        <li><a href="#" onclick="voltarPagina()"><span></span>Inserir</a></li>
+    </ul><br>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
@@ -18,10 +22,6 @@ $idbh = intval($_GET['idbh']); //Conversor para tipo INT. Medida de segurança
             </tr>
             <tr align="left">
                 <td class="td-tit" name="td-tit"><td><div class="busca" id="busca"></div></td>
-            </tr>
-            <tr align="left" class="tr-main-form">
-                <td class="td-tit" name="td-tit">Observação</td>
-                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="obs" placeholder="Observações Adicionais"></input></td>
             </tr>
             <tr align="center">
                 <td colspan="2">

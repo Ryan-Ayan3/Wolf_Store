@@ -65,7 +65,10 @@
         }
         ?>
         <div class="conteudo">
-            <a href="#" onclick="voltarPagina()" class="nav-link"><h1>Bancos de Horas</a> > SELECIONAR FUNCIONÁRIO</h1>
+            <ul class="breadcrumb">
+                <li><a href="ws_bh.php"><span class="icon-start"></span>Bancos de Horas</a></li>
+                <li><a href="#"><span></span>Selecionar Funcionários</a></li>
+            </ul>
             <h4>Obs: Lista apenas de funcionário não inclusos na operação</h4>
             <div class="content-table">
                 <form name="form-us" action="<?=$dest_naveg?>" method="POST">

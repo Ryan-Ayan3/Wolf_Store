@@ -52,7 +52,8 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
-                /* ESC para voltar*/
+                document.body.style.overflow = 'hidden';
+/* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
                         location.reload();
@@ -112,7 +113,8 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
-                /* ESC para voltar*/
+                document.body.style.overflow = 'hidden';
+/* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
                         location.reload();
@@ -189,7 +191,11 @@
         
     ?>
     <div class="conteudo">
-        <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > <a href="#" onclick="voltar2()" class="nav-link">Funcionários</a> > Detalhe</h1>
+        <ul class="breadcrumb">
+            <li><a href="ws_bh.php"><span class="icon-start"></span>Bancos de Horas</a></li>
+            <li><a href="#" onclick="voltar2()"><span></span>Funcionários</a></li>
+            <li><a href="#"><span></span>Detalhe</a></li>
+        </ul><br>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro('<?= $fdetalhe ?>')">
                 <div class="img-create"><span>Criar Registro</span></div>

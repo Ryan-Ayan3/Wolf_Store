@@ -3,7 +3,12 @@ require_once('conn/conn.php');
 $idf = intval($_GET['idf']); //Conversor para tipo INT. Medida de segurança
 ?>
 <div class="div-us-create" id="div-us-create">
-    <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > <a href="ws_bh_func.php" class="nav-link">Funcionários</a> > <a href="#" onclick="voltarPagina()" class="nav-link">Detalhe</a> > Criar</h1>
+    <ul class="breadcrumb">
+        <li><a href="ws_bh.php"><span class="icon-start"></span>Bancos de Horas</a></li>
+        <li><a href="ws_bh_func.php"><span></span>Funcionários</a></li>
+        <li><a href="#" onclick="voltarPagina()"><span></span>Detalhe</a></li>
+        <li><a href="#"><span></span>Criar</a></li>
+    </ul>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
         <table class="main-table-form" id="main-table-form" align="center">
             <input type="hidden" name="idf" value="<?= $idf ?>">

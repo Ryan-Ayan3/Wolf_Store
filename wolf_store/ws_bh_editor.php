@@ -14,7 +14,10 @@
 ?>
 
 <div class="div-us-edit" id="div-us-edit">
-    <a href="#" onclick="voltarPagina()" class="nav-link"><h1>Bancos de Horas</a> > Edição</h1>
+    <ul class="breadcrumb">
+        <li><a href="#" onclick="voltarPagina()"><span class="icon-start"></span>Bancos de Horas</a></li>
+        <li><a href="#"><span></span>Edição</a></li>
+    </ul>
     <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">

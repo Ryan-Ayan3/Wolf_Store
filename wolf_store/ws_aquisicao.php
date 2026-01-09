@@ -70,6 +70,7 @@
                         document.getElementById('busca').innerHTML = '';
                     }
                 });
+                document.body.style.overflow = 'hidden';
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
@@ -162,6 +163,7 @@
                         document.getElementById('busca').innerHTML = '';
                     }
                 });
+                document.body.style.overflow = 'hidden';
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {

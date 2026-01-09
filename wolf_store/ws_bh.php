@@ -86,6 +86,7 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                document.body.style.overflow = 'hidden';
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
@@ -140,6 +141,7 @@
             .then(html => {
                 const container = document.getElementById('workInfor');
                 container.innerHTML = html;
+                document.body.style.overflow = 'hidden';
                 /* ESC para voltar*/
                 document.addEventListener("keydown", function(event) {
                     if (event.key === "Escape") {
@@ -211,7 +213,9 @@
 
     ?>
     <div class="conteudo">
-        <h1>Bancos de Horas</h1>
+        <ul class="breadcrumb">
+            <li><a href="#" onclick="voltarPagina()"><span class="icon-start"></span>Bancos de Horas</a></li>
+        </ul>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>

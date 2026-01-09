@@ -19,7 +19,12 @@
 ?>
 
 <div class="div-us-edit" id="div-us-edit">
-    <a href="ws_bh.php" class="nav-link"><h1>Bancos de Horas</a> > <a href="ws_bh_func.php" class="nav-link">Funcionários</a> > <a href="#" onclick="voltarPagina()" class="nav-link">Detalhe</a> > Edição</h1>
+    <ul class="breadcrumb">
+        <li><a href="ws_bh.php"><span class="icon-start"></span>Bancos de Horas</a></li>
+        <li><a href="ws_bh_func.php"><span></span>Funcionários</a></li>
+        <li><a href="#" onclick="voltarPagina()"><span></span>Detalhe</a></li>
+        <li><a href="#"><span></span>Edição</a></li>
+    </ul>
     <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
