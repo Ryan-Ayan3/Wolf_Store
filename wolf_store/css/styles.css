@@ -1,5 +1,5 @@
 html {
-  scrollbar-gutter: stable;
+    /*scrollbar-gutter: stable;*/
 }
 
 body {
@@ -9,9 +9,9 @@ body {
     background-color: #02091b;
     background-color: black;
     width: 99%;
-    height: 100%;
+    height: 100%;/*
     overflow-x: auto;
-    overflow-y: auto;
+    overflow-y: auto;*/
 }
 
 /* DIV MAIN */
@@ -613,6 +613,8 @@ select option:hover {
     top: 40px;
     padding: 5px 28px;
     background: rgba(0,0,0,0.4);
+
+    overflow-y: auto; /* Para tabelas compridas */
 }
 
 /* FORM DE EDIÇÃO e CRIAÇÂO */
@@ -634,27 +636,11 @@ select option:hover {
     position: relative;
 
     margin-left: 25%;
-    margin-top: 5%;
 }
 .tr-main-form td {
     padding-top: 15px;
     padding-right: 10px;
 }
-
-/* H1 de Navegação */
-.nav-link { 
-    text-decoration: none;
-    color: rgb(240, 248, 255);
-}
-.nav-link:hover {
-    color: white;
-    cursor: pointer;
-}
-.nav-link, .nav-link h1 {
-    margin-left: 28px;
-    top: 25%;
-}
-
 
 /* Remover Spin de Iinput Number */
 input[type=number]::-webkit-inner-spin-button,
@@ -754,7 +740,7 @@ input[type=number] {
     color: rgb(238, 238, 238);
     border-radius: 10px;
     border: 0;
-    margin: 20px 0px 40px 0px;
+    margin: 20px 0px 20px 0px;
     padding: 8px 25px 8px 25px;
     background-color: rgb(117, 117, 117);
     font-size: 16px;
@@ -846,7 +832,7 @@ input[type=number] {
     padding-top: 20px;
     z-index: 9;
 
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 .vbar::-webkit-scrollbar {
@@ -1131,7 +1117,7 @@ input[type=number] {
     margin: 0;
     top: 25px;
     left: 17%;
-    
+    /*position: fixed;*/
 }
 
 .breadcrumb li {

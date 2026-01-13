@@ -1,6 +1,9 @@
 <?php require_once('conn/conn.php'); ?>
 <div class="div-us-create" id="div-us-create">
-    <a href="" onclick="voltarPagina()" class="nav-link"><h1>Funções</a> > Criar</h1>
+    <ul class="breadcrumb">
+        <li><a href="" onclick="voltarPagina()"><span class="icon-start"></span>Funções</a></li>
+        <li><a href="" onclick="voltarPagina()"><span></span>Criar</a></li>
+    </ul>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">

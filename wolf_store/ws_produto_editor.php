@@ -29,7 +29,10 @@
     }
 ?>
 <div class="div-us-edit" id="div-us-edit">
-    <a href="" onclick="voltarPagina()" class="nav-link"><h1>Produtos</a> > Editar</h1>
+    <ul class="breadcrumb">
+        <li><a href="#" onclick="voltarPagina()"><span class="icon-start"></span>Produtos</a></li>
+        <li><a href="#" onclick="voltarPagina()"><span></span>Editar</a></li>
+    </ul>
     <form name="form-us-edit" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">

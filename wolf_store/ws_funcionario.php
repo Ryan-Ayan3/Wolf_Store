@@ -214,7 +214,9 @@
 
         ?>
     <div class="conteudo">
-        <h1>Funcionários</h1>
+        <ul class="breadcrumb">
+            <li><a href="#" onclick="voltarPagina()"><span class="icon-start"></span>Funcionários</a></li>
+        </ul>
         <div class="content-create">
             <a href="#" onclick="creatorRegistro()">
                 <div class="img-create"><span>Criar Registro</span></div>

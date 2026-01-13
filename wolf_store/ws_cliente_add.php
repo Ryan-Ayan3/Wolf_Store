@@ -1,6 +1,9 @@
 <?php require_once('conn/conn.php'); ?>
 <div class="div-us-create" id="div-us-create">
-    <a href="" onclick="voltarPagina()" class="nav-link"><h1>Clientes</a> > Criar</h1>
+    <ul class="breadcrumb">
+        <li><a href="#" onclick="voltarPagina()"><span class="icon-start"></span>Clientes</a></li>
+        <li><a href="#" onclick="voltarPagina()"><span></span>Criar</a></li>
+    </ul>
     <form name="form-us-create" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" onkeydown="return event.key != 'Enter';">
         <table class="main-table-form" id="main-table-form" align="center">
             <tr align="left">
@@ -9,6 +12,14 @@
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">Nome</td>
                 <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="nome" placeholder="Nome do Cliente" required></input></td>
+            </tr>
+            <tr align="left" class="tr-main-form">
+                <td class="td-tit" name="td-tit">CPF/CNPJ</td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="cadastro" inputmode="numeric" pattern="[0-9]*" maxlength="14" title="Digite apenas números" placeholder="CPF ou CNPJ do cliente"></input></td>
+            </tr>
+            <tr align="left" class="tr-main-form">
+                <td class="td-tit" name="td-tit">CPF/CNPJ</td>
+                <td class="td-tit" name="td-tit"><input type="text" class="itxt-l" name="cadastro" inputmode="numeric" pattern="[0-9]*" maxlength="14" title="Digite apenas números" placeholder="CPF ou CNPJ do cliente"></input></td>
             </tr>
             <tr align="left" class="tr-main-form">
                 <td class="td-tit" name="td-tit">CPF/CNPJ</td>

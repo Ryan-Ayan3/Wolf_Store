@@ -49,7 +49,10 @@
                                     ORDER BY idPai ASC, nomeModulo ASC") or die($conn);
         ?>
         <div class="conteudo">
-            <a href="#" onclick="voltarPagina()" class="nav-link"><h1>Níveis</a> > SELECIONAR MÓDULO</h1>
+            <ul class="breadcrumb">
+                <li><a href="#" onclick="voltarPagina()"><span class="icon-start"></span>Níveis</a></li>
+                <li><a href="#" onclick="voltarPagina()"><span></span>Selecionar Módulos</a></li>
+            </ul>
             <div class="content-table">
                 <form name="form-us" action="<?=$dest_naveg?>" method="POST">
                     <table class="main-table-compact" align="center">
