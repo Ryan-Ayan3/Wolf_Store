@@ -40,14 +40,12 @@
                     <select name="nivel">
                         <option value="<?php echo $row['id'];?>" selected><?php echo $row2['nome']; ?></option>
                         <?php 
-                            $sql_nivel = mysqli_query($conn, "SELECT id, nome FROM nivel_ac WHERE ativo=1 AND id <> '$temp'") or die(mysqli_error($conn));
-                            $numero = 1;
+                            $sql_nivel = mysqli_query($conn, "SELECT id, nome FROM nivel WHERE ativo=1 AND id <> '$temp' ORDER BY id ASC") or die(mysqli_error($conn));
                             if (mysqli_num_rows($sql_nivel) > 0) {
                                 while($row_nivel = mysqli_fetch_assoc($sql_nivel)) {
                                     ?>
                                     <option value="<?php echo $row_nivel['id'];?>"><?php echo $row_nivel['id']." - ".$row_nivel['nome']; ?></option>
                                     <?php
-                                    $numero++;
                                 }
                             }
                         ?>

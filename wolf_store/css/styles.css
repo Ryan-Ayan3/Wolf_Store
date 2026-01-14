@@ -832,7 +832,7 @@ input[type=number] {
     padding-top: 20px;
     z-index: 9;
 
-    /*overflow: auto;*/
+    overflow: auto;
 }
 
 .vbar::-webkit-scrollbar {
